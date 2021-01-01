@@ -643,7 +643,7 @@ Widget VendorLogin(email, password, context, form_key) {
                                     //     ),
                                     //   ),
                                     // ),
-
+                                    padding: EdgeInsets.all(0.0),
                                     child: Ink(
                                       decoration: BoxDecoration(
                                           gradient: LinearGradient(
