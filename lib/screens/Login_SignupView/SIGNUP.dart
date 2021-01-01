@@ -42,47 +42,68 @@ class SIGNUPSTATE extends State<SIGNUP> {
                 children: <Widget>[
                   Container(
                     height: 55,
-                  color: Color(0xFF67b9fb),
+                    color: Colors.white,
                     child: TabBar(
                       tabs: <Widget>[
                         Tab(
-                          icon: Icon(Icons.person_pin),
-                          child: Text('Register as User'),
+                          icon: Icon(
+                            Icons.person_pin,
+                            color: Colors.blue.shade400,
+                          ),
+                          child: Text(
+                            'Register as User',
+                            style: TextStyle(
+                              color: Colors.blue.shade400,
+                            ),
+                          ),
                         ),
                         Tab(
-                          icon: Icon(Icons.directions_car),
-                          child: Text('Register as Vendor'),
+                          icon: Icon(
+                            Icons.directions_car,
+                            color: Colors.blue.shade400,
+                          ),
+                          child: Text(
+                            'Register as Vendor',
+                            style: TextStyle(
+                              color: Colors.blue.shade400,
+                            ),
+                          ),
                         )
                       ],
                     ),
                   ),
-
                   Container(
-                    color: Colors.white,
-                    child: AdmobBanner(
-                      adUnitId: Provider.of<AdmobService>(context, listen: false).getBannerAdUnitId(),
-                      adSize: AdmobBannerSize.BANNER,
-                      listener: (AdmobAdEvent event, Map<String, dynamic> args){
-
-                      },
-                    )
-                  )
+                      color: Colors.white,
+                      child: AdmobBanner(
+                        adUnitId:
+                            Provider.of<AdmobService>(context, listen: false)
+                                .getBannerAdUnitId(),
+                        adSize: AdmobBannerSize.BANNER,
+                        listener:
+                            (AdmobAdEvent event, Map<String, dynamic> args) {},
+                      ))
                 ],
               ),
             )),
         appBar: AppBar(
           actions: <Widget>[
-         Image.asset('assets/images/truckIcon.png', width: 100,),
-         SizedBox(width: 8,)
-        ],
-        backgroundColor: Colors.white,
+            Image.asset(
+              'assets/images/truckIcon.png',
+              width: 100,
+            ),
+            SizedBox(
+              width: 8,
+            )
+          ],
+          backgroundColor: Colors.white,
+          elevation: 0,
           centerTitle: true,
           title: Text(
             'SIGN UP',
             style: TextStyle(
               fontFamily: 'Arial',
               fontSize: 15,
-              color:Colors.black,
+              color: Colors.black,
               fontWeight: FontWeight.w700,
             ),
             overflow: TextOverflow.visible,
@@ -110,21 +131,25 @@ Widget UserSignUp(email, username, password, re_password, context, form_key) {
         flex: 20,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(MediaQuery.of(context).size.height / 14),
-              child: Container(
-             width: 150,
-                        height: 100,
-                        child: Image.asset('assets/images/logotruck.png')
-              ),
+            // Padding(
+            //   padding: EdgeInsets.all(MediaQuery.of(context).size.height / 14),
+            //   child: Container(
+            //       width: 150,
+            //       height: 100,
+            //       child: Image.asset('assets/images/logotruck.png')),
+            // ),
+            SizedBox(
+              height: 100.0,
             ),
+
             Padding(
               padding: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.width / 8, bottom: 10),
-              child: SizedBox(
-                width: 300,
+                  right: MediaQuery.of(context).size.width / 50, bottom: 20),
+              child: FractionallySizedBox(
+                // width: 300,
+                widthFactor: 0.85,
                 child: TextFormField(
                   validator: (value) {
                     if (value.isEmpty) {
@@ -134,27 +159,39 @@ Widget UserSignUp(email, username, password, re_password, context, form_key) {
                       return null;
                     }
                   },
+                  // decoration: InputDecoration(
+                  //     focusedBorder: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(8)),
+                  //     labelText: 'Email',
+                  //     labelStyle: TextStyle(
+                  //       color: Colors.black54,
+                  //     ),
+                  //     icon: Icon(
+                  //       Icons.person,
+                  //       color: Colors.white,
+                  //     ),
+                  //     border: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(8))
+                  //         ),
+
                   decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      labelText: 'Email',
-                      labelStyle: TextStyle(
-                        color: Colors.black54,
-                      ),
-                      icon: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8))),
+                    hintText: 'Email',
+                    hintStyle: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 16.0,
+                        color: Colors.blue),
+                    suffixIcon: Icon(Icons.email),
+                    // contentPadding: EdgeInsets.all(5.0)
+                  ),
                 ),
               ),
             ),
             Padding(
               padding: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.width / 8, bottom: 10),
-              child: SizedBox(
-                width: 300,
+                  right: MediaQuery.of(context).size.width / 50, bottom: 20),
+              child: FractionallySizedBox(
+                widthFactor: 0.85,
+                // width: 300,
                 child: TextFormField(
                   validator: (value) {
                     if (value.isEmpty) {
@@ -164,27 +201,39 @@ Widget UserSignUp(email, username, password, re_password, context, form_key) {
                       return null;
                     }
                   },
+                  // decoration: InputDecoration(
+                  //     focusedBorder: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(8)),
+                  //     labelText: 'Username',
+                  //     labelStyle: TextStyle(
+                  //       color: Colors.black54,
+                  //     ),
+                  //     icon: Icon(
+                  //       Icons.person,
+                  //       color: Colors.white,
+                  //     ),
+                  //     border: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(8))
+                  //         ),
+
                   decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      labelText: 'Username',
-                      labelStyle: TextStyle(
-                        color: Colors.black54,
-                      ),
-                      icon: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8))),
+                    hintText: 'UserName',
+                    hintStyle: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 16.0,
+                        color: Colors.blue),
+                    suffixIcon: Icon(Icons.person),
+                    // contentPadding: EdgeInsets.all(5.0)
+                  ),
                 ),
               ),
             ),
             Padding(
               padding: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.width / 8, bottom: 10),
-              child: SizedBox(
-                width: 300,
+                  right: MediaQuery.of(context).size.width / 50, bottom: 20),
+              child: FractionallySizedBox(
+                // width: 300,
+                widthFactor: 0.85,
                 child: TextFormField(
                   obscureText: true,
                   validator: (value) {
@@ -197,28 +246,39 @@ Widget UserSignUp(email, username, password, re_password, context, form_key) {
                       return null;
                     }
                   },
+                  // decoration: InputDecoration(
+                  //     focusedBorder: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(8)),
+                  //     labelText: 'Password',
+                  //     labelStyle: TextStyle(
+                  //       color: Colors.black54,
+                  //     ),
+                  //     icon: Icon(
+                  //       Icons.person,
+                  //       color: Colors.white,
+                  //     ),
+                  //     border: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(8))
+                  //         ),
                   decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      labelText: 'Password',
-                      labelStyle: TextStyle(
-                        color: Colors.black54,
-                      ),
-                      icon: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8))),
+                    hintText: 'Password',
+                    hintStyle: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 16.0,
+                        color: Colors.blue),
+                    suffixIcon: Icon(Icons.vpn_key),
+                    // contentPadding: EdgeInsets.all(5.0)
+                  ),
                 ),
               ),
             ),
-
             Padding(
               padding: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.width / 8, bottom: 10),
-              child: SizedBox(
-                width: 300,
+                  right: MediaQuery.of(context).size.width / 50, bottom: 20),
+              child: FractionallySizedBox(
+                // width: 300,
+                widthFactor: 0.85,
+
                 child: TextFormField(
                   obscureText: true,
                   validator: (value) {
@@ -229,46 +289,58 @@ Widget UserSignUp(email, username, password, re_password, context, form_key) {
                       return null;
                     }
                   },
+                  // decoration: InputDecoration(
+                  //     focusedBorder: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(8)),
+                  //     labelText: 'Confirm password',
+                  //     labelStyle: TextStyle(
+                  //       color: Colors.black54,
+                  //     ),
+                  //     icon: Icon(
+                  //       Icons.person,
+                  //       color: Colors.white,
+                  //     ),
+                  //     border: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(8)
+                  //         )
+                  //         ),
                   decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      labelText: 'Confirm password',
-                      labelStyle: TextStyle(
-                        color: Colors.black54,
-                      ),
-                      icon: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8))),
+                    hintText: 'Confirm Password',
+                    hintStyle: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 16.0,
+                        color: Colors.blue),
+                    // suffixIcon: Icon(Icons.email),
+                    // contentPadding: EdgeInsets.all(5.0)
+                  ),
                 ),
               ),
             ),
-            InkWell(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return Login();
-                  }));
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child:  Container(
-                    decoration: BoxDecoration(
-                   border: Border.all(
-                    color: Colors.black54,
-                   ),
-                      borderRadius: BorderRadius.circular(8)
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Text("Already Have an Account? Login"),
-                    )),
-                    ),
-                ),
+
+            // InkWell(
+            //   onTap: () {
+            //     Navigator.push(context, MaterialPageRoute(builder: (context) {
+            //       return Login();
+            //     }));
+            //   },
+            //   child: Padding(
+            //     padding: const EdgeInsets.all(8.0),
+            //     child: Container(
+            //         decoration: BoxDecoration(
+            //             border: Border.all(
+            //               color: Colors.black54,
+            //             ),
+            //             borderRadius: BorderRadius.circular(8)),
+            //         child: Padding(
+            //           padding: const EdgeInsets.all(4.0),
+            //           child: Text("Already Have an Account? Login"),
+            //         )),
+            //   ),
+            // ),
+
             Consumer<WebServices>(
               builder: (context, webservice_consumer, child) => Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(8.0),
                 child: webservice_consumer.login_state == false
                     ? RaisedButton(
                         onPressed: () {
@@ -300,34 +372,81 @@ Widget UserSignUp(email, username, password, re_password, context, form_key) {
                                         }))));
                           }
                         },
-                       color: Color(0xFF67b9fb),
-                        
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-    padding: EdgeInsets.all(0.0),
-    child: Ink(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [Color(0xff67b9fb), Color(0xff8acbff)],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
-          borderRadius: BorderRadius.circular(8)
-      ),
-      child: Container(
-        constraints: BoxConstraints(maxWidth: 200.0, minHeight: 50.0),
-        alignment: Alignment.center,
-        child: Text(
-          "Register",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              color: Colors.white
-          ),
-        ),
-      ),
-    ),
+                        color: Color(0xFF67b9fb),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30)),
+                        padding: EdgeInsets.all(0.0),
+                        child: Ink(
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [Color(0xff67b9fb), Color(0xff8acbff)],
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                              ),
+                              borderRadius: BorderRadius.circular(30)),
+                          child: Container(
+                            constraints:
+                                BoxConstraints(maxWidth: 150, minHeight: 50.0),
+                            alignment: Alignment.center,
+                            child: Text(
+                              "Register",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
                       )
                     : CircularProgressIndicator(),
               ),
-            )
+            ),
+            SizedBox(
+              height: 30.0,
+            ),
+
+            Padding(
+                // padding: EdgeInsets.all(15),
+                padding: EdgeInsets.only(
+                    right: MediaQuery.of(context).size.width / 7, bottom: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text(
+                      'Already have an account?',
+                      style: TextStyle(
+                        fontFamily: 'Arial',
+                        fontSize: 11,
+                        color: Colors.blue,
+                        //   fontWeight: FontWeight.w200,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return Login();
+                        }));
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Icon(Icons.vpn_key),
+                          Text(
+                            'Log in',
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                              fontFamily: 'Arial',
+                              fontSize: 14,
+                              color: Colors.blue,
+                              fontWeight: FontWeight.w200,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )),
           ],
         ),
       ),
@@ -345,19 +464,24 @@ Widget VendorSignUp(email, username, password, re_password, context, form_key) {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(MediaQuery.of(context).size.height / 14),
-              child: Container(
-               width: 150,
-                        height: 100,
-                        child: Image.asset('assets/images/logotruck.png')
-              ),
+            //image
+            // Padding(
+            //   padding: EdgeInsets.all(MediaQuery.of(context).size.height / 14),
+            //   child: Container(
+            //       width: 150,
+            //       height: 100,
+            //       child: Image.asset('assets/images/logotruck.png')),
+            // ),
+            SizedBox(
+              height: 100.0,
             ),
+
             Padding(
               padding: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.width / 8, bottom: 10),
-              child: SizedBox(
-                width: 300,
+                  right: MediaQuery.of(context).size.width / 50, bottom: 20),
+              child: FractionallySizedBox(
+                // width: 300,
+                widthFactor: 0.85,
                 child: TextFormField(
                   validator: (value) {
                     if (value.isEmpty) {
@@ -367,27 +491,39 @@ Widget VendorSignUp(email, username, password, re_password, context, form_key) {
                       return null;
                     }
                   },
+                  // decoration: InputDecoration(
+                  //     focusedBorder: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(8)),
+                  //     labelText: 'Email',
+                  //     labelStyle: TextStyle(
+                  //       color: Colors.black54,
+                  //     ),
+                  //     icon: Icon(
+                  //       Icons.person,
+                  //       color: Colors.white,
+                  //     ),
+                  //     border: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(8))
+                  //         ),
+
                   decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      labelText: 'Email',
-                      labelStyle: TextStyle(
-                        color: Colors.black54,
-                      ),
-                      icon: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8))),
+                    hintText: 'Email',
+                    hintStyle: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 16.0,
+                        color: Colors.blue),
+                    suffixIcon: Icon(Icons.email),
+                    // contentPadding: EdgeInsets.all(5.0)
+                  ),
                 ),
               ),
             ),
             Padding(
               padding: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.width / 8, bottom: 10),
-              child: SizedBox(
-                width: 300,
+                  right: MediaQuery.of(context).size.width / 50, bottom: 20),
+              child: FractionallySizedBox(
+                // width: 300,
+                widthFactor: .85,
                 child: TextFormField(
                   validator: (value) {
                     if (value.isEmpty) {
@@ -397,27 +533,38 @@ Widget VendorSignUp(email, username, password, re_password, context, form_key) {
                       return null;
                     }
                   },
+                  // decoration: InputDecoration(
+                  //     focusedBorder: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(8)),
+                  //     labelText: 'Username',
+                  //     labelStyle: TextStyle(
+                  //       color: Colors.black54,
+                  //     ),
+                  //     icon: Icon(
+                  //       Icons.person,
+                  //       color: Colors.white,
+                  //     ),
+                  //     border: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(8))
+                  //         ),
                   decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      labelText: 'Username',
-                      labelStyle: TextStyle(
-                        color: Colors.black54,
-                      ),
-                      icon: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8))),
+                    hintText: 'UserName',
+                    hintStyle: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 16.0,
+                        color: Colors.blue),
+                    suffixIcon: Icon(Icons.person),
+                    // contentPadding: EdgeInsets.all(5.0)
+                  ),
                 ),
               ),
             ),
             Padding(
               padding: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.width / 8, bottom: 10),
-              child: SizedBox(
-                width: 300,
+                  right: MediaQuery.of(context).size.width / 50, bottom: 20),
+              child: FractionallySizedBox(
+                // width: 300,
+                widthFactor: .85,
                 child: TextFormField(
                   obscureText: true,
                   validator: (value) {
@@ -430,27 +577,39 @@ Widget VendorSignUp(email, username, password, re_password, context, form_key) {
                       return null;
                     }
                   },
+                  // decoration: InputDecoration(
+                  //     focusedBorder: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(8)),
+                  //     labelText: 'Password',
+                  //     labelStyle: TextStyle(
+                  //       color: Colors.black54,
+                  //     ),
+                  //     icon: Icon(
+                  //       Icons.person,
+                  //       color: Colors.white,
+                  //     ),
+                  //     border: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(8))
+                  //         ),
+
                   decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      labelText: 'Password',
-                      labelStyle: TextStyle(
-                        color: Colors.black54,
-                      ),
-                      icon: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8))),
+                    hintText: 'Password',
+                    hintStyle: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 16.0,
+                        color: Colors.blue),
+                    suffixIcon: Icon(Icons.vpn_key),
+                    // contentPadding: EdgeInsets.all(5.0)
+                  ),
                 ),
               ),
             ),
             Padding(
               padding: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.width / 8, bottom: 10),
-              child: SizedBox(
-                width: 300,
+                  right: MediaQuery.of(context).size.width / 50, bottom: 20),
+              child: FractionallySizedBox(
+                // width: 300,
+                widthFactor: .85,
                 child: TextFormField(
                   obscureText: true,
                   validator: (value) {
@@ -461,45 +620,55 @@ Widget VendorSignUp(email, username, password, re_password, context, form_key) {
                       return null;
                     }
                   },
+                  // decoration: InputDecoration(
+                  //     focusedBorder: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(8)),
+                  //     labelText: 'Confirm password',
+                  //     labelStyle: TextStyle(
+                  //       color: Colors.black54,
+                  //     ),
+                  //     icon: Icon(
+                  //       Icons.person,
+                  //       color: Colors.white,
+                  //     ),
+                  //     border: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(8))
+                  //         ),
                   decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      labelText: 'Confirm password',
-                      labelStyle: TextStyle(
-                        color: Colors.black54,
-                      ),
-                      icon: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8))),
+                    hintText: 'Confirm Password',
+                    hintStyle: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 16.0,
+                        color: Colors.blue),
+                    // suffixIcon: Icon(Icons.email),
+                    // contentPadding: EdgeInsets.all(5.0)
+                  ),
                 ),
               ),
             ),
-            InkWell(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return Login();
-                  }));
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                   border: Border.all(
-                    color: Colors.black54,
-                   ),
-                      borderRadius: BorderRadius.circular(8)
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Text("Already Have an Account? Login"),
-                    )),
-                )),
+            // InkWell(
+            //     onTap: () {
+            //       Navigator.push(context, MaterialPageRoute(builder: (context) {
+            //         return Login();
+            //       }));
+            //     },
+            //     child: Padding(
+            //       padding: const EdgeInsets.all(8.0),
+            //       child: Container(
+            //           decoration: BoxDecoration(
+            //               border: Border.all(
+            //                 color: Colors.black54,
+            //               ),
+            //               borderRadius: BorderRadius.circular(8)),
+            //           child: Padding(
+            //             padding: const EdgeInsets.all(4.0),
+            //             child: Text("Already Have an Account? Login"),
+            //           )),
+            //     )
+            //     ),
             Consumer<WebServices>(
               builder: (context, webservice_consumer, child) => Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(8.0),
                 child: webservice_consumer.login_state == false
                     ? RaisedButton(
                         onPressed: () {
@@ -532,34 +701,81 @@ Widget VendorSignUp(email, username, password, re_password, context, form_key) {
                                         }))));
                           }
                         },
-                       color: Color(0xFF67b9fb),
-                       
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-    padding: EdgeInsets.all(0.0),
-    child: Ink(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [Color(0xff67b9fb), Color(0xff8acbff)],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
-          borderRadius: BorderRadius.circular(8)
-      ),
-      child: Container(
-        constraints: BoxConstraints(maxWidth: 200.0, minHeight: 50.0),
-        alignment: Alignment.center,
-        child: Text(
-          "Register",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              color: Colors.white
-          ),
-        ),
-      ),
-    ),
+                        color: Color(0xFF67b9fb),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30)),
+                        padding: EdgeInsets.all(0.0),
+                        child: Ink(
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [Color(0xff67b9fb), Color(0xff8acbff)],
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                              ),
+                              borderRadius: BorderRadius.circular(30)),
+                          child: Container(
+                            constraints: BoxConstraints(
+                                maxWidth: 150.0, minHeight: 50.0),
+                            alignment: Alignment.center,
+                            child: Text(
+                              "Register",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
                       )
                     : CircularProgressIndicator(),
               ),
             ),
+            SizedBox(
+              height: 30.0,
+            ),
+
+            Padding(
+                // padding: EdgeInsets.all(15),
+                padding: EdgeInsets.only(
+                    right: MediaQuery.of(context).size.width / 7, bottom: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Text(
+                      'Already have an account?',
+                      style: TextStyle(
+                        fontFamily: 'Arial',
+                        fontSize: 11,
+                        color: Colors.blue,
+                        //   fontWeight: FontWeight.w200,
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return Login();
+                        }));
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: <Widget>[
+                          Icon(Icons.vpn_key),
+                          Text(
+                            'Log in',
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                              fontFamily: 'Arial',
+                              fontSize: 14,
+                              color: Colors.blue,
+                              fontWeight: FontWeight.w200,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )),
           ],
         ),
       ),
