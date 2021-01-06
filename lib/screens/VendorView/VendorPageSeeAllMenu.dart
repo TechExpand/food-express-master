@@ -95,10 +95,7 @@ class VendorPageSeeAllMenuState extends State<VendorPageSeeAllMenu> {
                                           secondaryAnimation) {
                                         return menuitemdetail(
                                           vendor_phone: widget.vendor_phone,
-                                          menu_picture3:  snapshot
-                                                  .data[index].menu_picture3,
-                                          menu_picture2:  snapshot
-                                                  .data[index].menu_picture2,
+                                         
                                           menu_description: snapshot
                                               .data[index].menu_description,
                                           menu_picture1: snapshot

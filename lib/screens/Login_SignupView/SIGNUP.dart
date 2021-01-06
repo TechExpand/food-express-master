@@ -20,10 +20,10 @@ class SIGNUP extends StatefulWidget {
 }
 
 class SIGNUPSTATE extends State<SIGNUP> {
-  var username;
+
   var email;
   var password;
-  var re_password;
+
   final form_key = GlobalKey<FormState>();
   final form_key1 = GlobalKey<FormState>();
   @override
@@ -92,9 +92,9 @@ class SIGNUPSTATE extends State<SIGNUP> {
         body: TabBarView(
           children: <Widget>[
             UserSignUp(
-                email, username, password, re_password, context, form_key),
+                email, password, context, form_key),
             VendorSignUp(
-                email, username, password, re_password, context, form_key1)
+                email, password, context, form_key1)
           ],
         ),
       ),
@@ -102,7 +102,7 @@ class SIGNUPSTATE extends State<SIGNUP> {
   }
 }
 
-Widget UserSignUp(email, username, password, re_password, context, form_key) {
+Widget UserSignUp(email, password, context, form_key) {
   return Form(
     key: form_key,
     child: SingleChildScrollView(
@@ -150,36 +150,7 @@ Widget UserSignUp(email, username, password, re_password, context, form_key) {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.width / 8, bottom: 10),
-              child: SizedBox(
-                width: 300,
-                child: TextFormField(
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Username Required';
-                    } else {
-                      username = value;
-                      return null;
-                    }
-                  },
-                  decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      labelText: 'Username',
-                      labelStyle: TextStyle(
-                        color: Colors.black54,
-                      ),
-                      icon: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8))),
-                ),
-              ),
-            ),
+          
             Padding(
               padding: EdgeInsets.only(
                   right: MediaQuery.of(context).size.width / 8, bottom: 10),
@@ -214,37 +185,7 @@ Widget UserSignUp(email, username, password, re_password, context, form_key) {
               ),
             ),
 
-            Padding(
-              padding: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.width / 8, bottom: 10),
-              child: SizedBox(
-                width: 300,
-                child: TextFormField(
-                  obscureText: true,
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Confirm password';
-                    } else {
-                      re_password = value;
-                      return null;
-                    }
-                  },
-                  decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      labelText: 'Confirm password',
-                      labelStyle: TextStyle(
-                        color: Colors.black54,
-                      ),
-                      icon: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8))),
-                ),
-              ),
-            ),
+           
             InkWell(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -275,10 +216,10 @@ Widget UserSignUp(email, username, password, re_password, context, form_key) {
                           if (form_key.currentState.validate()) {
                             webservice_consumer.Login_SetState();
                             webservice_consumer.Signup_UserApi(
-                              username: username,
+                              
                               password: password,
                               email: email,
-                              re_password: re_password,
+                            
                               context: context,
                             ).then((value) => webservice_consumer
                                 .login_before_submit_location_user(
@@ -335,7 +276,7 @@ Widget UserSignUp(email, username, password, re_password, context, form_key) {
   );
 }
 
-Widget VendorSignUp(email, username, password, re_password, context, form_key) {
+Widget VendorSignUp(email, password, context, form_key) {
   return Form(
     key: form_key,
     child: SingleChildScrollView(
@@ -383,36 +324,7 @@ Widget VendorSignUp(email, username, password, re_password, context, form_key) {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.width / 8, bottom: 10),
-              child: SizedBox(
-                width: 300,
-                child: TextFormField(
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Username Required';
-                    } else {
-                      username = value;
-                      return null;
-                    }
-                  },
-                  decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      labelText: 'Username',
-                      labelStyle: TextStyle(
-                        color: Colors.black54,
-                      ),
-                      icon: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8))),
-                ),
-              ),
-            ),
+           
             Padding(
               padding: EdgeInsets.only(
                   right: MediaQuery.of(context).size.width / 8, bottom: 10),
@@ -446,37 +358,7 @@ Widget VendorSignUp(email, username, password, re_password, context, form_key) {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.width / 8, bottom: 10),
-              child: SizedBox(
-                width: 300,
-                child: TextFormField(
-                  obscureText: true,
-                  validator: (value) {
-                    if (value.isEmpty) {
-                      return 'Confirm typed password';
-                    } else {
-                      re_password = value;
-                      return null;
-                    }
-                  },
-                  decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      labelText: 'Confirm password',
-                      labelStyle: TextStyle(
-                        color: Colors.black54,
-                      ),
-                      icon: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8))),
-                ),
-              ),
-            ),
+          
             InkWell(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -506,10 +388,10 @@ Widget VendorSignUp(email, username, password, re_password, context, form_key) {
                           if (form_key.currentState.validate()) {
                             webservice_consumer.Login_SetState();
                             webservice_consumer.Signup_VendorApi(
-                              username: username,
+                             
                               password: password,
                               email: email,
-                              re_password: re_password,
+                           
                               context: context,
                             ).then((value) => webservice_consumer
                                 .login_before_submit_location_vendor(

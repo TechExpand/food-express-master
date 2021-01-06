@@ -402,8 +402,6 @@ class vendoreditmenustate extends State<vendoreditmenu> {
                           webservices_consumer.Login_SetState_Second();
                           webservices_consumer.Update_Menu_Images(
                             image1: utils_consumer.selected_menu_image1.path,
-                            image2: utils_consumer.selected_menu_image2.path,
-                            image3: utils_consumer.selected_menu_image3.path,
                             context: context,
                             id: widget.snapshot_data.id,
                           );

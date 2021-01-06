@@ -157,11 +157,11 @@ class VENDORprofileEdithstate extends State<VENDORprofileEdith> {
                             ),
                           ),
                           Divider(),
-                          webservices_consumer.login_state_second == false
+                          webservices_consumer.login_state == false
                               ? RaisedButton(
                               onPressed: () {
                                 try{
-                                    webservices_consumer.Login_SetState_Second();
+                                    webservices_consumer.Login_SetState();
                                 webservices_consumer.Update_Profile_Pic(
                                   pro_pic: utils_consumer.selected_menu_image1.path,
                                   context: context,
@@ -169,7 +169,7 @@ class VENDORprofileEdithstate extends State<VENDORprofileEdith> {
                                 ).then((value) => setState((){}));
                                 }
                                 catch(e){
-                           webservices_consumer.Login_SetState_Second();
+                           webservices_consumer.Login_SetState();
                           showDialog(
           child: AlertDialog(
             title: Center(
@@ -342,12 +342,12 @@ class VENDORprofileEdithstate extends State<VENDORprofileEdith> {
                             ),
                           ),
                           Divider(),
-                          webservices_consumer.login_state_second == false
+                          webservices_consumer.login_state_third == false
                               ? RaisedButton(
                                   onPressed: () {
                                     try{
                         if (_formkey.currentState.validate())
-                                      webservices_consumer.Login_SetState_Second();
+                                      webservices_consumer.Login_SetState_third();
                                     webservices_consumer.Update_Profile_Details(
                                       phone: phone,
                                       business_name: business_name,
@@ -358,7 +358,7 @@ class VENDORprofileEdithstate extends State<VENDORprofileEdith> {
                                     );
                                     }
                                     catch(e){
-                           webservices_consumer.Login_SetState_Second();
+                           webservices_consumer.Login_SetState_third();
                           showDialog(
           child: AlertDialog(
             title: Center(

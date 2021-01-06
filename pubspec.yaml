@@ -39,7 +39,9 @@ dependencies:
   statusbar: ^1.1.0
   admob_flutter: ^0.3.4
   provider:
+  flare_flutter: ^2.0.6
   http:
+
 
 dev_dependencies:
   flutter_test:

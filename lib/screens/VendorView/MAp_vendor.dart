@@ -49,15 +49,11 @@ GlobalKey<ScaffoldState> scaffold_key = GlobalKey<ScaffoldState>();
                     builder: (context, snapshot) {
                       return snapshot.hasData
                           ? ListTile(
-                              title: Text('${snapshot.data['username']}'),
-                              subtitle: Text('${snapshot.data['email']}'),
+                            
+                              title: Text('${snapshot.data['email']}'),
                               leading: Icon(Icons.person_pin_circle),
                             )
-                          : ListTile(
-                              title: Text('MY USERNAME'),
-                              subtitle: Text('MY EMAIL'),
-                              leading: Icon(Icons.person_pin_circle),
-                            );
+                          : Container();
                     }),
                 Divider(),
                 ListTile(

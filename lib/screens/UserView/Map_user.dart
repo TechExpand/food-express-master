@@ -117,11 +117,12 @@ class bodywidgetstate extends State<bodywidget> {
                         subscription_id_snapshot.data['subscription_id'],
                   ),
                   builder: (context, snapshots) {
+                   
                     if (snapshots.hasData) {
                       if (snapshots.data ==
                           'Subscribe to get online Users and Display your Menu') {
                         return SubscriptionView(snapshots, locationValues);
-                      } else if (snapshots.data == 'Connection Error') {
+                      } else if (snapshots.data == 'Connection Error' || snapshots.data == 'VENDOR MENU IS UNAVAILABLE') {
                         return ConnectionErrorView(snapshots, locationValues);
                       } else {
                         return CurrentUserView(snapshots, locationValues);
@@ -153,7 +154,7 @@ class bodywidgetstate extends State<bodywidget> {
           children: <Widget>[
             Container(
               child: GoogleMap(
-                mapType: MapType.normal,
+                mapType: MapType.terrain,
                 initialCameraPosition: CameraPosition(
                   zoom: zoom_value,
                   target: LatLng(locationValues.location_latitude,
@@ -366,7 +367,13 @@ class bodywidgetstate extends State<bodywidget> {
           children: <Widget>[
             Container(
               child: GoogleMap(
-                mapType: MapType.hybrid,
+                markers: {Marker(
+                        markerId: MarkerId('user'),
+                         icon: BitmapDescriptor.defaultMarker,
+                          position: LatLng(locationValues.location_latitude,
+                      locationValues.location_longitude)
+                )},
+                 mapType: MapType.terrain,
                 initialCameraPosition: CameraPosition(
                   zoom: zoom_value,
                   target: LatLng(locationValues.location_latitude,
@@ -437,7 +444,12 @@ class bodywidgetstate extends State<bodywidget> {
           children: <Widget>[
             Container(
               child: GoogleMap(
-                mapType: MapType.hybrid,
+                markers: {Marker(
+              markerId: MarkerId('user'),
+              icon: BitmapDescriptor.defaultMarker,
+              position: LatLng(locationValues.location_latitude,
+                      locationValues.location_longitude))},
+                mapType: MapType.terrain,
                 initialCameraPosition: CameraPosition(
                   zoom: zoom_value,
                   target: LatLng(locationValues.location_latitude,

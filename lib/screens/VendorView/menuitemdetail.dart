@@ -13,9 +13,8 @@ var vendor_phone;
 var menu_price;
 var menu_title;
 var menu_picture1;
-var menu_picture2;
-var menu_picture3;
-menuitemdetail({this.menu_description, this.menu_title, this.menu_price, this.menu_picture1,  this.menu_picture2, this.menu_picture3, this.vendor_phone});
+
+menuitemdetail({this.menu_description, this.menu_title, this.menu_price, this.menu_picture1, this.vendor_phone});
   @override
   Widget build(BuildContext context) {
     var utils = Provider.of<Utils>(context, listen: false);
@@ -53,8 +52,6 @@ menuitemdetail({this.menu_description, this.menu_title, this.menu_price, this.me
                   dotSize: 5,
                   images: [
                     NetworkImage(menu_picture1.toString()),
-                    NetworkImage(menu_picture2.toString()),
-                    NetworkImage(menu_picture3.toString()),
                   ],
                 ),
                   height: 200.0,

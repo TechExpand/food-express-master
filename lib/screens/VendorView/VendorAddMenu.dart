@@ -243,93 +243,7 @@ class vendoraddmenustate extends State<vendoraddmenu> {
                     ),
                   ),
                 ),
-                Divider(),
-                Container(
-                  width: 170,
-                  height: 170,
-                  child: utils_consumer.selected_menu_image2 == null
-                      ? Center(
-                          child: Text('No Image Selected'),
-                        )
-                      : Image.file(
-                          utils_consumer.selected_menu_image2,
-                          fit: BoxFit.contain,
-                        ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Container(
-                    child: RaisedButton(
-                      onPressed: () {
-                        return utils_consumer.selectimage2();
-                      },
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      padding: EdgeInsets.all(0.0),
-                      child: Ink(
-                        decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [Color(0xff67b9fb), Color(0xff8acbff)],
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                            ),
-                            borderRadius: BorderRadius.circular(8)),
-                        child: Container(
-                          constraints:
-                              BoxConstraints(maxWidth: 200.0, minHeight: 50.0),
-                          alignment: Alignment.center,
-                          child: Text(
-                            "Select Second Image",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                Divider(),
-                Container(
-                  width: 170,
-                  height: 170,
-                  child: utils_consumer.selected_menu_image3 == null
-                      ? Center(
-                          child: Text('No Image Selected'),
-                        )
-                      : Image.file(utils_consumer.selected_menu_image3),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(12),
-                  child: Container(
-                    child: RaisedButton(
-                      onPressed: () {
-                        return utils_consumer.selectimage3();
-                      },
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      padding: EdgeInsets.all(0.0),
-                      child: Ink(
-                        decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [Color(0xff67b9fb), Color(0xff8acbff)],
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                            ),
-                            borderRadius: BorderRadius.circular(8)),
-                        child: Container(
-                          constraints:
-                              BoxConstraints(maxWidth: 200.0, minHeight: 50.0),
-                          alignment: Alignment.center,
-                          child: Text(
-                            "Select Third Image",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
+              
                 Divider(),
                 webservices_consumer.login_state == false
                     ? Padding(
@@ -345,10 +259,6 @@ class vendoraddmenustate extends State<vendoraddmenu> {
                                 menu_description: menu_description,
                                 image1:
                                     utils_consumer.selected_menu_image1.path,
-                                image2:
-                                    utils_consumer.selected_menu_image2.path,
-                                image3:
-                                    utils_consumer.selected_menu_image3.path,
                                 context: context,
                               );
                              

@@ -299,10 +299,13 @@ class managesubscriptionstate extends State<managesubscription> {
                                                     ),
                                                   );
                                                 }
-                                                return  Padding(
+                                               else{
+                                               return  Padding(
                                                   padding: const EdgeInsets.all(8.0),
-                                                  child: CircularProgressIndicator(),
+                                                  child: Text(subscription_id_snapshot
+                                          .data['subscription_id']),
                                                 );
+                                               } 
                                               })
                                             ],
                                           ),

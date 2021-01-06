@@ -393,10 +393,6 @@ class VENDORPAGESTATE extends State<VENDORPAGE> {
                                           pageBuilder: (context, animation,
                                               secondaryAnimation) {
                                             return menuitemdetail(
-                                              menu_picture3:  snapshot
-                                                  .data[index].menu_picture3,
-                                              menu_picture2:  snapshot
-                                                  .data[index].menu_picture2,
                                               menu_description: snapshot
                                                   .data[index].menu_description,
                                               menu_picture1: snapshot
