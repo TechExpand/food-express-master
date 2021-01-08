@@ -41,7 +41,7 @@ class VENDORprofilestate extends State<VENDORprofile> {
         future: webservices.Vendor_Profile_Api(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            print(snapshot.data[0].id);
+           
             return SingleChildScrollView(
                 child: Column(
               children: <Widget>[
@@ -364,7 +364,7 @@ class VENDORprofilestate extends State<VENDORprofile> {
                             PageRouteBuilder(
                               pageBuilder:
                                   (context, animation, secondaryAnimation) {
-                                return managesubscription();
+                                return managesubscription(snapshot.data[0].id);
                               },
                               transitionsBuilder: (context, animation,
                                   secondaryAnimation, child) {

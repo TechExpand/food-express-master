@@ -99,12 +99,12 @@ class bodywidgetstate extends State<bodywidget> {
 @override
 void initState(){
   super.initState();
-BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(0.5, 0.5),),
+BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(1.5, 1.5),),
  'assets/images/truckmarkerBlue.png').then((v){
    custom_marker = v;
  });
 
-BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(0.5, 0.5)),
+BitmapDescriptor.fromAssetImage(ImageConfiguration(size:  Size(1.5, 1.5)),
  'assets/images/homemarkerBlue.png').then((v){
    custom_user_marker = v;
  });

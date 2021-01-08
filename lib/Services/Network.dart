@@ -83,7 +83,7 @@ class WebServices extends ChangeNotifier {
             .map((location_profile_json) =>
                 LocationProfileDetail.fromJson(location_profile_json))
             .toList();
-        print(location_profile_objects);
+        
         return location_profile_objects;
       } else {
         throw 'Cant get profile details';
@@ -534,7 +534,7 @@ class WebServices extends ChangeNotifier {
           .map((current_vendor_location_json) =>
               CurrentVendorlocation.fromJson(current_vendor_location_json))
           .toList();
-      print(current_vendor_location_objects);
+
       return current_vendor_location_objects;
     } else {
       throw 'Cant get vendor location';
@@ -588,7 +588,7 @@ class WebServices extends ChangeNotifier {
               'http://wingu1000.pythonanywhere.com/foodtruck-vendor/rating/$vendor_id/'),
           headers: {
             "Accept": "application/json",
-            "Authorization": 'Token ${token['auth_token']}'
+            "Authorization": '${token['auth_token']}'
           });
         
       if (res.statusCode == 200) {
@@ -636,7 +636,6 @@ class WebServices extends ChangeNotifier {
         });
     if (vender_subscription.statusCode == 200) {
       var body = jsonDecode(vender_subscription.body);
-     
       return body[0];
     } else {
       return 'Cant get user subscription';
@@ -659,7 +658,7 @@ class WebServices extends ChangeNotifier {
     }
   }
 
-  Future reactivate_subscription() async {
+  Future reactivate_subscription(id) async {
     try{
     var vender_subscription = await http.get(
         Uri.encodeFull(
@@ -668,10 +667,21 @@ class WebServices extends ChangeNotifier {
           "Accept": "application/json",
           "Authorization": 'Token ${token['auth_token']}'
         });
+         var body = jsonDecode(vender_subscription.body);
+     await   http.put(
+        Uri.encodeFull(
+            'http://wingu1000.pythonanywhere.com/foodtruck-vendor/profile/${id}/'),
+       body: {
+         'subcription_id': body['subcription_id'] ,
+       },
+        headers: {
+          "Accept": "application/json",
+          "Authorization": 'Token ${token['auth_token']}'
+        });
     if (vender_subscription.statusCode == 200) {
       Login_SetState();
-      var body = jsonDecode(vender_subscription.body);
-      return body;
+     
+      return body['success'];
     } else {
        Login_SetState();
       return 'subscription failed';
@@ -1537,7 +1547,7 @@ class WebServices extends ChangeNotifier {
               'http://wingu1000.pythonanywhere.com/foodtruck-vendor/rating/'));
       upload.fields['rate'] = rate.toString();
       upload.fields['lanlog'] = lanlog.toString();
-      upload.headers['authorization'] = 'Token ${token['auth_token']}';
+    
       final stream = await upload.send();
       var upload_rate_res = await http.Response.fromStream(stream);
       var body = json.decode(upload_rate_res.body);

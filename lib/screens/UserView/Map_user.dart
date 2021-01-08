@@ -502,7 +502,7 @@ class bodywidgetstate extends State<bodywidget> {
                                       PageRouteBuilder(
                                         pageBuilder: (context, animation,
                                             secondaryAnimation) {
-                                          return managesubscription();
+                                          return managesubscription(snapshots.data[index].id);
                                         },
                                         transitionsBuilder: (context, animation,
                                             secondaryAnimation, child) {

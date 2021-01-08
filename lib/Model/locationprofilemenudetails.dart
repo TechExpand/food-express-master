@@ -7,12 +7,14 @@ class LocationProfileDetail {
   String pro_pic;
   int lanlog;
   int user;
+  String subID;
 
   LocationProfileDetail(
       {this.id,
       this.business_name,
       this.unique_detail,
       this.phone,
+      this.subID,
       this.detail,
       this.pro_pic,
       this.lanlog,
@@ -24,6 +26,7 @@ class LocationProfileDetail {
         business_name: json['business_name'],
         unique_detail: json['unique_detail'],
         phone: json['phone'],
+        subID: json['subcription_id'],
         detail: json['detail'],
         pro_pic: json['pro_pic'],
         lanlog: json['lanlog'],

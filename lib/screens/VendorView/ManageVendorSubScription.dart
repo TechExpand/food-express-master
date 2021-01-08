@@ -8,6 +8,9 @@ import 'dart:ui' as ui;
 import 'package:provider/provider.dart';
 
 class managesubscription extends StatefulWidget {
+  var id;
+managesubscription(this.id);
+   
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -255,7 +258,7 @@ class managesubscriptionstate extends State<managesubscription> {
                                                                     webservices_consumer
                                                                         .Login_SetState();
                                                                     webservices_consumer
-                                                                        .reactivate_subscription()
+                                                                        .reactivate_subscription(widget.id)
                                                                         .then((value) => scaffoldKey
                                                                             .currentState
                                                                             .showSnackBar(new SnackBar(content: new Text(value))));

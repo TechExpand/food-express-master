@@ -71,7 +71,7 @@ class VENDORPAGESTATE extends State<VENDORPAGE> {
                   itemCount: snapshot.data.length,
                   physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    
+              
                     return ListView(
                       shrinkWrap: true,
                       physics: ClampingScrollPhysics(),
@@ -244,7 +244,7 @@ class VENDORPAGESTATE extends State<VENDORPAGE> {
                             ),
                           ),
                         ),
-                        MenuVendor(snapshot.data[index].phone),
+                        MenuVendor(snapshot.data[index].phone,  snapshot.data[index].subID, snapshot.data[index].id),
                        Rating(scaffoldKey, context, widget.id)
                       ],
                     );
@@ -314,17 +314,17 @@ class VENDORPAGESTATE extends State<VENDORPAGE> {
     );
   }
 
-  Widget MenuVendor(vendor_phone) {
+  Widget MenuVendor(vendor_phone, subcription_id, user_id) {
     var webservices = Provider.of<WebServices>(context, listen: false);
     return FutureBuilder(
-        future: webservices.get_vender_subscription_id(),
-        builder: (context, subcription_snapshot) {
-          return subcription_snapshot.hasData
-              ? FutureBuilder(
                   future: webservices.location_menu(
-                      widget.id, subcription_snapshot.data['subscription_id']),
+                      user_id, subcription_id),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
+                     
+                      print(user_id.toString());
+                       print(user_id.toString());
+                      
                       if (snapshot.data == 'VENDOR MENU IS UNAVAILABLE') {
                         return Center(
                             child: Padding(
@@ -361,7 +361,7 @@ class VENDORPAGESTATE extends State<VENDORPAGE> {
                                               secondaryAnimation) {
                                             return VendorPageSeeAllMenu(
                                               vendor_phone: vendor_phone,
-                                                id: widget.id);
+                                                id: user_id);
                                           },
                                           transitionsBuilder: (context,
                                               animation,
@@ -488,11 +488,7 @@ class VENDORPAGESTATE extends State<VENDORPAGE> {
                     return Center(
                       child: CircularProgressIndicator(),
                     );
-                  })
-              : Center(
-                  child: CircularProgressIndicator(),
-                );
-        });
+                  });
 
 
 
