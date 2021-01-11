@@ -42,7 +42,7 @@ class SPLASHSTATE extends State<SPLASH> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: const Color(0xffffffff),
+        backgroundColor: const Color(0xff039bf4),
         body: FlareActor("assets/anim/ftesplash.flr",
             alignment: Alignment.center,
             fit: BoxFit.contain,

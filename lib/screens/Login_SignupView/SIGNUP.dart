@@ -20,7 +20,6 @@ class SIGNUP extends StatefulWidget {
 }
 
 class SIGNUPSTATE extends State<SIGNUP> {
-
   var email;
   var password;
 
@@ -42,7 +41,7 @@ class SIGNUPSTATE extends State<SIGNUP> {
                 children: <Widget>[
                   Container(
                     height: 55,
-                  color: Color(0xFF67b9fb),
+                    color: Color(0xFF67b9fb),
                     child: TabBar(
                       tabs: <Widget>[
                         Tab(
@@ -56,33 +55,37 @@ class SIGNUPSTATE extends State<SIGNUP> {
                       ],
                     ),
                   ),
-
                   Container(
-                    color: Colors.white,
-                    child: AdmobBanner(
-                      adUnitId: Provider.of<AdmobService>(context, listen: false).getBannerAdUnitId(),
-                      adSize: AdmobBannerSize.BANNER,
-                      listener: (AdmobAdEvent event, Map<String, dynamic> args){
-
-                      },
-                    )
-                  )
+                      color: Colors.white,
+                      child: AdmobBanner(
+                        adUnitId:
+                            Provider.of<AdmobService>(context, listen: false)
+                                .getBannerAdUnitId(),
+                        adSize: AdmobBannerSize.BANNER,
+                        listener:
+                            (AdmobAdEvent event, Map<String, dynamic> args) {},
+                      ))
                 ],
               ),
             )),
         appBar: AppBar(
           actions: <Widget>[
-         Image.asset('assets/images/truckIcon.png', width: 100,),
-         SizedBox(width: 8,)
-        ],
-        backgroundColor: Colors.white,
+            Image.asset(
+              'assets/images/truckIcon.png',
+              width: 100,
+            ),
+            SizedBox(
+              width: 8,
+            )
+          ],
+          backgroundColor: Colors.white,
           centerTitle: true,
           title: Text(
             'SIGN UP',
             style: TextStyle(
               fontFamily: 'Arial',
               fontSize: 15,
-              color:Colors.black,
+              color: Colors.black,
               fontWeight: FontWeight.w700,
             ),
             overflow: TextOverflow.visible,
@@ -91,10 +94,8 @@ class SIGNUPSTATE extends State<SIGNUP> {
         backgroundColor: const Color(0xffffffff),
         body: TabBarView(
           children: <Widget>[
-            UserSignUp(
-                email, password, context, form_key),
-            VendorSignUp(
-                email, password, context, form_key1)
+            UserSignUp(email, password, context, form_key),
+            VendorSignUp(email, password, context, form_key1)
           ],
         ),
       ),
@@ -115,10 +116,9 @@ Widget UserSignUp(email, password, context, form_key) {
             Padding(
               padding: EdgeInsets.all(MediaQuery.of(context).size.height / 14),
               child: Container(
-             width: 150,
-                        height: 100,
-                        child: Image.asset('assets/images/logotruck.png')
-              ),
+                  width: 150,
+                  height: 100,
+                  child: Image.asset('assets/images/logotruck.png')),
             ),
             Padding(
               padding: EdgeInsets.only(
@@ -150,7 +150,6 @@ Widget UserSignUp(email, password, context, form_key) {
                 ),
               ),
             ),
-          
             Padding(
               padding: EdgeInsets.only(
                   right: MediaQuery.of(context).size.width / 8, bottom: 10),
@@ -184,29 +183,26 @@ Widget UserSignUp(email, password, context, form_key) {
                 ),
               ),
             ),
-
-           
             InkWell(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return Login();
-                  }));
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child:  Container(
+              onTap: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context) {
+                  return Login();
+                }));
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
                     decoration: BoxDecoration(
-                   border: Border.all(
-                    color: Colors.black54,
-                   ),
-                      borderRadius: BorderRadius.circular(8)
-                    ),
+                        border: Border.all(
+                          color: Colors.black54,
+                        ),
+                        borderRadius: BorderRadius.circular(8)),
                     child: Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Text("Already Have an Account? Login"),
                     )),
-                    ),
-                ),
+              ),
+            ),
             Consumer<WebServices>(
               builder: (context, webservice_consumer, child) => Padding(
                 padding: const EdgeInsets.all(12.0),
@@ -216,10 +212,8 @@ Widget UserSignUp(email, password, context, form_key) {
                           if (form_key.currentState.validate()) {
                             webservice_consumer.Login_SetState();
                             webservice_consumer.Signup_UserApi(
-                              
                               password: password,
                               email: email,
-                            
                               context: context,
                             ).then((value) => webservice_consumer
                                 .login_before_submit_location_user(
@@ -241,30 +235,29 @@ Widget UserSignUp(email, password, context, form_key) {
                                         }))));
                           }
                         },
-                       color: Color(0xFF67b9fb),
-                        
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-    padding: EdgeInsets.all(0.0),
-    child: Ink(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [Color(0xff67b9fb), Color(0xff8acbff)],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
-          borderRadius: BorderRadius.circular(8)
-      ),
-      child: Container(
-        constraints: BoxConstraints(maxWidth: 200.0, minHeight: 50.0),
-        alignment: Alignment.center,
-        child: Text(
-          "Register",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              color: Colors.white
-          ),
-        ),
-      ),
-    ),
+                        color: Color(0xFF67b9fb),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
+                        padding: EdgeInsets.all(0.0),
+                        child: Ink(
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [Color(0xff67b9fb), Color(0xff8acbff)],
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                              ),
+                              borderRadius: BorderRadius.circular(8)),
+                          child: Container(
+                            constraints: BoxConstraints(
+                                maxWidth: 200.0, minHeight: 50.0),
+                            alignment: Alignment.center,
+                            child: Text(
+                              "Register",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
                       )
                     : CircularProgressIndicator(),
               ),
@@ -289,10 +282,9 @@ Widget VendorSignUp(email, password, context, form_key) {
             Padding(
               padding: EdgeInsets.all(MediaQuery.of(context).size.height / 14),
               child: Container(
-               width: 150,
-                        height: 100,
-                        child: Image.asset('assets/images/logotruck.png')
-              ),
+                  width: 150,
+                  height: 100,
+                  child: Image.asset('assets/images/logotruck.png')),
             ),
             Padding(
               padding: EdgeInsets.only(
@@ -324,7 +316,6 @@ Widget VendorSignUp(email, password, context, form_key) {
                 ),
               ),
             ),
-           
             Padding(
               padding: EdgeInsets.only(
                   right: MediaQuery.of(context).size.width / 8, bottom: 10),
@@ -358,7 +349,6 @@ Widget VendorSignUp(email, password, context, form_key) {
                 ),
               ),
             ),
-          
             InkWell(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -368,16 +358,15 @@ Widget VendorSignUp(email, password, context, form_key) {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                    decoration: BoxDecoration(
-                   border: Border.all(
-                    color: Colors.black54,
-                   ),
-                      borderRadius: BorderRadius.circular(8)
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Text("Already Have an Account? Login"),
-                    )),
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black54,
+                          ),
+                          borderRadius: BorderRadius.circular(8)),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Text("Already Have an Account? Login"),
+                      )),
                 )),
             Consumer<WebServices>(
               builder: (context, webservice_consumer, child) => Padding(
@@ -388,10 +377,8 @@ Widget VendorSignUp(email, password, context, form_key) {
                           if (form_key.currentState.validate()) {
                             webservice_consumer.Login_SetState();
                             webservice_consumer.Signup_VendorApi(
-                             
                               password: password,
                               email: email,
-                           
                               context: context,
                             ).then((value) => webservice_consumer
                                 .login_before_submit_location_vendor(
@@ -414,30 +401,29 @@ Widget VendorSignUp(email, password, context, form_key) {
                                         }))));
                           }
                         },
-                       color: Color(0xFF67b9fb),
-                       
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-    padding: EdgeInsets.all(0.0),
-    child: Ink(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [Color(0xff67b9fb), Color(0xff8acbff)],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
-          borderRadius: BorderRadius.circular(8)
-      ),
-      child: Container(
-        constraints: BoxConstraints(maxWidth: 200.0, minHeight: 50.0),
-        alignment: Alignment.center,
-        child: Text(
-          "Register",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              color: Colors.white
-          ),
-        ),
-      ),
-    ),
+                        color: Color(0xFF67b9fb),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
+                        padding: EdgeInsets.all(0.0),
+                        child: Ink(
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [Color(0xff67b9fb), Color(0xff8acbff)],
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                              ),
+                              borderRadius: BorderRadius.circular(8)),
+                          child: Container(
+                            constraints: BoxConstraints(
+                                maxWidth: 200.0, minHeight: 50.0),
+                            alignment: Alignment.center,
+                            child: Text(
+                              "Register",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ),
                       )
                     : CircularProgressIndicator(),
               ),

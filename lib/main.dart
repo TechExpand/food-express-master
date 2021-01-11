@@ -27,7 +27,7 @@ void main() {
 // t was here
 
   Provider.debugCheckInvalidValueType = null;
-  Admob.initialize(getAppId());
+  Admob.initialize(testDeviceIds: [getAppId()]);
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider<LocationService>(
