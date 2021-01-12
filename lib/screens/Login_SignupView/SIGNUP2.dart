@@ -41,9 +41,17 @@ class SIGNUPSTATE extends State<SIGNUP> {
                 children: <Widget>[
                   Container(
                     height: 55,
-                    color: Colors.white,
+                    color: Color(0xFF67b9fb),
                     child: TabBar(
                       tabs: <Widget>[
+                        // Tab(
+                        //   icon: Icon(Icons.person_pin),
+                        //   child: Text('Register as User'),
+                        // ),
+                        // Tab(
+                        //   icon: Icon(Icons.directions_car),
+                        //   child: Text('Register as Vendor'),
+                        // )
                         Tab(
                           icon: Icon(
                             Icons.person_pin,
@@ -68,6 +76,7 @@ class SIGNUPSTATE extends State<SIGNUP> {
                             ),
                           ),
                         )
+
                       ],
                     ),
                   ),
@@ -95,7 +104,6 @@ class SIGNUPSTATE extends State<SIGNUP> {
             )
           ],
           backgroundColor: Colors.white,
-          elevation: 0,
           centerTitle: true,
           title: Text(
             'SIGN UP',
@@ -137,15 +145,15 @@ Widget UserSignUp(email, password, context, form_key) {
             //       height: 100,
             //       child: Image.asset('assets/images/logotruck.png')),
             // ),
-            SizedBox(
-              height: 200.0,
+              SizedBox(
+              height: 100.0,
             ),
             Padding(
               padding: EdgeInsets.only(
-                  right: MediaQuery.of(context).size.width / 50, bottom: 20),
+                  right: MediaQuery.of(context).size.width / 8, bottom: 10),
               child: FractionallySizedBox(
                 // width: 300,
-                widthFactor: 0.85,
+                  widthFactor: 0.85,
                 child: TextFormField(
                   validator: (value) {
                     if (value.isEmpty) {
@@ -155,6 +163,20 @@ Widget UserSignUp(email, password, context, form_key) {
                       return null;
                     }
                   },
+                  // decoration: InputDecoration(
+                  //     focusedBorder: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(8)),
+                  //     labelText: 'Email',
+                  //     labelStyle: TextStyle(
+                  //       color: Colors.black54,
+                  //     ),
+                  //     icon: Icon(
+                  //       Icons.person,
+                  //       color: Colors.white,
+                  //     ),
+                  //     border: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(8))),
+
                   decoration: InputDecoration(
                     hintText: 'Email',
                     hintStyle: TextStyle(
@@ -168,6 +190,51 @@ Widget UserSignUp(email, password, context, form_key) {
               ),
             ),
             Padding(
+              padding: EdgeInsets.only(
+                  right: MediaQuery.of(context).size.width / 8, bottom: 10),
+              child: SizedBox(
+                width: 300,
+                child: TextFormField(
+                  obscureText: true,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Password Required';
+                    } else if (value.length < 8) {
+                      return 'It must contain at least 8 characters.';
+                    } else {
+                      password = value;
+                      return null;
+                    }
+                  },
+                  // decoration: InputDecoration(
+                  //     focusedBorder: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(8)),
+                  //     labelText: 'Password',
+                  //     labelStyle: TextStyle(
+                  //       color: Colors.black54,
+                  //     ),
+                  //     icon: Icon(
+                  //       Icons.person,
+                  //       color: Colors.white,
+                  //     ),
+                  //     border: OutlineInputBorder(
+                  //         borderRadius: BorderRadius.circular(8))),
+
+                                    decoration: InputDecoration(
+                    hintText: 'UserName',
+                    hintStyle: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 16.0,
+                        color: Colors.blue),
+                    suffixIcon: Icon(Icons.person),
+                    // contentPadding: EdgeInsets.all(5.0)
+                  ),
+
+                ),
+              ),
+            ),
+
+  Padding(
               padding: EdgeInsets.only(
                   right: MediaQuery.of(context).size.width / 50, bottom: 20),
               child: FractionallySizedBox(
@@ -197,29 +264,40 @@ Widget UserSignUp(email, password, context, form_key) {
                 ),
               ),
             ),
-            // InkWell(
-            //   onTap: () {
-            //     Navigator.push(context, MaterialPageRoute(builder: (context) {
-            //       return Login();
-            //     }));
-            //   },
-            //   child: Padding(
-            //     padding: const EdgeInsets.all(8.0),
-            //     child: Container(
-            //         decoration: BoxDecoration(
-            //             border: Border.all(
-            //               color: Colors.black54,
-            //             ),
-            //             borderRadius: BorderRadius.circular(8)),
-            //         child: Padding(
-            //           padding: const EdgeInsets.all(4.0),
-            //           child: Text("Already Have an Account? Login"),
-            //         )),
-            //   ),
-            // ),
+            Padding(
+              padding: EdgeInsets.only(
+                  right: MediaQuery.of(context).size.width / 50, bottom: 20),
+              child: FractionallySizedBox(
+                // width: 300,
+                widthFactor: 0.85,
+
+                child: TextFormField(
+                  obscureText: true,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Confirm password';
+                    } else {
+                      re_password = value;
+                      return null;
+                    }
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Confirm Password',
+                    hintStyle: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 16.0,
+                        color: Colors.blue),
+                    // suffixIcon: Icon(Icons.email),
+                    // contentPadding: EdgeInsets.all(5.0)
+                  ),
+                ),
+              ),
+            ),
+        
+
             Consumer<WebServices>(
               builder: (context, webservice_consumer, child) => Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(8.0),
                 child: webservice_consumer.login_state == false
                     ? RaisedButton(
                         onPressed: () {
@@ -260,21 +338,15 @@ Widget UserSignUp(email, password, context, form_key) {
                                 begin: Alignment.centerLeft,
                                 end: Alignment.centerRight,
                               ),
-                              borderRadius: BorderRadius.circular(30)),
+                              borderRadius: BorderRadius.circular(8)),
                           child: Container(
                             constraints: BoxConstraints(
                                 maxWidth: 150.0, minHeight: 50.0),
                             alignment: Alignment.center,
                             child: Text(
-                              "Sign up!",
+                              "Register",
                               textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 18,
-                                //   textColor: Colors.white,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w300,
-                              ),
+                              style: TextStyle(color: Colors.white),
                             ),
                           ),
                         ),
@@ -282,11 +354,11 @@ Widget UserSignUp(email, password, context, form_key) {
                     : CircularProgressIndicator(),
               ),
             ),
-
-            SizedBox(
+             SizedBox(
               height: 30.0,
             ),
-            Padding(
+
+              Padding(
                 // padding: EdgeInsets.all(15),
                 padding: EdgeInsets.only(
                     right: MediaQuery.of(context).size.width / 7, bottom: 20),
@@ -316,7 +388,7 @@ Widget UserSignUp(email, password, context, form_key) {
                         children: <Widget>[
                           Icon(Icons.vpn_key),
                           Text(
-                            'Log in!',
+                            'Log in',
                             textAlign: TextAlign.right,
                             style: TextStyle(
                               fontFamily: 'Arial',
@@ -330,6 +402,7 @@ Widget UserSignUp(email, password, context, form_key) {
                     ),
                   ],
                 )),
+
           ],
         ),
       ),
@@ -347,20 +420,22 @@ Widget VendorSignUp(email, password, context, form_key) {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.all(MediaQuery.of(context).size.height / 14),
-              child: Container(
-                  width: 150,
-                  height: 100,
-                  child: Image.asset('assets/images/logotruck.png')),
+            // Padding(
+            //   padding: EdgeInsets.all(MediaQuery.of(context).size.height / 14),
+            //   child: Container(
+            //       width: 150,
+            //       height: 100,
+            //       child: Image.asset('assets/images/logotruck.png')),
+            // ),
+SizedBox(
+              height: 100.0,
             ),
+
             Padding(
               padding: EdgeInsets.only(
                   right: MediaQuery.of(context).size.width / 50, bottom: 20),
-              child: FractionallySizedBox(
-                // width: 300,
-                widthFactor: .85,
-
+              child: SizedBox(
+                width: 300,
                 child: TextFormField(
                   validator: (value) {
                     if (value.isEmpty) {
@@ -379,10 +454,41 @@ Widget VendorSignUp(email, password, context, form_key) {
                     suffixIcon: Icon(Icons.email),
                     // contentPadding: EdgeInsets.all(5.0)
                   ),
+
                 ),
               ),
             ),
             Padding(
+              padding: EdgeInsets.only(
+                  right: MediaQuery.of(context).size.width / 8, bottom: 10),
+              child: SizedBox(
+                width: 300,
+                child: TextFormField(
+                  obscureText: true,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Password Required';
+                    } else if (value.length < 8) {
+                      return 'It must contain at least 8 characters.';
+                    } else {
+                      password = value;
+                      return null;
+                    }
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'UserName',
+                    hintStyle: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 16.0,
+                        color: Colors.blue),
+                    suffixIcon: Icon(Icons.person),
+                    // contentPadding: EdgeInsets.all(5.0)
+                  ),
+                ),
+              ),
+            ),
+
+             Padding(
               padding: EdgeInsets.only(
                   right: MediaQuery.of(context).size.width / 50, bottom: 20),
               child: FractionallySizedBox(
@@ -400,6 +506,7 @@ Widget VendorSignUp(email, password, context, form_key) {
                       return null;
                     }
                   },
+
                   decoration: InputDecoration(
                     hintText: 'Password',
                     hintStyle: TextStyle(
@@ -412,31 +519,35 @@ Widget VendorSignUp(email, password, context, form_key) {
                 ),
               ),
             ),
-            // InkWell(
-            //     onTap: () {
-            //       Navigator.push(context, MaterialPageRoute(builder: (context) {
-            //         return Login();
-            //       }));
-            //     },
-            //     child: Padding(
-            //       padding: const EdgeInsets.all(8.0),
-            //       child: Container(
-            //           decoration: BoxDecoration(
-            //               border: Border.all(
-            //                 color: Colors.black54,
-            //               ),
-            //               borderRadius: BorderRadius.circular(8)),
-            //           child: Padding(
-            //             padding: const EdgeInsets.all(4.0),
-            //             child: Text("Already Have an Account? Login"),
-            //           )),
-            //     )),
-            SizedBox(
-              height: 15.0,
+            Padding(
+              padding: EdgeInsets.only(
+                  right: MediaQuery.of(context).size.width / 50, bottom: 20),
+              child: FractionallySizedBox(
+                // width: 300,
+                widthFactor: .85,
+                child: TextFormField(
+                  obscureText: true,
+                  validator: (value) {
+                    if (value.isEmpty) {
+                      return 'Confirm typed password';
+                    } else {
+                      re_password = value;
+                      return null;
+                    }
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Confirm Password',
+                    hintStyle: TextStyle(
+                        fontFamily: 'Poppins',
+                        fontSize: 16.0,
+                        color: Colors.blue),
+                  ),
+                ),
+              ),
             ),
             Consumer<WebServices>(
               builder: (context, webservice_consumer, child) => Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding: const EdgeInsets.all(8.0),
                 child: webservice_consumer.login_state == false
                     ? RaisedButton(
                         onPressed: () {
@@ -493,10 +604,11 @@ Widget VendorSignUp(email, password, context, form_key) {
                       )
                     : CircularProgressIndicator(),
               ),
-            ),
-            SizedBox(
+
+SizedBox(
               height: 30.0,
             ),
+
             Padding(
                 // padding: EdgeInsets.all(15),
                 padding: EdgeInsets.only(
@@ -527,7 +639,7 @@ Widget VendorSignUp(email, password, context, form_key) {
                         children: <Widget>[
                           Icon(Icons.vpn_key),
                           Text(
-                            'Log in!',
+                            'Log in',
                             textAlign: TextAlign.right,
                             style: TextStyle(
                               fontFamily: 'Arial',
@@ -540,7 +652,9 @@ Widget VendorSignUp(email, password, context, form_key) {
                       ),
                     ),
                   ],
-                )),
+                )))
+        ,
+          
           ],
         ),
       ),

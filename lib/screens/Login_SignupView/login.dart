@@ -416,8 +416,16 @@ Widget VendorLogin(email, password, context, form_key) {
                     //       child: Image.asset('assets/images/logotruck.png')),
                     // ),
 
-                    SizedBox(
-                      height: 200.0,
+                    // SizedBox(
+                    //   height: 200.0,
+                    // ),
+                    Padding(
+                      padding: EdgeInsets.all(
+                          MediaQuery.of(context).size.height / 14),
+                      child: Container(
+                          width: 150,
+                          height: 100,
+                          child: Image.asset('assets/images/logotruck.png')),
                     ),
                     Padding(
                       padding: EdgeInsets.only(
