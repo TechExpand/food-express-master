@@ -420,7 +420,7 @@ class VENDORprofilestate extends State<VENDORprofile> {
               ],
             ));
           } else if (snapshot.hasError) {
-            print('error');
+           
             return Text('${snapshot.error}');
           }
           return Center(child: CircularProgressIndicator());

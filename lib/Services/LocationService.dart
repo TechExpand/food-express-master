@@ -17,7 +17,7 @@ class LocationService with ChangeNotifier {
       notifyListeners();
       return position;
     }catch(e){
-      print(e);
+    
     }
 
   }
@@ -31,7 +31,7 @@ class LocationService with ChangeNotifier {
         notifyListeners();
       }
     } catch (e) {
-      print(e);
+   
     }
   }
 }

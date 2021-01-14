@@ -77,7 +77,7 @@ class WebServices extends ChangeNotifier {
             "Authorization": '${token['auth_token']}'
           });
       if (res.statusCode == 200) {
-        print(res.body);
+       
         var body = jsonDecode(res.body) as List;
         List<LocationProfileDetail> location_profile_objects = body
             .map((location_profile_json) =>
@@ -89,8 +89,7 @@ class WebServices extends ChangeNotifier {
         throw 'Cant get profile details';
       }
     } catch (e) {
-      print('Cant get profile details');
-      print(e);
+     
     }
   }
 
@@ -120,7 +119,7 @@ class WebServices extends ChangeNotifier {
         }
       }
     } catch (e) {
-      print(e);
+    
     }
   }
 
@@ -142,7 +141,7 @@ class WebServices extends ChangeNotifier {
         return vendor_menu_objects;
       }
     } catch (e) {
-      print(e);
+     
     }
   }
 
@@ -171,10 +170,7 @@ class WebServices extends ChangeNotifier {
 
       final stream = await upload.send();
       vendor_info_res = await http.Response.fromStream(stream);
-      print(vendor_info_res.body);
-      print(vendor_info_res.body);
-      print(vendor_info_res.statusCode);
-      print(vendor_info_res.statusCode);
+  
       var body = jsonDecode(vendor_info_res.body);
       if (vendor_info_res.statusCode == 200 ||
           vendor_info_res.statusCode == 201) {
@@ -221,7 +217,7 @@ class WebServices extends ChangeNotifier {
                             ),
                             child: FlatButton(
                               onPressed: () {
-                                Navigator.of(context).pop();
+                               // Navigator.of(context).pop();
                                 Navigator.push(context, MaterialPageRoute(builder: (context) {
                                   return Map_user();
                                 }));
@@ -313,7 +309,7 @@ class WebServices extends ChangeNotifier {
       }
       return vendor_info_res;
     } catch (e) {
-      print(e);
+      
       Login_SetState();
       showDialog(
           child: AlertDialog(
@@ -338,21 +334,17 @@ class WebServices extends ChangeNotifier {
         card_number,
         context
       }) async {
-    try {
-      var upload = http.MultipartRequest(
-          'POST',
-          Uri.parse(
-              'http://wingu1000.pythonanywhere.com/foodtruck-vendor/createsubscription/card_number=$card_number&exp_month=$expiry_month&exp_year=$expiry_year&cvc=$cvc/'));
-      upload.fields['subscription_id'] = '';
-      upload.headers['authorization'] = 'Token ${token['auth_token']}';
 
-      final stream = await upload.send();
-      vendor_sub_res = await http.Response.fromStream(stream);
-      print(vendor_sub_res.body);
-       print(vendor_sub_res.body);
-        print(vendor_sub_res.body);
-         print(vendor_sub_res.body);
-      var body = jsonDecode(vendor_sub_res.body);
+    try {
+      var vendor_sub_res = await http.get(
+          Uri.encodeFull('http://wingu1000.pythonanywhere.com/foodtruck-vendor/createsubscription/card_number=$card_number&exp_month=$expiry_month&exp_year=$expiry_year&cvc=$cvc/'),
+              headers: {
+         "Accept": "application/json",
+        "Authorization":  'Token ${token['auth_token']}'
+      },
+    );
+  
+
       if (vendor_sub_res.statusCode == 200 ||
           vendor_sub_res.statusCode == 201) {
         Login_SetState();
@@ -372,13 +364,13 @@ class WebServices extends ChangeNotifier {
       }
       return vendor_sub_res;
     } catch (e) {
-      print(e);
       Login_SetState();
+      
       showDialog(
           child: AlertDialog(
             title: Center(
               child:
-              Text('Working on it', style: TextStyle(color: Colors.blue)),
+              Text('Working on it $e', style: TextStyle(color: Colors.blue)),
             ),
             content: Text('There was a Problem Encountered'),
           ),
@@ -414,7 +406,7 @@ class WebServices extends ChangeNotifier {
 
       final stream = await upload.send();
       update_online_offline_res = await http.Response.fromStream(stream);
-      print(update_online_offline_res);
+     
       var body = jsonDecode(update_online_offline_res.body);
       if (update_online_offline_res.statusCode == 200 ||
           update_online_offline_res.statusCode == 201) {
@@ -442,7 +434,7 @@ class WebServices extends ChangeNotifier {
       }
       return update_online_offline_res;
     } catch (e) {
-      print(e);
+     
       Login_SetState();
       showDialog(
           child: AlertDialog(
@@ -465,13 +457,13 @@ class WebServices extends ChangeNotifier {
           "Authorization": 'Token ${token['auth_token']}'
         });
     if (vendor_profile_res.statusCode == 200) {
-      print(vendor_profile_res.body);
+     
       var body = jsonDecode(vendor_profile_res.body) as List;
       List<VendorProfile> vendor_profile_objects = body
           .map((vendor_profile_json) =>
               VendorProfile.fromJson(vendor_profile_json))
           .toList();
-      print(vendor_profile_objects);
+     
       return vendor_profile_objects;
     } else {
       throw 'Cant get vendor profile';
@@ -514,8 +506,7 @@ class WebServices extends ChangeNotifier {
         return vendor_current_location_objects;
       }
     } catch (e) {
-      print(e);
-      print('failed to get locations');
+     
     }
   }
 
@@ -528,7 +519,7 @@ class WebServices extends ChangeNotifier {
           "Authorization": 'Token ${token['auth_token']}'
         });
     if (current_vendor_location.statusCode == 200) {
-      print(current_vendor_location.body);
+     
       var body = jsonDecode(current_vendor_location.body) as List;
       List<CurrentVendorlocation> current_vendor_location_objects = body
           .map((current_vendor_location_json) =>
@@ -548,7 +539,6 @@ class WebServices extends ChangeNotifier {
       range_value,
       subscription_id}) async {
     //var locationValues = Provider.of<LocationService>(context, listen: false);
-    
       var res = await http.get(
           Uri.encodeFull(
               'http://app.foodtruck.express/foodtruck/currentuserlanlog/lan=${location_latitude}&log=${location_longtitude}&range_value=${range_value}&sub_id=${subscription_id}/'),
@@ -561,8 +551,10 @@ class WebServices extends ChangeNotifier {
      
       if (res.statusCode == 200) {
         if (body == 'Subscribe to get online Users and Display your Menu') {
+          
           return body;
         } else if (body == 'Connection Error') {
+          return body;
         } else {
           var body = jsonDecode(res.body) as List;
           List<CurrentUserlocation> user_current_location_objects = body
@@ -573,6 +565,7 @@ class WebServices extends ChangeNotifier {
           return user_current_location_objects;
         }
       } else {
+
         throw body;
       }
     
@@ -613,13 +606,13 @@ class WebServices extends ChangeNotifier {
           "Authorization": '${token['auth_token']}'
         });
     if (current_user_location.statusCode == 200) {
-      print(current_user_location.body);
+     
       var body = jsonDecode(current_user_location.body) as List;
       List<CurrentUserlocation> current_user_location_objects = body
           .map((current_user_location_json) =>
               CurrentUserlocation.fromJson(current_user_location_json))
           .toList();
-      print(current_user_location_objects);
+     
       return current_user_location_objects;
     } else {
       throw 'Cant get user location';
@@ -724,20 +717,14 @@ class WebServices extends ChangeNotifier {
           "Accept": "application/json",
           "Authorization": 'Token ${token['auth_token']}'
         });
-        print(vender_subscription.body);
-        print(vender_subscription.body);
-        print(vender_subscription.body);
+       
     if (vender_subscription.statusCode == 200) {
       Login_SetState();
       var body = jsonDecode(vender_subscription.body);
       return body;
     }
         }catch(e){
-          print(e);
-          print(e);
-          print(e);
-          print(e);
-          print(e);
+        
            Login_SetState();
       showDialog(
           child: AlertDialog(
@@ -777,7 +764,7 @@ class WebServices extends ChangeNotifier {
       var response = await http.Response.fromStream(stream);
       token = json.decode(response.body);
     } catch (e) {
-      print(e);
+      
     }
   }
 
@@ -796,9 +783,9 @@ class WebServices extends ChangeNotifier {
           'Token ${token['auth_token']}';
       final stream_loc = await upload_loc.send();
       var response_loc = await http.Response.fromStream(stream_loc);
-      return print(response_loc.body);
+      return '${response_loc.body}';
     } catch (e) {
-      print(e);
+     
     }
   }
 
@@ -820,13 +807,13 @@ class WebServices extends ChangeNotifier {
       var body = jsonDecode(update_user_location_res.body);
       if (update_user_location_res.statusCode == 200 ||
           update_user_location_res.statusCode == 201) {
-        return print('User Location Updated');
+        return 'User Location Updated';
       } else {
-        print('Location not updated');
+       return 'Location not updated';
       }
       return update_user_location_res;
     } catch (e) {
-      print(e);
+     
     }
   }
 
@@ -848,13 +835,13 @@ class WebServices extends ChangeNotifier {
       var body = jsonDecode(update_vendor_location_res.body);
       if (update_vendor_location_res.statusCode == 200 ||
           update_vendor_location_res.statusCode == 201) {
-        return print('Vendor Location Updated');
+        return 'Vendor Location Updated';
       } else {
-        print(update_vendor_location_res.body);
+        'return ${update_vendor_location_res.body}';
       }
       return update_vendor_location_res;
     } catch (e) {
-      print(e);
+      
     }
   }
 
@@ -869,14 +856,11 @@ class WebServices extends ChangeNotifier {
       upload.fields['email'] = email.toString();
       final stream = await upload.send();
       var response = await http.Response.fromStream(stream);
-      print(response.body.toString());
-      print(password.toString());
-      print(email.toString());
+     
       token = json.decode(response.body);
-      print(locationValues.location_latitude.toString());
-      print(locationValues.location_longitude.toString());
+     
     } catch (e) {
-      print(e);
+      
     }
   }
 
@@ -893,9 +877,9 @@ class WebServices extends ChangeNotifier {
           'Token ${token['auth_token']}';
       final stream_loc = await upload_loc.send();
       var response_loc = await http.Response.fromStream(stream_loc);
-      return print(response_loc.body);
+      return '{response_loc.body}';
     } catch (e) {
-      print(e);
+     
     }
   }
 
@@ -963,7 +947,7 @@ class WebServices extends ChangeNotifier {
       }
       return vendor_signup_res;
     } catch (e) {
-      print(e);
+     
       Login_SetState();
       showDialog(
           child: AlertDialog(
@@ -988,7 +972,7 @@ class WebServices extends ChangeNotifier {
 
       final stream = await upload.send();
       user_signup_res = await http.Response.fromStream(stream);
-      print(user_signup_res);
+     
       var body = jsonDecode(user_signup_res.body);
       if (user_signup_res.statusCode == 200 ||
           user_signup_res.statusCode == 201) {
@@ -1038,7 +1022,7 @@ class WebServices extends ChangeNotifier {
       }
       return user_signup_res;
     } catch (e) {
-      print(e);
+     
       Login_SetState();
       showDialog(
           child: AlertDialog(
@@ -1063,7 +1047,7 @@ class WebServices extends ChangeNotifier {
       final stream = await upload.send();
       vendor_login_res = await http.Response.fromStream(stream);
       token = json.decode(vendor_login_res.body);
-      print(token["auth_token"]);
+   
       if (vendor_login_res.statusCode == 200 ||
           vendor_login_res.statusCode == 201) {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -1090,14 +1074,13 @@ class WebServices extends ChangeNotifier {
                   style: TextStyle(color: Colors.blue)),
             ),
             context: context);
-        print(vendor_login_res.toString());
-        print(vendor_login_res.toString());
+        
         Login_SetState();
       }
 
       return token;
     } catch (e) {
-      print(e);
+     
       Login_SetState();
       showDialog(
           child: AlertDialog(
@@ -1120,8 +1103,7 @@ class WebServices extends ChangeNotifier {
       final stream = await upload.send();
       user_login_res = await http.Response.fromStream(stream);
       token = json.decode(user_login_res.body);
-      print(token["auth_token"]);
-      print(user_login_res.statusCode.toString());
+     
       if (user_login_res.statusCode == 200 ||
           user_login_res.statusCode == 201) {
         Navigator.push(context, MaterialPageRoute(builder: (context) {
@@ -1153,7 +1135,7 @@ class WebServices extends ChangeNotifier {
 
       return token;
     } catch (e) {
-      print(e);
+    
       Login_SetState();
       showDialog(
           child: AlertDialog(
@@ -1183,7 +1165,7 @@ class WebServices extends ChangeNotifier {
       final stream = await upload.send();
       var update_menu_res = await http.Response.fromStream(stream);
       var body = json.decode(update_menu_res.body);
-      print(update_menu_res.statusCode.toString());
+     
       if (update_menu_res.statusCode == 200 ||
           update_menu_res.statusCode == 201) {
         Navigator.pushReplacement(context,
@@ -1194,7 +1176,7 @@ class WebServices extends ChangeNotifier {
       } else if (update_menu_res.statusCode == 400 ||
           update_menu_res.statusCode == 500 ||
           update_menu_res.statusCode == 405) {
-        print(body.toString());
+       
         showDialog(
             child: AlertDialog(
               content: Text('process unable to finish',
@@ -1224,7 +1206,7 @@ class WebServices extends ChangeNotifier {
             content: Text('There was a Problem Encountered'),
           ),
           context: context);
-      print(e);
+     
     }
   }
 
@@ -1251,7 +1233,7 @@ class WebServices extends ChangeNotifier {
       final stream = await upload.send();
       var update_profile_res = await http.Response.fromStream(stream);
       var body = json.decode(update_profile_res.body);
-      print(update_profile_res.body.toString());
+     
       if (update_profile_res.statusCode == 200 ||
           update_profile_res.statusCode == 201) {
         Navigator.pushReplacement(context,
@@ -1262,7 +1244,7 @@ class WebServices extends ChangeNotifier {
       } else if (update_profile_res.statusCode == 400 ||
           update_profile_res.statusCode == 500 ||
           update_profile_res.statusCode == 405) {
-        print(body.toString());
+    
         showDialog(
             child: AlertDialog(
               content: Text('process unable to finish',
@@ -1292,7 +1274,7 @@ class WebServices extends ChangeNotifier {
             content: Text('There was a Problem Encountered'),
           ),
           context: context);
-      print(e);
+   
     }
   }
 
@@ -1434,7 +1416,7 @@ class WebServices extends ChangeNotifier {
       final stream = await upload.send();
       var update_menu_res = await http.Response.fromStream(stream);
       var body = json.decode(update_menu_res.body);
-      print(update_menu_res.statusCode.toString());
+     
       if (update_menu_res.statusCode == 200 ||
           update_menu_res.statusCode == 201) {
         Navigator.pushReplacement(context,
@@ -1445,7 +1427,7 @@ class WebServices extends ChangeNotifier {
       } else if (update_menu_res.statusCode == 400 ||
           update_menu_res.statusCode == 500 ||
           update_menu_res.statusCode == 405) {
-        print(body.toString());
+       
         showDialog(
             child: AlertDialog(
               content: Text('process unable to finish',
@@ -1475,7 +1457,7 @@ class WebServices extends ChangeNotifier {
             content: Text('There was a Problem Encountered'),
           ),
           context: context);
-      print(e);
+     
     }
   }
 
@@ -1494,7 +1476,7 @@ class WebServices extends ChangeNotifier {
       final stream = await upload.send();
       var update_menu_res = await http.Response.fromStream(stream);
       var body = json.decode(update_menu_res.body);
-      print(update_menu_res.statusCode.toString());
+     
       if (update_menu_res.statusCode == 200 ||
           update_menu_res.statusCode == 201) {
         Navigator.pushReplacement(context,
@@ -1505,7 +1487,7 @@ class WebServices extends ChangeNotifier {
       } else if (update_menu_res.statusCode == 400 ||
           update_menu_res.statusCode == 500 ||
           update_menu_res.statusCode == 405) {
-        print(body.toString());
+       
         showDialog(
             child: AlertDialog(
               content: Text('process unable to finish',
@@ -1535,7 +1517,7 @@ class WebServices extends ChangeNotifier {
             content: Text('There was a Problem Encountered'),
           ),
           context: context);
-      print(e);
+    
     }
   }
 
@@ -1551,7 +1533,7 @@ class WebServices extends ChangeNotifier {
       final stream = await upload.send();
       var upload_rate_res = await http.Response.fromStream(stream);
       var body = json.decode(upload_rate_res.body);
-      print(upload_rate_res.body.toString());
+     
       if (upload_rate_res.statusCode == 200 ||
           upload_rate_res.statusCode == 201) {
         Login_SetState_third();
@@ -1590,7 +1572,7 @@ class WebServices extends ChangeNotifier {
             content: Text('There was a Problem Encountered'),
           ),
           context: context);
-      print(e);
+    
     }
   }
 }

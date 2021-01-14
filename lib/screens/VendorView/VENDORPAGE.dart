@@ -321,10 +321,6 @@ class VENDORPAGESTATE extends State<VENDORPAGE> {
                       user_id, subcription_id),
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
-                     
-                      print(user_id.toString());
-                       print(user_id.toString());
-                      
                       if (snapshot.data == 'VENDOR MENU IS UNAVAILABLE') {
                         return Center(
                             child: Padding(
@@ -361,7 +357,10 @@ class VENDORPAGESTATE extends State<VENDORPAGE> {
                                               secondaryAnimation) {
                                             return VendorPageSeeAllMenu(
                                               vendor_phone: vendor_phone,
-                                                id: user_id);
+                                                user_id: user_id,
+                                                subcription_id:subcription_id,
+                                                
+                                                );
                                           },
                                           transitionsBuilder: (context,
                                               animation,

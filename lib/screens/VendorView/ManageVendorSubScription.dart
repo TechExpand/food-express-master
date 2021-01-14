@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:foodtruck/Services/Network.dart';
 import 'package:foodtruck/Utils/utils.dart';
 import 'package:foodtruck/Services/admob.dart';
+import 'package:foodtruck/screens/VendorView/SubscribePage.dart';
 import 'dart:ui' as ui;
 
 import 'package:provider/provider.dart';
@@ -303,11 +304,93 @@ class managesubscriptionstate extends State<managesubscription> {
                                                   );
                                                 }
                                                else{
-                                               return  Padding(
-                                                  padding: const EdgeInsets.all(8.0),
-                                                  child: Text(subscription_id_snapshot
-                                          .data['subscription_id']),
-                                                );
+                                               return Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: Column(
+                                                      children: <Widget>[
+                                                        Text(
+                                                            'You Have not SubScribe Yet!'),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  top: 15.0),
+                                                          child: Text(
+                                                            'Subscription Now',
+                                                            style: TextStyle(
+                                                                fontSize: 18,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold),
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(8.0),
+                                                          child: webservices_consumer
+                                                                      .login_state ==
+                                                                  false
+                                                              ? RaisedButton(
+                                                                  onPressed:
+                                                                      () {
+                                                                        Navigator.pushReplacement(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return   SubscribePage();
+        },
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+      ),
+    );
+                                                                 
+                                                                  },
+                                                                  color: Colors
+                                                                      .blue,
+                                                                  
+                                                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+    padding: EdgeInsets.all(0.0),
+    child: Ink(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [Color(0xff67b9fb), Color(0xff8acbff)],
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+          ),
+          borderRadius: BorderRadius.circular(8)
+      ),
+      child: Container(
+        constraints: BoxConstraints(maxWidth: 200.0, minHeight: 50.0),
+        alignment: Alignment.center,
+        child: Text(
+          "Subscribe",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              color: Colors.white
+          ),
+        ),
+      ),
+    ),
+                                                                )
+                                                              : Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                              .all(
+                                                                          8.0),
+                                                                  child:
+                                                                      CircularProgressIndicator(),
+                                                                ),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  );
+                                                
                                                } 
                                               })
                                             ],

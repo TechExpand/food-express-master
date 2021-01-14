@@ -133,7 +133,7 @@ BitmapDescriptor.fromAssetImage(ImageConfiguration(size:  Size(1.5, 1.5)),
           if (snapshots.hasData) {
             return MapDetails(snapshots, locationValues, context);
           } else if (snapshots.hasError) {
-            print('error');
+       
             return Text('${snapshots.error}');
           }
           return Center(child: CircularProgressIndicator());
@@ -195,7 +195,7 @@ BitmapDescriptor.fromAssetImage(ImageConfiguration(size:  Size(1.5, 1.5)),
                   child: PageView.builder(
                     controller: PageController(viewportFraction: 0.8),
                     onPageChanged: (index) async {
-                      print(snapshots.data[index].Lan.toString());
+                     
                       GoogleMapController controller = await _controller.future;
                       return controller.animateCamera(
                           CameraUpdate.newCameraPosition(CameraPosition(

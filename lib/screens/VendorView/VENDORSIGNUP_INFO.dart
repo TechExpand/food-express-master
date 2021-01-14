@@ -271,7 +271,7 @@ class VENDORSIGNUP2STATE extends State<VENDORSIGNUP2> {
                           path: utils_consumer.selected_image.path,
                         );}
                         catch(e){
-                           webservices_consumer.Login_SetState_Second();
+                           webservices_consumer.Login_SetState();
                           showDialog(
           child: AlertDialog(
             title: Center(
@@ -308,7 +308,7 @@ class VENDORSIGNUP2STATE extends State<VENDORSIGNUP2> {
         ),
       ),
     ),
-                    ):CircularProgressIndicator()
+        ):CircularProgressIndicator()
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

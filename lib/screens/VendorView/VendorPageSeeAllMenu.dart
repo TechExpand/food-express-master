@@ -13,10 +13,11 @@ import 'dart:convert';
 import 'package:provider/provider.dart';
 
 class VendorPageSeeAllMenu extends StatefulWidget {
-  var id;
+  var user_id;
+  var subcription_id;
   var vendor_phone;
 
-  VendorPageSeeAllMenu({this.id, this.vendor_phone});
+  VendorPageSeeAllMenu({this.user_id, this.subcription_id, this.vendor_phone});
 
   @override
   State<StatefulWidget> createState() {
@@ -60,6 +61,145 @@ class VendorPageSeeAllMenuState extends State<VendorPageSeeAllMenu> {
   Widget See_All_Menu_Items_Widget() {
     var webservices = Provider.of<WebServices>(context, listen: false);
     return FutureBuilder(
+                  future: webservices.location_menu(
+                      widget.user_id, widget.subcription_id),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      if (snapshot.data == 'VENDOR MENU IS UNAVAILABLE') {
+                        return Center(
+                            child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            '${snapshot.data}',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black38),
+                          ),
+                        ));
+                      } else if (snapshot.data == 'Connection Error') {
+                        return Center(
+                            child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('${snapshot.data}',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black38)),
+                        ));
+                      } else {
+                        return ListView.builder(
+                          shrinkWrap: true,
+                          physics: ClampingScrollPhysics(),
+                          itemCount: snapshot.data.length == 0 ? 0 : snapshot.data.length,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        PageRouteBuilder(
+                                          pageBuilder: (context, animation,
+                                              secondaryAnimation) {
+                                            return menuitemdetail(
+                                              menu_description: snapshot
+                                                  .data[index].menu_description,
+                                              menu_picture1: snapshot
+                                                  .data[index].menu_picture1,
+                                              menu_price:
+                                                  snapshot.data[index].menu_price,
+                                              menu_title: snapshot
+                                                  .data[index].menu_title,
+                                                vendor_phone: widget.vendor_phone,
+                                            );
+                                          },
+                                          transitionsBuilder: (context,
+                                              animation,
+                                              secondaryAnimation,
+                                              child) {
+                                            return FadeTransition(
+                                              opacity: animation,
+                                              child: child,
+                                            );
+                                          },
+                                        ),
+                                      );
+                                    },
+                                    child: ListTile(
+                                      leading: Container(
+                                        width: 60.0,
+                                        height: 55.0,
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                            image: NetworkImage(snapshot
+                                                .data[index].menu_picture1
+                                                .toString()),
+                                            fit: BoxFit.fitHeight,
+                                          ),
+                                          border: Border.all(
+                                              width: 1.0,
+                                              color: const Color(0xff707070)),
+                                        ),
+                                      ),
+                                      title: Text(
+                                        '${snapshot.data[index].menu_title}',
+                                        style: TextStyle(
+                                          fontFamily: 'Arial',
+                                          fontSize: 14,
+                                          color: const Color(0xff2699fb),
+                                          height: 1.3571428571428572,
+                                        ),
+                                        textAlign: TextAlign.left,
+                                      ),
+                                      subtitle: Column(
+                                        children: <Widget>[
+                                          Padding(
+                                            padding: const EdgeInsets.all(2.0),
+                                            child: Align(
+                                              alignment: Alignment.bottomLeft,
+                                              child: Text(
+                                                '${snapshot.data[index].menu_description}',
+                                                style: TextStyle(
+                                                  fontFamily: 'Arial',
+                                                  fontSize: 14,
+                                                  color:
+                                                      const Color(0xff2699fb),
+                                                ),
+                                                textAlign: TextAlign.left,
+                                              ),
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(2.0),
+                                            child: Align(
+                                              alignment: Alignment.bottomLeft,
+                                              child: Text(
+                                                '${snapshot.data[index].menu_price}\$',
+                                                style: TextStyle(
+                                                  fontFamily: 'Arial',
+                                                  fontSize: 17,
+                                                  color:
+                                                      const Color(0xff2699fb),
+                                                  fontWeight: FontWeight.w700,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Divider(),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                          },
+                        );
+                      }
+                    }
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  });
+    
+    
+    
+    
+   /* FutureBuilder(
         future: webservices.get_vender_subscription_id(),
         builder: (context, subscription_snapshot) {
           return subscription_snapshot.hasData
@@ -190,6 +330,6 @@ class VendorPageSeeAllMenuState extends State<VendorPageSeeAllMenu> {
               : Center(
                   child: CircularProgressIndicator(),
                 );
-        });
+        });*/
   }
 }

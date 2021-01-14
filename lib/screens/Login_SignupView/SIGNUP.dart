@@ -388,7 +388,6 @@ Widget VendorSignUp(email, password, context, form_key) {
                           if (form_key.currentState.validate()) {
                             webservice_consumer.Login_SetState();
                             webservice_consumer.Signup_VendorApi(
-                             
                               password: password,
                               email: email,
                            

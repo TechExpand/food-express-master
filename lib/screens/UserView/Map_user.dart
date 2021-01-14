@@ -104,37 +104,39 @@ class bodywidgetstate extends State<bodywidget> {
     var webservices = Provider.of<WebServices>(context, listen: false);
     // TODO: implement build
     return FutureBuilder(
-        future: webservices.get_vender_subscription_id(),
-        builder: (context, subscription_id_snapshot) {
-          return subscription_id_snapshot.hasData
-              ? FutureBuilder(
-                  future: webservices.get_all_user_current_location(
-                    context: context,
-                    location_latitude: locationValues.location_latitude,
-                    location_longtitude: locationValues.location_longitude,
-                    range_value: range_value,
-                    subscription_id:
-                        subscription_id_snapshot.data['subscription_id'],
-                  ),
-                  builder: (context, snapshots) {
-                   
-                    if (snapshots.hasData) {
-                      if (snapshots.data ==
-                          'Subscribe to get online Users and Display your Menu') {
-                        return SubscriptionView(snapshots, locationValues);
-                      } else if (snapshots.data == 'Connection Error' || snapshots.data == 'VENDOR MENU IS UNAVAILABLE') {
-                        return ConnectionErrorView(snapshots, locationValues);
-                      } else {
-                        return CurrentUserView(snapshots, locationValues);
-                      }
-                    } else if (snapshots.hasError) {
-                      print('error');
-                      return Text('${snapshots.error}');
-                    }
-                    return Center(child: CircularProgressIndicator());
-                  })
-              : Center(child: CircularProgressIndicator());
-        });
+      future:  webservices.Vendor_Profile_Api(),
+      builder: (context, snapshot_profile) {
+        return snapshot_profile.hasData?FutureBuilder(
+            future: webservices.get_vender_subscription_id(),
+            builder: (context, subscription_id_snapshot) {
+              return subscription_id_snapshot.hasData
+                  ? FutureBuilder(
+                       future: webservices.get_all_user_current_location(
+                        context: context,
+                        location_latitude: locationValues.location_latitude,
+                        location_longtitude: locationValues.location_longitude,
+                        range_value: range_value,
+                        subscription_id:subscription_id_snapshot.data['subscription_id'],
+                      ),
+                      builder: (context, snapshots) {
+                        if (snapshots.hasData) {
+                          if (snapshots.data ==
+                              'Subscribe to get online Users and Display your Menu') {
+                            return SubscriptionView(snapshots, locationValues, snapshot_profile.data[0].id);
+                          } else if (snapshots.data == 'Connection Error' || snapshots.data == 'VENDOR MENU IS UNAVAILABLE') {
+                            return ConnectionErrorView(snapshots, locationValues);
+                          } else {
+                            return CurrentUserView(snapshots, locationValues);
+                          }
+                        } else if (snapshots.hasError) {
+                          return Text('${snapshots.error}');
+                        }
+                        return Center(child: CircularProgressIndicator());
+                      })
+                  : Center(child: CircularProgressIndicator());
+            }):Center(child: CircularProgressIndicator());
+      }
+    );
   }
 
   Widget CurrentUserView(snapshots, locationValues) {
@@ -436,7 +438,7 @@ class bodywidgetstate extends State<bodywidget> {
     );
   }
 
-  Widget SubscriptionView(snapshots, locationValues) {
+  Widget SubscriptionView(snapshots, locationValues, snapshotprofile) {
     return PageView.builder(
       physics: NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
@@ -502,7 +504,7 @@ class bodywidgetstate extends State<bodywidget> {
                                       PageRouteBuilder(
                                         pageBuilder: (context, animation,
                                             secondaryAnimation) {
-                                          return managesubscription(snapshots.data[index].id);
+                                          return managesubscription(snapshotprofile);
                                         },
                                         transitionsBuilder: (context, animation,
                                             secondaryAnimation, child) {
