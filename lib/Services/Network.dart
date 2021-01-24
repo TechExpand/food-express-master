@@ -159,6 +159,7 @@ class WebServices extends ChangeNotifier {
           Uri.parse(
               'https://wingu1000.pythonanywhere.com/foodtruck-vendor/createprofile/'));
       var file = await http.MultipartFile.fromPath('pro_pic', path);
+ 
       upload.files.add(file);
       upload.fields['business_name'] = business_name.toString();
       upload.fields['unique_detail'] = unique_detail.toString();

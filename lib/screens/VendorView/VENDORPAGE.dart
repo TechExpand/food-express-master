@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'dart:ui';
+
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
@@ -63,195 +66,328 @@ class VENDORPAGESTATE extends State<VENDORPAGE> {
                   ),
       key: scaffoldKey,
       backgroundColor: const Color(0xffffffff),
-      body: FutureBuilder(
-          future: webservices.location_profile(widget.id),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return PageView.builder(
-                  itemCount: snapshot.data.length,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-              
-                    return ListView(
-                      shrinkWrap: true,
-                      physics: ClampingScrollPhysics(),
+      body: WillPopScope(
+        onWillPop: () {
+          return showDialog(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+                child: AlertDialog(
+                  elevation: 6,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(32.0))),
+                  content: Container(
+                    height: 150,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Stack(
-                          children: <Widget>[
+                        Text(
+                          'Oops!!',
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Row(
+                          children: [
                             Container(
-                              height: 250,
-                              width: MediaQuery.of(context).size.width,
-                             color: Color(0xFF67b9fb),
-                              child: GoogleMap(
-                                mapType: MapType.normal,
-                                initialCameraPosition: CameraPosition(
-                                    target: LatLng(widget.lan, widget.log),
-                                    zoom: 15),
-                                onMapCreated: (GoogleMapController controller) {
-                                  _controller.complete(controller);
-                                },
-                                markers: {
-                                  Marker(
-                                    icon: custom_marker,
-                                      markerId: MarkerId('1'),
-                                      position: LatLng(widget.lan, widget.log))
-                                },
-                              ),
-                            ),
-                            InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child:  Padding(
-                              padding: EdgeInsets.only(
-                                  top: MediaQuery.of(context).size.width / 8,
-                                  left: MediaQuery.of(context).size.width / 20),
-                              child: Container(
-                                decoration: BoxDecoration(
-                         color: Colors.white,
-                            shape: BoxShape.circle
-                          ),
-                          width: 30,
-                          height: 30,
-                                child: Center(
-                                  child: Icon(
-                                    Icons.arrow_back,
-                                    color: Colors.black38,
+                              padding: EdgeInsets.only(top: 15, bottom: 15),
+                             
+                              child: Center(
+                                child: Text(
+                                  'DO YOU WANT TO EXIT THIS APP?',
+                                 
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black54,
                                   ),
                                 ),
-                              )),
-                        ),
+                              ),
+                            ),
                           ],
                         ),
-                        Container(
-                          height: 88.0,
-                          child: Row(children: <Widget>[
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                width: 65.0,
-                                height: 62.0,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                    image: NetworkImage(snapshot
-                                        .data[index].pro_pic
-                                        .toString()),
-                                    fit: BoxFit.fill,
-                                  ),
-                                  border: Border.all(
-                                      width: 1.0,
-                                      color: const Color(0xff707070)),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(children: <Widget>[
-                                Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Expanded(
-                                    child: Text(
-                                      "${snapshot.data[index].business_name.toString()}",
-                                      style: TextStyle(
-                                        fontFamily: 'Arial',
-                                        fontSize: 14,
-                                        color: const Color(0xff2699fb),
-                                        fontWeight: FontWeight.w700,
+                        ButtonBar(
+                            alignment: MainAxisAlignment.center,
+                            children: [
+                              Material(
+                                borderRadius: BorderRadius.circular(26),
+                                elevation: 2,
+                                child: Container(
+                                  height: 35,
+                                  width: 100,
+                                  decoration: BoxDecoration(
+                                      border:
+                                          Border.all(color: Colors.blue),
+                                      borderRadius: BorderRadius.circular(26)),
+                                  child: FlatButton(
+                                    onPressed: () {
+                                      return exit(0);
+                                    },
+                                    color: Colors.blue,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(26)),
+                                    padding: EdgeInsets.all(0.0),
+                                    child: Ink(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(26)),
+                                      child: Container(
+                                        constraints: BoxConstraints(
+                                            maxWidth: 190.0, minHeight: 53.0),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "Yes",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        ),
                                       ),
-                                      softWrap: true,
-                                      maxLines: 1,
                                     ),
                                   ),
                                 ),
-                                 Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Container(
-                                    height: 30,
-                                    child: VendorRating(webservices),
+                              ),
+                              Material(
+                                borderRadius: BorderRadius.circular(26),
+                                elevation: 2,
+                                child: Container(
+                                  height: 35,
+                                  width: 100,
+                                  decoration: BoxDecoration(
+                                      border:
+                                          Border.all(color: Colors.blue),
+                                      borderRadius: BorderRadius.circular(26)),
+                                  child: FlatButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    color: Colors.blue,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(26)),
+                                    padding: EdgeInsets.all(0.0),
+                                    child: Ink(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(26)),
+                                      child: Container(
+                                        constraints: BoxConstraints(
+                                            maxWidth: 190.0, minHeight: 53.0),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "No",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                )
-                                
-                              ]),
-                            )
-                          ]),
-                          decoration: BoxDecoration(
-                            color: const Color(0xfff1f9ff),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Align(
-                            alignment: Alignment.topLeft,
-                            child: Text(
-                              "${snapshot.data[index].detail.toString()}",
-                              style: TextStyle(
-                                fontFamily: 'Arial',
-                                fontSize: 14,
-                                color: const Color(0xff2699fb),
+                                ),
                               ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Align(
-                            alignment: Alignment.topLeft,
-                            child: Text(
-                              'WHAT MAKE MY BUSINESS UNIQUE',
-                              style: TextStyle(
-                                fontFamily: 'Arial',
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: const Color(0xff2699fb),
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "${snapshot.data[index].unique_detail.toString()}",
-                              style: TextStyle(
-                                fontFamily: 'Arial',
-                                fontSize: 14,
-                                color: const Color(0xff2699fb),
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Divider(),
-                        ),
-                        Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.all(20.0),
-                            child: Text(
-                              'OUR MENU',
-                              style: TextStyle(
-                                fontFamily: 'Arial',
-                                fontSize: 16,
-                                color: const Color(0xff2699fb),
-                                fontWeight: FontWeight.w700,
-                              ),
-                              textAlign: TextAlign.left,
-                            ),
-                          ),
-                        ),
-                        MenuVendor(snapshot.data[index].phone,  snapshot.data[index].subID, snapshot.data[index].id),
-                       Rating(scaffoldKey, context, widget.id)
+                            ]),
                       ],
-                    );
-                  });
-            }
-            return Center(child: CircularProgressIndicator());
-          }),
+                    ),
+                  ),
+                ),
+              ),
+              context: context);
+        },
+        child: FutureBuilder(
+            future: webservices.location_profile(widget.id),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return PageView.builder(
+                    itemCount: snapshot.data.length,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                
+                      return ListView(
+                        shrinkWrap: true,
+                        physics: ClampingScrollPhysics(),
+                        children: <Widget>[
+                          Stack(
+                            children: <Widget>[
+                              Container(
+                                height: 250,
+                                width: MediaQuery.of(context).size.width,
+                               color: Color(0xFF67b9fb),
+                                child: GoogleMap(
+                                  mapType: MapType.normal,
+                                  initialCameraPosition: CameraPosition(
+                                      target: LatLng(widget.lan, widget.log),
+                                      zoom: 15),
+                                  onMapCreated: (GoogleMapController controller) {
+                                    _controller.complete(controller);
+                                  },
+                                  markers: {
+                                    Marker(
+                                      icon: custom_marker,
+                                        markerId: MarkerId('1'),
+                                        position: LatLng(widget.lan, widget.log))
+                                  },
+                                ),
+                              ),
+                              InkWell(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child:  Padding(
+                                padding: EdgeInsets.only(
+                                    top: MediaQuery.of(context).size.width / 8,
+                                    left: MediaQuery.of(context).size.width / 20),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                           color: Colors.white,
+                              shape: BoxShape.circle
+                            ),
+                            width: 30,
+                            height: 30,
+                                  child: Center(
+                                    child: Icon(
+                                      Icons.arrow_back,
+                                      color: Colors.black38,
+                                    ),
+                                  ),
+                                )),
+                          ),
+                            ],
+                          ),
+                          Container(
+                            height: 88.0,
+                            child: Row(children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  width: 65.0,
+                                  height: 62.0,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: NetworkImage(snapshot
+                                          .data[index].pro_pic
+                                          .toString()),
+                                      fit: BoxFit.fill,
+                                    ),
+                                    border: Border.all(
+                                        width: 1.0,
+                                        color: const Color(0xff707070)),
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(children: <Widget>[
+                                  Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Expanded(
+                                      child: Text(
+                                        "${snapshot.data[index].business_name.toString()}",
+                                        style: TextStyle(
+                                          fontFamily: 'Arial',
+                                          fontSize: 14,
+                                          color: const Color(0xff2699fb),
+                                          fontWeight: FontWeight.w700,
+                                        ),
+                                        softWrap: true,
+                                        maxLines: 1,
+                                      ),
+                                    ),
+                                  ),
+                                   Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: Container(
+                                      height: 30,
+                                      child: VendorRating(webservices),
+                                    ),
+                                  )
+                                  
+                                ]),
+                              )
+                            ]),
+                            decoration: BoxDecoration(
+                              color: const Color(0xfff1f9ff),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                "${snapshot.data[index].detail.toString()}",
+                                style: TextStyle(
+                                  fontFamily: 'Arial',
+                                  fontSize: 14,
+                                  color: const Color(0xff2699fb),
+                                ),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Align(
+                              alignment: Alignment.topLeft,
+                              child: Text(
+                                'WHAT MAKE MY BUSINESS UNIQUE',
+                                style: TextStyle(
+                                  fontFamily: 'Arial',
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.bold,
+                                  color: const Color(0xff2699fb),
+                                ),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.topLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                "${snapshot.data[index].unique_detail.toString()}",
+                                style: TextStyle(
+                                  fontFamily: 'Arial',
+                                  fontSize: 14,
+                                  color: const Color(0xff2699fb),
+                                ),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Divider(),
+                          ),
+                          Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Padding(
+                              padding: const EdgeInsets.all(20.0),
+                              child: Text(
+                                'OUR MENU',
+                                style: TextStyle(
+                                  fontFamily: 'Arial',
+                                  fontSize: 16,
+                                  color: const Color(0xff2699fb),
+                                  fontWeight: FontWeight.w700,
+                                ),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                          ),
+                          MenuVendor(snapshot.data[index].phone,  snapshot.data[index].subID, snapshot.data[index].id),
+                         Rating(scaffoldKey, context, widget.id)
+                        ],
+                      );
+                    });
+              }
+              return Center(child: CircularProgressIndicator());
+            }),
+      ),
     );
   }
 
@@ -420,11 +556,12 @@ class VENDORPAGESTATE extends State<VENDORPAGE> {
                                         width: 60.0,
                                         height: 55.0,
                                         decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(5),
                                           image: DecorationImage(
                                             image: NetworkImage(snapshot
                                                 .data[index].menu_picture1
                                                 .toString()),
-                                            fit: BoxFit.fitHeight,
+                                            fit: BoxFit.cover,
                                           ),
                                           border: Border.all(
                                               width: 1.0,

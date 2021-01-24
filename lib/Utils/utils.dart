@@ -49,4 +49,11 @@ class Utils with ChangeNotifier{
       throw 'Could not launch $url';
     }
   }
+
+bool view = false;
+
+   changeView(value){
+    view = value;
+    notifyListeners();
+  }
 }

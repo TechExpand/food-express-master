@@ -127,11 +127,12 @@ class VendorPageSeeAllMenuState extends State<VendorPageSeeAllMenu> {
                                         width: 60.0,
                                         height: 55.0,
                                         decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(5),
                                           image: DecorationImage(
                                             image: NetworkImage(snapshot
                                                 .data[index].menu_picture1
                                                 .toString()),
-                                            fit: BoxFit.fitHeight,
+                                            fit: BoxFit.cover,
                                           ),
                                           border: Border.all(
                                               width: 1.0,
@@ -199,137 +200,6 @@ class VendorPageSeeAllMenuState extends State<VendorPageSeeAllMenu> {
     
     
     
-   /* FutureBuilder(
-        future: webservices.get_vender_subscription_id(),
-        builder: (context, subscription_snapshot) {
-          return subscription_snapshot.hasData
-              ? FutureBuilder(
-                  future: webservices.location_menu(
-                      widget.id, subscription_snapshot.data['subscription_id']),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      if (snapshot.data == 'VENDOR MENU IS UNAVAILABLE') {
-                        return Center(
-                            child: Text('${snapshot.data}',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black38)));
-                      } else if (snapshot.data == 'Connection Error') {
-                        return Center(
-                            child: Text('${snapshot.data}',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black38)));
-                      } else {
-                        return ListView.builder(
-                          itemCount: snapshot.data.length,
-                          itemBuilder: (context, index) {
-                            return Card(
-                              elevation: 3,
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    PageRouteBuilder(
-                                      pageBuilder: (context, animation,
-                                          secondaryAnimation) {
-                                        return menuitemdetail(
-                                          vendor_phone: widget.vendor_phone,
-                                         
-                                          menu_description: snapshot
-                                              .data[index].menu_description,
-                                          menu_picture1: snapshot
-                                              .data[index].menu_picture1,
-                                          menu_price:
-                                              snapshot.data[index].menu_price,
-                                          menu_title:
-                                              snapshot.data[index].menu_title,
-                                        );
-                                      },
-                                      transitionsBuilder: (context, animation,
-                                          secondaryAnimation, child) {
-                                        return FadeTransition(
-                                          opacity: animation,
-                                          child: child,
-                                        );
-                                      },
-                                    ),
-                                  );
-                                },
-                                child: ListTile(
-                                  leading: Container(
-                                    width: 60.0,
-                                    height: 55.0,
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: NetworkImage(snapshot
-                                            .data[index].menu_picture1
-                                            .toString()),
-                                        fit: BoxFit.fitHeight,
-                                      ),
-                                      border: Border.all(
-                                          width: 1.0,
-                                          color: const Color(0xff707070)),
-                                    ),
-                                  ),
-                                  title: Text(
-                                    '${snapshot.data[index].menu_title}',
-                                    style: TextStyle(
-                                      fontFamily: 'Arial',
-                                      fontSize: 14,
-                                      color: const Color(0xff2699fb),
-                                      height: 1.3571428571428572,
-                                    ),
-                                    textAlign: TextAlign.left,
-                                  ),
-                                  subtitle: Column(
-                                    children: <Widget>[
-                                      Padding(
-                                        padding: const EdgeInsets.all(2.0),
-                                        child: Align(
-                                          alignment: Alignment.bottomLeft,
-                                          child: Text(
-                                            '${snapshot.data[index].menu_description}',
-                                            style: TextStyle(
-                                              fontFamily: 'Arial',
-                                              fontSize: 14,
-                                              color: const Color(0xff2699fb),
-                                            ),
-                                            textAlign: TextAlign.left,
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(2.0),
-                                        child: Align(
-                                          alignment: Alignment.bottomLeft,
-                                          child: Text(
-                                            '${snapshot.data[index].menu_price}\$',
-                                            style: TextStyle(
-                                              fontFamily: 'Arial',
-                                              fontSize: 17,
-                                              color: const Color(0xff2699fb),
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        );
-                      }
-                    }
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  })
-              : Center(
-                  child: CircularProgressIndicator(),
-                );
-        });*/
+   
   }
 }
