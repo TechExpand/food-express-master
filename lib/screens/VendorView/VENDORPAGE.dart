@@ -66,139 +66,7 @@ class VENDORPAGESTATE extends State<VENDORPAGE> {
                   ),
       key: scaffoldKey,
       backgroundColor: const Color(0xffffffff),
-      body: WillPopScope(
-        onWillPop: () {
-          return showDialog(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-                child: AlertDialog(
-                  elevation: 6,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(32.0))),
-                  content: Container(
-                    height: 150,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'Oops!!',
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.blue,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Row(
-                          children: [
-                            Container(
-                              padding: EdgeInsets.only(top: 15, bottom: 15),
-                             
-                              child: Center(
-                                child: Text(
-                                  'DO YOU WANT TO EXIT THIS APP?',
-                                 
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        ButtonBar(
-                            alignment: MainAxisAlignment.center,
-                            children: [
-                              Material(
-                                borderRadius: BorderRadius.circular(26),
-                                elevation: 2,
-                                child: Container(
-                                  height: 35,
-                                  width: 100,
-                                  decoration: BoxDecoration(
-                                      border:
-                                          Border.all(color: Colors.blue),
-                                      borderRadius: BorderRadius.circular(26)),
-                                  child: FlatButton(
-                                    onPressed: () {
-                                      return exit(0);
-                                    },
-                                    color: Colors.blue,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(26)),
-                                    padding: EdgeInsets.all(0.0),
-                                    child: Ink(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(26)),
-                                      child: Container(
-                                        constraints: BoxConstraints(
-                                            maxWidth: 190.0, minHeight: 53.0),
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          "Yes",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Material(
-                                borderRadius: BorderRadius.circular(26),
-                                elevation: 2,
-                                child: Container(
-                                  height: 35,
-                                  width: 100,
-                                  decoration: BoxDecoration(
-                                      border:
-                                          Border.all(color: Colors.blue),
-                                      borderRadius: BorderRadius.circular(26)),
-                                  child: FlatButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    color: Colors.blue,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(26)),
-                                    padding: EdgeInsets.all(0.0),
-                                    child: Ink(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(26)),
-                                      child: Container(
-                                        constraints: BoxConstraints(
-                                            maxWidth: 190.0, minHeight: 53.0),
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          "No",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ]),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              context: context);
-        },
-        child: FutureBuilder(
+      body: FutureBuilder(
             future: webservices.location_profile(widget.id),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
@@ -221,7 +89,7 @@ class VENDORPAGESTATE extends State<VENDORPAGE> {
                                   mapType: MapType.normal,
                                   initialCameraPosition: CameraPosition(
                                       target: LatLng(widget.lan, widget.log),
-                                      zoom: 15),
+                                      zoom: 22),
                                   onMapCreated: (GoogleMapController controller) {
                                     _controller.complete(controller);
                                   },
@@ -387,7 +255,7 @@ class VENDORPAGESTATE extends State<VENDORPAGE> {
               }
               return Center(child: CircularProgressIndicator());
             }),
-      ),
+      
     );
   }
 

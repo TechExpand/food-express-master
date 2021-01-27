@@ -491,7 +491,7 @@ class WebServices extends ChangeNotifier {
     try {
       var res = await http.get(
           Uri.encodeFull(
-              'http://wingu1000.pythonanywhere.com/foodtruck-vendor/currentvendorslanlog/lan=${location_latitude}&log=${location_longtitude}&range_value=${range_value}/'),
+              'http://wingu1000.pythonanywhere.com/foodtruck-vendor/currentvendorslanlog/lan=${35.1081645}&log=${-106.4949871}&range_value=${range_value}/'),
           headers: {
             "Accept": "application/json",
             "Authorization": '${token['auth_token'].toString()}',

@@ -590,7 +590,7 @@ BitmapDescriptor.fromAssetImage(ImageConfiguration(size:  Size(1.5, 1.5)),
                               CameraUpdate.newCameraPosition(CameraPosition(
                                   bearing: 45,
                                   tilt: 50,
-                                  zoom: 15,
+                                  zoom: 22,
                                   target: LatLng(
                                     double.parse(snapshots.data[index].Lan),
                                     double.parse(snapshots.data[index].Log),
@@ -692,7 +692,7 @@ BitmapDescriptor.fromAssetImage(ImageConfiguration(size:  Size(1.5, 1.5)),
                                                           style: TextStyle(
                                                               fontWeight: FontWeight.bold,
                                                               color: Colors.white,
-                                                              fontSize: 10),
+                                                              fontSize: 9),
                                                           softWrap: false,
                                                           maxLines: 1,
                                                           overflow: TextOverflow.fade,
@@ -700,10 +700,10 @@ BitmapDescriptor.fromAssetImage(ImageConfiguration(size:  Size(1.5, 1.5)),
                                                       ),
                                            ),
                                             Positioned(
-                                              left:140,
+                                              left:100,
                                               top:130,
                                               child: Container(
-                                                width:120,
+                                                width:90,
                                                 child: Column(
                                                   children: [
                                                     Text('${snapshot.data==null?'':snapshot.data[0].business_name.toString()}', style:TextStyle(fontWeight:FontWeight.bold, fontSize: 20), softWrap: true, overflow: TextOverflow.ellipsis, maxLines: 1,),

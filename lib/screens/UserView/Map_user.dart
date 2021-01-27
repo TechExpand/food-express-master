@@ -185,7 +185,7 @@ class bodywidgetstate extends State<bodywidget> {
                           CameraUpdate.newCameraPosition(CameraPosition(
                               bearing: 45,
                               tilt: 50,
-                              zoom: 15,
+                              zoom: 22,
                               target: LatLng(
                                 double.parse(snapshots.data[index].Lan),
                                 double.parse(snapshots.data[index].Log),
@@ -226,7 +226,7 @@ class bodywidgetstate extends State<bodywidget> {
                                                               CameraPosition(
                                                                   bearing: 45,
                                                                   tilt: 50,
-                                                                  zoom: 15,
+                                                                  zoom: 22,
                                                                   target:
                                                                       LatLng(
                                                                     double.parse(
