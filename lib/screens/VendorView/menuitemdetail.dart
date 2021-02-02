@@ -5,6 +5,7 @@ import 'package:foodtruck/Services/LocationService.dart';
 import 'package:foodtruck/Utils/utils.dart';
 import 'package:foodtruck/Services/admob.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class menuitemdetail extends StatelessWidget {
   var menu_description;
@@ -45,7 +46,11 @@ class menuitemdetail extends StatelessWidget {
         centerTitle: true,
         title: Text(
           'Menu Item',
-          style: TextStyle(color: Colors.black),
+          style: GoogleFonts.poppins(
+              fontSize: 18,
+              fontWeight: FontWeight.w400,
+              color: const Color(0xff2699fb),
+              height: 1.7),
           overflow: TextOverflow.visible,
         ),
         leading: InkWell(
@@ -55,116 +60,136 @@ class menuitemdetail extends StatelessWidget {
             child: Icon(Icons.arrow_back, color: Colors.black)),
       ),
       backgroundColor: const Color(0xffffffff),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Container(
-              child: Carousel(
-                dotSize: 5,
-                images: [
-                  NetworkImage(menu_picture1.toString()),
-                ],
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0.1, 0.5, 0.7, 0.9],
+            colors: [
+              Colors.blue[400],
+              Color(0xffDAF0FF),
+              Color(0xffECF7FF),
+              Colors.white,
+            ],
+          ),
+        ),
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              Container(
+                child: Carousel(
+                  dotSize: 5,
+                  dotSpacing: 15.0,
+                  dotColor: Colors.white,
+                  indicatorBgPadding: 5.0,
+                  dotBgColor: Color(0xff2699fb).withOpacity(0.5),
+                  images: [
+                    NetworkImage(menu_picture1.toString()),
+                  ],
+                ),
+                height: 200.0,
               ),
-              height: 200.0,
-            ),
-            Divider(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  '${menu_title.toString()}',
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontSize: 44,
-                    color: const Color(0xff2699fb),
-                    fontWeight: FontWeight.w300,
-                    height: 1.7142857142857142,
+              Divider(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    '${menu_title.toString()}',
+                    style: GoogleFonts.poppins(
+                        fontSize: 44,
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xff2699fb),
+                        height: 1.7),
+                    overflow: TextOverflow.visible,
                   ),
-                  textAlign: TextAlign.right,
                 ),
               ),
-            ),
-            Divider(),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  'Menu Details',
-                  style: TextStyle(
-                    fontFamily: 'Arial',
-                    fontSize: 20,
-                    color: const Color(0xff2699fb),
+              Divider(),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    'Menu Details',
+                    style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w300,
+                        color: const Color(0xff2699fb),
+                        height: 1.7),
+                    overflow: TextOverflow.visible,
                   ),
-                  textAlign: TextAlign.left,
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Align(
-                alignment: Alignment.bottomLeft,
-                child: Text(
-                  '${menu_price.toString()}\$',
-                  style: TextStyle(
-                    fontFamily: 'Arial',
-                    fontSize: 20,
-                    color: const Color(0xff2699fb),
-                    height: 1.5,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Text(
+                    '\$${menu_price.toString()}',
+                    style: GoogleFonts.poppins(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xff2699fb),
+                        height: 1.7),
+                    overflow: TextOverflow.visible,
                   ),
-                  textAlign: TextAlign.left,
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Align(
-                alignment: Alignment.bottomLeft,
-                child: Text(
-                  '${menu_description.toString()}',
-                  style: TextStyle(
-                    fontFamily: 'Arial',
-                    fontSize: 14,
-                    color: const Color(0xff2699fb),
-                    height: 1.7142857142857142,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Text(
+                    '${menu_description.toString()}',
+                    style: GoogleFonts.poppins(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                        color: const Color(0xff2699fb),
+                        height: 1.7),
+                    overflow: TextOverflow.visible,
                   ),
-                  textAlign: TextAlign.left,
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: RaisedButton(
-                color: Colors.lightBlue,
-                onPressed: () {
-                  return utils.makePhoneCall('tel:$vendor_phone');
-                },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8)),
-                padding: EdgeInsets.all(0.0),
-                child: Ink(
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Color(0xff67b9fb), Color(0xff8acbff)],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: RaisedButton(
+                  color: Colors.lightBlue,
+                  onPressed: () {
+                    return utils.makePhoneCall('tel:$vendor_phone');
+                  },
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
+                  padding: EdgeInsets.all(0.0),
+                  child: Ink(
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          colors: [Color(0xff67b9fb), Color(0xff8acbff)],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                        ),
+                        borderRadius: BorderRadius.circular(23)),
+                    child: Container(
+                      constraints:
+                          BoxConstraints(maxWidth: 200.0, minHeight: 50.0),
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Contact Vendor",
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.poppins(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.white,
+                            height: 1.7),
+                        overflow: TextOverflow.visible,
                       ),
-                      borderRadius: BorderRadius.circular(8)),
-                  child: Container(
-                    constraints:
-                        BoxConstraints(maxWidth: 200.0, minHeight: 50.0),
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Contact Vendor",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

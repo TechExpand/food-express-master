@@ -98,13 +98,13 @@ class Map_vendorSampleState extends State<Map_vendorSample> {
                       ? () {
                           setState(() {
                             utils.changeView(false);
-                            _myPage.jumpToPage(0);
+                            _myPage.jumpToPage(1);
                           });
                         }
                       : () {
                           setState(() {
                             utils.changeView(true);
-                            _myPage.jumpToPage(1);
+                            _myPage.jumpToPage(0);
                           });
                         },
                   child: Icon(utils.view ? Icons.view_list : Icons.my_location,
@@ -256,6 +256,14 @@ class Map_vendorSampleState extends State<Map_vendorSample> {
   }
 }
 
+Widget TestBlock() {
+  return Column(
+    children: <Widget>[
+      new Text("Element 1"),
+    ],
+  );
+}
+
 class listMap extends StatefulWidget {
   @override
   _listMapState createState() => _listMapState();
@@ -268,21 +276,34 @@ class _listMapState extends State<listMap> {
     var locationValues = Provider.of<LocationService>(context, listen: false);
     var webservices = Provider.of<WebServices>(context, listen: false);
     // TODO: implement build
-    return FutureBuilder(
-        future: webservices.get_all_vendor_current_location(
-          context: context,
-          location_latitude: locationValues.location_latitude,
-          location_longtitude: locationValues.location_longitude,
-          range_value: range_value,
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          stops: [0.7, 0.9],
+          colors: [
+            Color(0xffECF7FF),
+            Colors.white,
+          ],
         ),
-        builder: (context, snapshots) {
-          if (snapshots.hasData) {
-            return ListDetails(snapshots, locationValues, context);
-          } else if (snapshots.hasError) {
-            return Text('${snapshots.error}');
-          }
-          return Center(child: CircularProgressIndicator());
-        });
+      ),
+      child: FutureBuilder(
+          future: webservices.get_all_vendor_current_location(
+            context: context,
+            location_latitude: locationValues.location_latitude,
+            location_longtitude: locationValues.location_longitude,
+            range_value: range_value,
+          ),
+          builder: (context, snapshots) {
+            if (snapshots.hasData) {
+              return ListDetails(snapshots, locationValues, context);
+            } else if (snapshots.hasError) {
+              return Text('${snapshots.error}');
+            }
+            return Center(child: CircularProgressIndicator());
+          }),
+    );
   }
 
   Widget ListDetails(snapshots, locationValues, context) {

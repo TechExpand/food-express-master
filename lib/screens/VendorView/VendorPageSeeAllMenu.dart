@@ -66,9 +66,7 @@ class VendorPageSeeAllMenuState extends State<VendorPageSeeAllMenu> {
         ),
       ),
       backgroundColor: Colors.white,
-      body:
-          // HeadUp(),
-          See_All_Menu_Items_Widget(),
+      body: See_All_Menu_Items_Widget(),
     );
   }
 
@@ -104,111 +102,129 @@ class VendorPageSeeAllMenuState extends State<VendorPageSeeAllMenu> {
                         fontWeight: FontWeight.bold, color: Colors.black38)),
               ));
             } else {
-              return ListView.builder(
-                shrinkWrap: true,
-                physics: ClampingScrollPhysics(),
-                itemCount: snapshot.data.length == 0 ? 0 : snapshot.data.length,
-                itemBuilder: (context, index) {
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        PageRouteBuilder(
-                          pageBuilder:
-                              (context, animation, secondaryAnimation) {
-                            return menuitemdetail(
-                              menu_description:
-                                  snapshot.data[index].menu_description,
-                              menu_picture1: snapshot.data[index].menu_picture1,
-                              menu_price: snapshot.data[index].menu_price,
-                              menu_title: snapshot.data[index].menu_title,
-                              vendor_phone: widget.vendor_phone,
-                            );
-                          },
-                          transitionsBuilder:
-                              (context, animation, secondaryAnimation, child) {
-                            return FadeTransition(
-                              opacity: animation,
-                              child: child,
-                            );
-                          },
-                        ),
-                      );
-                    },
-                    child: ListTile(
-                      leading: Container(
-                        width: 100.0,
-                        height: 50.0,
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              offset: const Offset(1.0, 1.0),
-                              blurRadius: 2,
-                              spreadRadius: .1,
-                            ),
-                          ],
-                          borderRadius: BorderRadius.circular(5),
-                          image: DecorationImage(
-                            image: NetworkImage(
-                                snapshot.data[index].menu_picture1.toString()),
-                            fit: BoxFit.cover,
+              return Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: [0.1, 0.5, 0.7, 0.9],
+                    colors: [
+                      Colors.blue[400],
+                      Color(0xffDAF0FF),
+                      Color(0xffECF7FF),
+                      Colors.white,
+                    ],
+                  ),
+                ),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  physics: ClampingScrollPhysics(),
+                  itemCount:
+                      snapshot.data.length == 0 ? 0 : snapshot.data.length,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          PageRouteBuilder(
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) {
+                              return menuitemdetail(
+                                menu_description:
+                                    snapshot.data[index].menu_description,
+                                menu_picture1:
+                                    snapshot.data[index].menu_picture1,
+                                menu_price: snapshot.data[index].menu_price,
+                                menu_title: snapshot.data[index].menu_title,
+                                vendor_phone: widget.vendor_phone,
+                              );
+                            },
+                            transitionsBuilder: (context, animation,
+                                secondaryAnimation, child) {
+                              return FadeTransition(
+                                opacity: animation,
+                                child: child,
+                              );
+                            },
                           ),
-                          border: Border.all(
-                              width: 1.0, color: Colors.blue.withOpacity(.1)),
-                        ),
-                      ),
-                      title: Text(
-                        '${snapshot.data[index].menu_title}',
-                        // style: TextStyle(
-                        //   fontFamily: 'Poppins',
-                        //   fontSize: 14,
-                        //   color: const Color(0xff2699fb),
-                        //   height: 1.3571428571428572,
-                        // ),
-                        style: GoogleFonts.poppins(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                            color: const Color(0xff2699fb),
-                            height: 1.7),
-                        textAlign: TextAlign.left,
-                      ),
-                      subtitle: Column(
-                        children: <Widget>[
-                          Padding(
-                            padding: const EdgeInsets.all(2.0),
-                            child: Align(
-                              alignment: Alignment.bottomLeft,
-                              child: Text(
-                                '${snapshot.data[index].menu_description}',
-                                style: GoogleFonts.poppins(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w400,
-                                    color: const Color(0xff2699fb),
-                                    height: .4),
-                                textAlign: TextAlign.left,
+                        );
+                      },
+                      child: ListTile(
+                        leading: Container(
+                          width: 100.0,
+                          height: 50.0,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                offset: const Offset(1.0, 1.0),
+                                blurRadius: 2,
+                                spreadRadius: .1,
                               ),
+                            ],
+                            borderRadius: BorderRadius.circular(5),
+                            image: DecorationImage(
+                              image: NetworkImage(snapshot
+                                  .data[index].menu_picture1
+                                  .toString()),
+                              fit: BoxFit.cover,
                             ),
+                            border: Border.all(
+                                width: 1.0, color: Colors.blue.withOpacity(.1)),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(2.0),
-                            child: Align(
-                              alignment: Alignment.bottomLeft,
-                              child: Text(
-                                '\$${snapshot.data[index].menu_price}',
-                                style: GoogleFonts.poppins(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xff2699fb),
+                        ),
+                        title: Text(
+                          '${snapshot.data[index].menu_title}',
+                          // style: TextStyle(
+                          //   fontFamily: 'Poppins',
+                          //   fontSize: 14,
+                          //   color: const Color(0xff2699fb),
+                          //   height: 1.3571428571428572,
+                          // ),
+                          style: GoogleFonts.poppins(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                              color: const Color(0xff2699fb),
+                              height: 1.7),
+                          textAlign: TextAlign.left,
+                        ),
+                        subtitle: Column(
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Align(
+                                alignment: Alignment.bottomLeft,
+                                child: Text(
+                                  '${snapshot.data[index].menu_description}',
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w400,
+                                      color: const Color(0xff2699fb),
+                                      height: .4),
+                                  textAlign: TextAlign.left,
                                 ),
                               ),
                             ),
-                          ),
-                          Divider(),
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.all(2.0),
+                              child: Align(
+                                alignment: Alignment.bottomLeft,
+                                child: Text(
+                                  '\$${snapshot.data[index].menu_price}',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w400,
+                                    color: const Color(0xff2699fb),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Divider(),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               );
             }
           }
