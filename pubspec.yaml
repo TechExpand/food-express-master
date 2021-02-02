@@ -41,6 +41,7 @@ dependencies:
   provider:
   flare_flutter: ^2.0.6
   http:
+  google_fonts: ^1.1.2
 
 
 dev_dependencies:

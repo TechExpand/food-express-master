@@ -25,23 +25,20 @@ class VENDORprofilestate extends State<VENDORprofile> {
   Widget build(BuildContext context) {
     var webservices = Provider.of<WebServices>(context, listen: false);
     return Scaffold(
-      bottomNavigationBar:  Container(
-                    color: Colors.white,
-                    child: AdmobBanner(
-                      adUnitId: Provider.of<AdmobService>(context, listen: false).getBannerAdUnitId(),
-                      adSize: AdmobBannerSize.BANNER,
-                      listener: (AdmobAdEvent event, Map<String, dynamic> args){
-
-                      },
-                    )
-                  ),
+      bottomNavigationBar: Container(
+          color: Colors.white,
+          child: AdmobBanner(
+            adUnitId: Provider.of<AdmobService>(context, listen: false)
+                .getBannerAdUnitId(),
+            adSize: AdmobBannerSize.BANNER,
+            listener: (AdmobAdEvent event, Map<String, dynamic> args) {},
+          )),
       key: scaffoldKey,
       backgroundColor: const Color(0xffffffff),
       body: FutureBuilder(
         future: webservices.Vendor_Profile_Api(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-           
             return SingleChildScrollView(
                 child: Column(
               children: <Widget>[
@@ -52,32 +49,33 @@ class VENDORprofilestate extends State<VENDORprofile> {
                     Container(
                       width: MediaQuery.of(context).size.width,
                       height: 200.0,
-                     child: Image.asset('assets/images/foodtruck-bg.jpg', fit: BoxFit.fill,),
+                      child: Image.asset(
+                        'assets/images/foodtruck-bg.jpg',
+                        fit: BoxFit.fill,
                       ),
-                    
-                   InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child:  Padding(
-                              padding: EdgeInsets.only(
-                                  top: MediaQuery.of(context).size.width / 8,
-                                  left: MediaQuery.of(context).size.width / 20),
-                              child: Container(
-                                decoration: BoxDecoration(
-                         color: Colors.white,
-                            shape: BoxShape.circle
-                          ),
-                          width: 30,
-                          height: 30,
-                                child: Center(
-                                  child: Icon(
-                                    Icons.arrow_back,
-                                    color: Colors.black38,
-                                  ),
-                                ),
-                              )),
-                        ),
+                    ),
+
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Padding(
+                          padding: EdgeInsets.only(
+                              top: MediaQuery.of(context).size.width / 8,
+                              left: MediaQuery.of(context).size.width / 20),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white, shape: BoxShape.circle),
+                            width: 30,
+                            height: 30,
+                            child: Center(
+                              child: Icon(
+                                Icons.arrow_back,
+                                color: Colors.black38,
+                              ),
+                            ),
+                          )),
+                    ),
                     Align(
                       alignment: Alignment.center,
                       child: SizedBox(
@@ -129,48 +127,48 @@ class VENDORprofilestate extends State<VENDORprofile> {
                                 return Switch(
                                   value: snapshot.data[0].online,
                                   onChanged: (value) {
-                                    
-                                      if (snapshot.data[0].online == true) {
-                                        webservices
-                                            .Update_Vendor_to_Online_Offline(
-                                          scaffoldKey: scaffoldKey,
-                                          context: context,
-                                          lan: snapshot.data[0].Lan,
-                                          log: snapshot.data[0].Log,
-                                          online_offline: false,
-                                          id: snapshot.data[0].id,
-                                          online_offline_value: 'offline',
-                                          color_value: Colors.red,
-                                        ).then((value) => setState((){}));
-                                        webservices.Login_SetState();
-                                      } else {
-                                        webservices
-                                            .Update_Vendor_to_Online_Offline(
-                                          scaffoldKey: scaffoldKey,
-                                          context: context,
-                                          lan: snapshot.data[0].Lan,
-                                          log: snapshot.data[0].Log,
-                                          online_offline: true,
-                                          id: snapshot.data[0].id,
-                                          online_offline_value: 'online',
-                                          color_value: Colors.lightGreen,
-                                        ).then((value) => setState((){}));
-                                        webservices.Login_SetState();
-                                      }
-                                   
+                                    if (snapshot.data[0].online == true) {
+                                      webservices
+                                          .Update_Vendor_to_Online_Offline(
+                                        scaffoldKey: scaffoldKey,
+                                        context: context,
+                                        lan: snapshot.data[0].Lan,
+                                        log: snapshot.data[0].Log,
+                                        online_offline: false,
+                                        id: snapshot.data[0].id,
+                                        online_offline_value: 'offline',
+                                        color_value: Colors.red,
+                                      ).then((value) => setState(() {}));
+                                      webservices.Login_SetState();
+                                    } else {
+                                      webservices
+                                          .Update_Vendor_to_Online_Offline(
+                                        scaffoldKey: scaffoldKey,
+                                        context: context,
+                                        lan: snapshot.data[0].Lan,
+                                        log: snapshot.data[0].Log,
+                                        online_offline: true,
+                                        id: snapshot.data[0].id,
+                                        online_offline_value: 'online',
+                                        color_value: Colors.lightGreen,
+                                      ).then((value) => setState(() {}));
+                                      webservices.Login_SetState();
+                                    }
                                   },
                                 );
                               }
                               return Text('Loading');
                             }),
-                            Text('ONLINE/OFFLINE',  style: TextStyle(
-                              fontFamily: 'Arial',
-                              fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                               color: Colors.black54,
-                              height: 1,
-                            ),
-                           )
+                        Text(
+                          'ONLINE/OFFLINE',
+                          style: TextStyle(
+                            fontFamily: 'Arial',
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black54,
+                            height: 1,
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -183,7 +181,8 @@ class VENDORprofilestate extends State<VENDORprofile> {
                       Column(
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.only(top:8.0, bottom: 8.0,right: 8.0),
+                            padding: const EdgeInsets.only(
+                                top: 8.0, bottom: 8.0, right: 8.0),
                             child: CircleAvatar(
                               backgroundColor: Colors.white,
                               backgroundImage:
@@ -193,14 +192,14 @@ class VENDORprofilestate extends State<VENDORprofile> {
                             ),
                           ),
                           Center(
-      child: RaisedButton(
-          color: Color(0xff67b9fb),
-          onPressed: () {
+                            child: RaisedButton(
+                              color: Color(0xff67b9fb),
+                              onPressed: () {
                                 return Navigator.push(
                                   context,
                                   PageRouteBuilder(
-                                    pageBuilder:
-                                        (context, animation, secondaryAnimation) {
+                                    pageBuilder: (context, animation,
+                                        secondaryAnimation) {
                                       return VENDORprofileEdith(
                                         snapshot_profile_data: snapshot.data[0],
                                       );
@@ -215,25 +214,21 @@ class VENDORprofilestate extends State<VENDORprofile> {
                                   ),
                                 );
                               },
-           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-          
-          child: Container(
-            alignment: Alignment.center,
-            child: Padding(
-              padding: const EdgeInsets.all(5.0),
-              child: Text(
-                "Change Picture",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.white
-                ),
-              ),
-            ),
-          ),
-        ),
-    ),
-                            
-                          
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(8)),
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Text(
+                                    "Change Picture",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                       Container(
@@ -249,7 +244,6 @@ class VENDORprofilestate extends State<VENDORprofile> {
                             color: Colors.black54,
                             height: 1,
                           ),
-                          
                         ),
                       )
                     ],
@@ -273,11 +267,13 @@ class VENDORprofilestate extends State<VENDORprofile> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(8)),
                     child: Card(
                       elevation: 2,
                       child: ListTile(
-                        trailing: Icon(Icons.description, color: Colors.black87),
+                        trailing:
+                            Icon(Icons.description, color: Colors.black87),
                         title: Text(
                           'Edit Your Profile Details',
                           style: TextStyle(color: Colors.black54),
@@ -309,7 +305,8 @@ class VENDORprofilestate extends State<VENDORprofile> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(8)),
                     child: Card(
                       elevation: 2,
                       child: ListTile(
@@ -346,7 +343,8 @@ class VENDORprofilestate extends State<VENDORprofile> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(8)),
                     child: Card(
                       elevation: 2,
                       child: ListTile(
@@ -383,13 +381,14 @@ class VENDORprofilestate extends State<VENDORprofile> {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                    decoration:
+                        BoxDecoration(borderRadius: BorderRadius.circular(8)),
                     child: Card(
                       elevation: 2,
                       child: ListTile(
                         trailing: Icon(
                           FontAwesomeIcons.ccVisa,
-                         color: Color(0xFF67b9fb),
+                          color: Color(0xFF67b9fb),
                         ),
                         title: Text(
                           'Set New Payment Card',
@@ -420,7 +419,6 @@ class VENDORprofilestate extends State<VENDORprofile> {
               ],
             ));
           } else if (snapshot.hasError) {
-           
             return Text('${snapshot.error}');
           }
           return Center(child: CircularProgressIndicator());
