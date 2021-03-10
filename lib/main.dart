@@ -11,6 +11,7 @@ import 'package:foodtruck/Services/admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:foodtruck/screens/SPLASH.dart';
 import 'package:foodtruck/screens/VendorView/VENDORSIGNUP_INFO.dart';
+import 'package:foodtruck/screens/video.dart';
 import 'package:provider/provider.dart';
 import 'package:statusbar/statusbar.dart';
 

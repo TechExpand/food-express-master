@@ -7,15 +7,18 @@ import 'package:foodtruck/Model/locationprofilemenudetails.dart';
 import 'package:foodtruck/Model/rating.dart';
 import 'package:foodtruck/Model/vendorprofile.dart';
 import 'package:foodtruck/Services/LocationService.dart';
+import 'package:foodtruck/Utils/utils.dart';
 import 'package:foodtruck/screens/UserView/Map_user.dart';
 import 'package:foodtruck/screens/VendorView/MAp_vendor.dart';
 import 'package:foodtruck/screens/VendorView/SubscribePage.dart';
 import 'package:foodtruck/screens/VendorView/VENDORSIGNUP_INFO.dart';
 import 'package:foodtruck/screens/VendorView/VENDORprofile.dart';
 import 'package:foodtruck/screens/VendorView/VendorMenuPage.dart';
+import 'package:foodtruck/screens/video.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class WebServices extends ChangeNotifier {
   var vendor_signup_res;
@@ -35,6 +38,7 @@ class WebServices extends ChangeNotifier {
   var login_state_third = false;
   var value;
   var isLoading = false;
+  String user= '';
 
 
 
@@ -74,7 +78,7 @@ class WebServices extends ChangeNotifier {
               'http://wingu1000.pythonanywhere.com/foodtruck-vendor/locationprofile/${id.toString()}'),
           headers: {
             "Accept": "application/json",
-            "Authorization": '${token['auth_token']}'
+            "Authorization": '${token}'
           });
       if (res.statusCode == 200) {
        
@@ -100,7 +104,7 @@ class WebServices extends ChangeNotifier {
               'http://wingu1000.pythonanywhere.com/foodtruck-vendor/locationmenu/id=${id.toString()}/sub_id=${subscription_id.toString()}'),
           headers: {
             "Accept": "application/json",
-            "Authorization": '${token['auth_token']}'
+            "Authorization": '${token}'
           });
       if (res.statusCode == 200) {
         var body = jsonDecode(res.body);
@@ -177,7 +181,7 @@ class WebServices extends ChangeNotifier {
           vendor_info_res.statusCode == 201) {
         Login_SetState();
         showDialog(
-            child: AlertDialog(
+            builder:(context)=>AlertDialog(
               elevation: 6,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(32.0))),
@@ -217,10 +221,12 @@ class WebServices extends ChangeNotifier {
                                 borderRadius: BorderRadius.circular(26)
                             ),
                             child: FlatButton(
-                              onPressed: () {
+                              onPressed: () async{
+                                SharedPreferences prefs = await SharedPreferences.getInstance();
+                                var video = prefs.getString('video');
                                // Navigator.of(context).pop();
                                 Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                  return Map_user();
+                                  return video == null || video == 'null' || video == ''?VideoApp():Map_user();
                                 }));
                               },
                               color: Color(0xFFE60016),
@@ -300,7 +306,7 @@ class WebServices extends ChangeNotifier {
       } else if (vendor_info_res.statusCode == 400) {
         Login_SetState();
         showDialog(
-            child: AlertDialog(
+            builder:(context)=> AlertDialog(
               title: Center(
                 child: Text('Check Credentials',
                     style: TextStyle(color: Colors.blue)),
@@ -313,7 +319,7 @@ class WebServices extends ChangeNotifier {
       
       Login_SetState();
       showDialog(
-          child: AlertDialog(
+          builder:(context)=> AlertDialog(
             title: Center(
               child:
                   Text('Working on it', style: TextStyle(color: Colors.blue)),
@@ -348,14 +354,16 @@ class WebServices extends ChangeNotifier {
 
       if (vendor_sub_res.statusCode == 200 ||
           vendor_sub_res.statusCode == 201) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        var video = prefs.getString('video');
         Login_SetState();
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return Map_user();
+          return video == null || video == 'null' || video == ''?VideoApp():Map_user();
         }));
       } else if (vendor_sub_res.statusCode == 400) {
         Login_SetState();
         showDialog(
-            child: AlertDialog(
+           builder:(context)=> AlertDialog(
               title: Center(
                 child: Text('Check Credentials',
                     style: TextStyle(color: Colors.blue)),
@@ -368,7 +376,7 @@ class WebServices extends ChangeNotifier {
       Login_SetState();
       
       showDialog(
-          child: AlertDialog(
+          builder:(context)=> AlertDialog(
             title: Center(
               child:
               Text('Working on it $e', style: TextStyle(color: Colors.blue)),
@@ -422,7 +430,7 @@ class WebServices extends ChangeNotifier {
           update_online_offline_res.statusCode == 401) {
         Login_SetState();
         showDialog(
-            child: AlertDialog(
+           builder:(context)=> AlertDialog(
               title: Center(
                 child: Icon(
                   Icons.signal_cellular_connected_no_internet_4_bar,
@@ -438,7 +446,7 @@ class WebServices extends ChangeNotifier {
      
       Login_SetState();
       showDialog(
-          child: AlertDialog(
+         builder:(context)=> AlertDialog(
             title: Center(
               child:
                   Text('Working on it', style: TextStyle(color: Colors.blue)),
@@ -456,7 +464,8 @@ class WebServices extends ChangeNotifier {
         headers: {
           "Accept": "application/json",
           "Authorization": 'Token ${token['auth_token']}'
-        });
+        }
+    );
     if (vendor_profile_res.statusCode == 200) {
      
       var body = jsonDecode(vendor_profile_res.body) as List;
@@ -476,7 +485,7 @@ class WebServices extends ChangeNotifier {
         Uri.encodeFull('http://app.foodtruck.express/foodtruck/users/me/'),
         headers: {
           "Accept": "application/json",
-          "Authorization": 'Token ${token['auth_token']}'
+          "Authorization": 'Token ${token}'
         });
     if (user_profile_res.statusCode == 200) {
       var body = jsonDecode(user_profile_res.body);
@@ -494,7 +503,7 @@ class WebServices extends ChangeNotifier {
               'http://wingu1000.pythonanywhere.com/foodtruck-vendor/currentvendorslanlog/lan=${35.1081645}&log=${-106.4949871}&range_value=${range_value}/'),
           headers: {
             "Accept": "application/json",
-            "Authorization": '${token['auth_token'].toString()}',
+            "Authorization": '${token}',
           });
 
       if (res.statusCode == 200) {
@@ -582,7 +591,7 @@ class WebServices extends ChangeNotifier {
               'http://wingu1000.pythonanywhere.com/foodtruck-vendor/rating/$vendor_id/'),
           headers: {
             "Accept": "application/json",
-            "Authorization": '${token['auth_token']}'
+            "Authorization": '${token}'
           });
         
       if (res.statusCode == 200) {
@@ -604,7 +613,7 @@ class WebServices extends ChangeNotifier {
         Uri.encodeFull('http://app.foodtruck.express/foodtruck/userlanlog/'),
         headers: {
           "Accept": "application/json",
-          "Authorization": '${token['auth_token']}'
+          "Authorization": '${token}'
         });
     if (current_user_location.statusCode == 200) {
      
@@ -670,7 +679,7 @@ class WebServices extends ChangeNotifier {
        },
         headers: {
           "Accept": "application/json",
-          "Authorization": 'Token ${token['auth_token']}'
+          "Authorization": 'Token ${token}'
         });
     if (vender_subscription.statusCode == 200) {
       Login_SetState();
@@ -701,7 +710,7 @@ class WebServices extends ChangeNotifier {
       return body;
     } else {
        Login_SetState();
-       return token['auth_token'].toString();
+       return token.toString();
     }
     }catch(e){
        Login_SetState();
@@ -728,7 +737,7 @@ class WebServices extends ChangeNotifier {
         
            Login_SetState();
       showDialog(
-          child: AlertDialog(
+          builder:(context)=> AlertDialog(
             title: Center(
               child:
                   Text('Working on it', style: TextStyle(color: Colors.blue)),
@@ -781,7 +790,7 @@ class WebServices extends ChangeNotifier {
       upload_loc.fields['online'] = 'True';
       upload_loc.fields['user'] = '';
       upload_loc.headers['authorization'] =
-          'Token ${token['auth_token']}';
+          'Token ${token}';
       final stream_loc = await upload_loc.send();
       var response_loc = await http.Response.fromStream(stream_loc);
       return '${response_loc.body}';
@@ -801,7 +810,7 @@ class WebServices extends ChangeNotifier {
       upload.fields['Lan'] = locationValues.location_latitude.toString();
       upload.fields['Log'] = locationValues.location_longitude.toString();
       upload.fields['user'] = '';
-      upload.headers['authorization'] = 'Token ${token['auth_token']}';
+      upload.headers['authorization'] = 'Token ${token}';
 
       final stream = await upload.send();
       var update_user_location_res = await http.Response.fromStream(stream);
@@ -875,7 +884,7 @@ class WebServices extends ChangeNotifier {
       upload_loc.fields['online'] = 'True';
       upload_loc.fields['user'] = '';
       upload_loc.headers['authorization'] =
-          'Token ${token['auth_token']}';
+          'Token ${token}';
       final stream_loc = await upload_loc.send();
       var response_loc = await http.Response.fromStream(stream_loc);
       return '{response_loc.body}';
@@ -886,6 +895,7 @@ class WebServices extends ChangeNotifier {
 
   Future Signup_VendorApi(
       {username, password, email, re_password, context}) async {
+        var data = Provider.of<Utils>(context, listen: false);
     try {
       var upload = http.MultipartRequest(
           'POST',
@@ -902,14 +912,17 @@ class WebServices extends ChangeNotifier {
       var body = jsonDecode(vendor_signup_res.body);
       if (vendor_signup_res.statusCode == 200 ||
           vendor_signup_res.statusCode == 201) {
+            data.storeData('token', token['auth_token']);
+            data.storeData('user', 'vendor');
         Login_SetState();
         Navigator.push(context, MaterialPageRoute(builder: (context) {
+          initializeValues();
           return VENDORSIGNUP22();
         }));
       } else if (vendor_signup_res.statusCode == 400) {
         Login_SetState();
         showDialog(
-            child: AlertDialog(
+            builder:(context)=> AlertDialog(
               title: Center(
                 child: Text('Check Credentials',
                     style: TextStyle(color: Colors.blue)),
@@ -951,7 +964,7 @@ class WebServices extends ChangeNotifier {
      
       Login_SetState();
       showDialog(
-          child: AlertDialog(
+         builder:(context)=> AlertDialog(
             title: Center(
               child:
                   Text('Working on it', style: TextStyle(color: Colors.blue)),
@@ -964,6 +977,7 @@ class WebServices extends ChangeNotifier {
 
   Future Signup_UserApi(
       {password, email, context}) async {
+         var data = Provider.of<Utils>(context, listen: false);
     try {
       var upload = http.MultipartRequest(
           'POST', Uri.parse('http://app.foodtruck.express/foodtruck/users/'));
@@ -977,14 +991,19 @@ class WebServices extends ChangeNotifier {
       var body = jsonDecode(user_signup_res.body);
       if (user_signup_res.statusCode == 200 ||
           user_signup_res.statusCode == 201) {
+        data.storeData('token', token['auth_token']);
+            data.storeData('user', 'user');
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        var video = prefs.getString('video');
         Login_SetState();
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return Map_vendor();
+          initializeValues();
+          return video == null || video == 'null' || video == ''?VideoApp():Map_vendor();
         }));
       } else if (user_signup_res.statusCode == 400) {
         Login_SetState();
         showDialog(
-            child: AlertDialog(
+            builder:(context)=> AlertDialog(
               title: Center(
                 child: Text('Check Credentials',
                     style: TextStyle(color: Colors.blue)),
@@ -1026,7 +1045,7 @@ class WebServices extends ChangeNotifier {
      
       Login_SetState();
       showDialog(
-          child: AlertDialog(
+         builder:(context)=> AlertDialog(
             title: Center(
               child:
                   Text('Working on it', style: TextStyle(color: Colors.blue)),
@@ -1038,6 +1057,7 @@ class WebServices extends ChangeNotifier {
   }
 
   Future Login_VendorApi({password, email, context}) async {
+     var data = Provider.of<Utils>(context, listen: false);
     try {
       var upload = http.MultipartRequest(
           'POST',
@@ -1051,14 +1071,20 @@ class WebServices extends ChangeNotifier {
    
       if (vendor_login_res.statusCode == 200 ||
           vendor_login_res.statusCode == 201) {
+//            data.storeData('token', token);
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        var video = prefs.getString('video');
+        data.storeData('token', token['auth_token']);
+            data.storeData('user', 'vendor');
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return Map_user();
+          initializeValues();
+          return video == null || video == 'null' || video == ''?VideoApp():Map_user();
         }));
         Login_SetState();
       } else if (vendor_login_res.statusCode == 400 ||
           vendor_login_res.statusCode == 500) {
         showDialog(
-            child: AlertDialog(
+           builder:(context)=> AlertDialog(
               title: Center(
                 child: Text('Check Credentials',
                     style: TextStyle(color: Colors.blue)),
@@ -1070,7 +1096,7 @@ class WebServices extends ChangeNotifier {
         Login_SetState();
       } else if (vendor_login_res.statusCode == 404) {
         showDialog(
-            child: AlertDialog(
+           builder:(context)=> AlertDialog(
               content: Text('no response! try again',
                   style: TextStyle(color: Colors.blue)),
             ),
@@ -1084,7 +1110,7 @@ class WebServices extends ChangeNotifier {
      
       Login_SetState();
       showDialog(
-          child: AlertDialog(
+         builder:(context)=> AlertDialog(
             title: Center(
               child:
                   Text('Working on it', style: TextStyle(color: Colors.blue)),
@@ -1096,6 +1122,7 @@ class WebServices extends ChangeNotifier {
   }
 
   Future Login_UserApi({password, email, context}) async {
+     var data = Provider.of<Utils>(context, listen: false);
     try {
       var upload = http.MultipartRequest('POST',
           Uri.parse('http://app.foodtruck.express/foodtruck/token/login/'));
@@ -1107,14 +1134,20 @@ class WebServices extends ChangeNotifier {
      
       if (user_login_res.statusCode == 200 ||
           user_login_res.statusCode == 201) {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        var video = prefs.getString('video');
+        data.storeData('token', token['auth_token']);
+        data.storeData('user', 'user');
+
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return Map_vendor();
+          initializeValues();
+          return video == null || video == 'null' || video == ''?VideoApp():Map_vendor();
         }));
         Login_SetState();
       } else if (user_login_res.statusCode == 400 ||
           user_login_res.statusCode == 500) {
         showDialog(
-            child: AlertDialog(
+           builder:(context)=> AlertDialog(
               title: Center(
                 child: Text('Check Credentials',
                     style: TextStyle(color: Colors.blue)),
@@ -1126,7 +1159,7 @@ class WebServices extends ChangeNotifier {
         Login_SetState();
       } else if (user_login_res.statusCode == 404) {
         showDialog(
-            child: AlertDialog(
+            builder:(context)=> AlertDialog(
               content: Text('no response! try again',
                   style: TextStyle(color: Colors.blue)),
             ),
@@ -1136,10 +1169,10 @@ class WebServices extends ChangeNotifier {
 
       return token;
     } catch (e) {
-    
+
       Login_SetState();
       showDialog(
-          child: AlertDialog(
+          builder:(context)=> AlertDialog(
             title: Center(
               child:
                   Text('Working on it', style: TextStyle(color: Colors.blue)),
@@ -1179,7 +1212,7 @@ class WebServices extends ChangeNotifier {
           update_menu_res.statusCode == 405) {
        
         showDialog(
-            child: AlertDialog(
+            builder:(context)=> AlertDialog(
               content: Text('process unable to finish',
                   style: TextStyle(color: Colors.blue)),
             ),
@@ -1187,7 +1220,7 @@ class WebServices extends ChangeNotifier {
         Login_SetState();
       } else if (update_menu_res.statusCode == 404) {
         showDialog(
-            child: AlertDialog(
+            builder:(context)=> AlertDialog(
               content: Text('no response! try again',
                   style: TextStyle(color: Colors.blue)),
             ),
@@ -1199,7 +1232,7 @@ class WebServices extends ChangeNotifier {
     } catch (e) {
       Login_SetState();
       showDialog(
-          child: AlertDialog(
+        builder:(context)=> AlertDialog(
             title: Center(
               child:
                   Text('Working on it', style: TextStyle(color: Colors.blue)),
@@ -1209,6 +1242,14 @@ class WebServices extends ChangeNotifier {
           context: context);
      
     }
+  }
+
+
+ initializeValues() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    token = int.parse(prefs.getString('token'));
+    user = prefs.getString('user');
+    notifyListeners();
   }
 
   Future Update_Profile_Details({
@@ -1247,7 +1288,7 @@ class WebServices extends ChangeNotifier {
           update_profile_res.statusCode == 405) {
     
         showDialog(
-            child: AlertDialog(
+            builder:(context)=> AlertDialog(
               content: Text('process unable to finish',
                   style: TextStyle(color: Colors.blue)),
             ),
@@ -1255,7 +1296,7 @@ class WebServices extends ChangeNotifier {
         Login_SetState_third();
       } else if (update_profile_res.statusCode == 404) {
         showDialog(
-            child: AlertDialog(
+            builder:(context)=> AlertDialog(
               content: Text('no response! try again',
                   style: TextStyle(color: Colors.blue)),
             ),
@@ -1267,7 +1308,7 @@ class WebServices extends ChangeNotifier {
     } catch (e) {
       Login_SetState_third();
       showDialog(
-          child: AlertDialog(
+          builder:(context)=> AlertDialog(
             title: Center(
               child:
                   Text('Working on it', style: TextStyle(color: Colors.blue)),
@@ -1313,7 +1354,7 @@ class WebServices extends ChangeNotifier {
           upload_menu_res.statusCode == 500 ||
           upload_menu_res.statusCode == 405 || upload_menu_res.statusCode == 404) {
         showDialog(
-            child: AlertDialog(
+            builder:(context)=> AlertDialog(
               content: Text('process unable to finish',
                   style: TextStyle(color: Colors.blue)),
             ),
@@ -1321,7 +1362,7 @@ class WebServices extends ChangeNotifier {
         Login_SetState();
       } else if (upload_menu_res.statusCode == 404) {
         showDialog(
-            child: AlertDialog(
+           builder:(context)=> AlertDialog(
               content: Text('no response! try again',
                   style: TextStyle(color: Colors.blue)),
             ),
@@ -1334,7 +1375,7 @@ class WebServices extends ChangeNotifier {
 
       Login_SetState();
       showDialog(
-          child: AlertDialog(
+         builder:(context)=> AlertDialog(
             title: Center(
               child:
                   Text('Working on it', style: TextStyle(color: Colors.blue)),
@@ -1369,7 +1410,7 @@ class WebServices extends ChangeNotifier {
           update_menu_res.statusCode == 405) {
         Navigator.pop(context);
         showDialog(
-            child: AlertDialog(
+           builder:(context)=> AlertDialog(
               content: Text('process unable to finish',
                   style: TextStyle(color: Colors.blue)),
             ),
@@ -1379,7 +1420,7 @@ class WebServices extends ChangeNotifier {
       } else if (update_menu_res.statusCode == 404) {
         Navigator.pop(context);
         showDialog(
-            child: AlertDialog(
+       builder:(context)=> AlertDialog(
               content:  Text('no response! try again',
                     style: TextStyle(color: Colors.blue)),
             ),
@@ -1392,7 +1433,7 @@ class WebServices extends ChangeNotifier {
       Navigator.pop(context);
      showDialog(
        context:context,
-        child: AlertDialog(
+       builder:(context)=> AlertDialog(
           title: Center(
             child:
             Text('Working on it', style: TextStyle(color: Colors.blue)),
@@ -1430,7 +1471,7 @@ class WebServices extends ChangeNotifier {
           update_menu_res.statusCode == 405) {
        
         showDialog(
-            child: AlertDialog(
+            builder:(context)=> AlertDialog(
               content: Text('process unable to finish',
                   style: TextStyle(color: Colors.blue)),
             ),
@@ -1438,7 +1479,7 @@ class WebServices extends ChangeNotifier {
         Login_SetState();
       } else if (update_menu_res.statusCode == 404) {
         showDialog(
-            child: AlertDialog(
+            builder:(context)=> AlertDialog(
               content: Text('no response! try again',
                   style: TextStyle(color: Colors.blue)),
             ),
@@ -1450,7 +1491,7 @@ class WebServices extends ChangeNotifier {
     } catch (e) {
       Login_SetState();
       showDialog(
-          child: AlertDialog(
+          builder:(context)=> AlertDialog(
             title: Center(
               child:
                   Text('Working on it', style: TextStyle(color: Colors.blue)),
@@ -1490,7 +1531,7 @@ class WebServices extends ChangeNotifier {
           update_menu_res.statusCode == 405) {
        
         showDialog(
-            child: AlertDialog(
+            builder:(context)=> AlertDialog(
               content: Text('process unable to finish',
                   style: TextStyle(color: Colors.blue)),
             ),
@@ -1498,7 +1539,7 @@ class WebServices extends ChangeNotifier {
         Login_SetState_Second();
       } else if (update_menu_res.statusCode == 404) {
         showDialog(
-            child: AlertDialog(
+           builder:(context)=> AlertDialog(
               content: Text('no response! try again',
                   style: TextStyle(color: Colors.blue)),
             ),
@@ -1510,7 +1551,7 @@ class WebServices extends ChangeNotifier {
     } catch (e) {
       Login_SetState_Second();
       showDialog(
-          child: AlertDialog(
+        builder:(context)=> AlertDialog(
             title: Center(
               child:
                   Text('Working on it', style: TextStyle(color: Colors.blue)),
@@ -1547,7 +1588,7 @@ class WebServices extends ChangeNotifier {
           upload_rate_res.statusCode == 500 ||
           upload_rate_res.statusCode == 405) {
         showDialog(
-            child: AlertDialog(
+           builder:(context)=> AlertDialog(
               content: Text('process unable to finish',
                   style: TextStyle(color: Colors.blue)),
             ),
@@ -1555,7 +1596,7 @@ class WebServices extends ChangeNotifier {
         Login_SetState();
       } else if (upload_rate_res.statusCode == 404) {
         showDialog(
-            child: AlertDialog(
+          builder:(context)=> AlertDialog(
               content: Text('no response! try again',
                   style: TextStyle(color: Colors.blue)),
             ),
@@ -1565,7 +1606,7 @@ class WebServices extends ChangeNotifier {
     } catch (e) {
       Login_SetState_third();
       showDialog(
-          child: AlertDialog(
+        builder:(context)=> AlertDialog(
             title: Center(
               child:
                   Text('Working on it', style: TextStyle(color: Colors.blue)),

@@ -294,16 +294,16 @@ Widget UserLogin(email, password, context, form_key) {
                                       email: email,
                                       password: password,
                                       context: context)
-                                  .then((value) => webservices_consumer
-                                      .get_current_user_location()
-                                      .then((value) => Timer.periodic(
-                                              Duration(seconds: 5), (timer) {
-                                            webservices_consumer
-                                                .Update_User_Location(
-                                              id: value[0].id,
-                                              context: context,
-                                            );
-                                          })));
+                                   .then((value) => webservices_consumer
+                                       .get_current_user_location()
+                                       .then((value) => Timer.periodic(
+                                               Duration(seconds: 5), (timer) {
+                                             webservices_consumer
+                                                 .Update_User_Location(
+                                               id: value[0].id,
+                                               context: context,
+                                             );
+                                           })));
                             }
                           },
                           color: Color(0xFF67b9fb),

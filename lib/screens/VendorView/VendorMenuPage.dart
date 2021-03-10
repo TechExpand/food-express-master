@@ -265,7 +265,7 @@ class VendorMenuPageState extends State<VendorMenuPage> {
                                 ),
                                 onTap: () {
                                   return showDialog(
-                                      child: AlertDialog(
+                                      builder:(context)=> AlertDialog(
                                         content: Container(
                                           child: Column(
                                             children: <Widget>[

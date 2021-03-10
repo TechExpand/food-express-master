@@ -59,7 +59,7 @@ class _SubscribePageState extends State<SubscribePage> {
             child: Consumer2<Utils, WebServices>(
               builder: (context, utils_consumer, webservices_consumer, child) =>
                   Column(
-                    
+
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       Padding(

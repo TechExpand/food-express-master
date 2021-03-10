@@ -171,7 +171,7 @@ class VENDORprofileEdithstate extends State<VENDORprofileEdith> {
                                 catch(e){
                            webservices_consumer.Login_SetState();
                           showDialog(
-          child: AlertDialog(
+          builder:(context)=>AlertDialog(
             title: Center(
               child:
                   Text('There was a Problem Encountered', style: TextStyle(color: Colors.blue)),
@@ -360,7 +360,7 @@ class VENDORprofileEdithstate extends State<VENDORprofileEdith> {
                                     catch(e){
                            webservices_consumer.Login_SetState_third();
                           showDialog(
-          child: AlertDialog(
+          builder:(context)=> AlertDialog(
             title: Center(
               child:
                   Text('There was a Problem Encountered', style: TextStyle(color: Colors.blue)),

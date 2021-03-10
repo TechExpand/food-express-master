@@ -10,8 +10,9 @@ import 'package:provider/provider.dart';
 
 class managesubscription extends StatefulWidget {
   var id;
-managesubscription(this.id);
-   
+
+  managesubscription(this.id);
+
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -29,16 +30,14 @@ class managesubscriptionstate extends State<managesubscription> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar:  Container(
-                    color: Colors.white,
-                    child: AdmobBanner(
-                      adUnitId: Provider.of<AdmobService>(context, listen: false).getBannerAdUnitId(),
-                      adSize: AdmobBannerSize.BANNER,
-                      listener: (AdmobAdEvent event, Map<String, dynamic> args){
-
-                      },
-                    )
-                  ),
+        bottomNavigationBar: Container(
+            color: Colors.white,
+            child: AdmobBanner(
+              adUnitId: Provider.of<AdmobService>(context, listen: false)
+                  .getBannerAdUnitId(),
+              adSize: AdmobBannerSize.BANNER,
+              listener: (AdmobAdEvent event, Map<String, dynamic> args) {},
+            )),
         key: scaffoldKey,
         backgroundColor: const Color(0xffffffff),
         body: SingleChildScrollView(child: Consumer2<WebServices, Utils>(
@@ -54,31 +53,32 @@ class managesubscriptionstate extends State<managesubscription> {
                     Container(
                       width: MediaQuery.of(context).size.width,
                       height: 200.0,
-                      child: Image.asset('assets/images/foodtruck-bg.jpg', fit: BoxFit.fill,),
+                      child: Image.asset(
+                        'assets/images/foodtruck-bg.jpg',
+                        fit: BoxFit.fill,
+                      ),
                     ),
- InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child:  Padding(
-                              padding: EdgeInsets.only(
-                                  top: MediaQuery.of(context).size.width / 8,
-                                  left: MediaQuery.of(context).size.width / 20),
-                              child: Container(
-                                decoration: BoxDecoration(
-                         color: Colors.white,
-                            shape: BoxShape.circle
-                          ),
-                          width: 30,
-                          height: 30,
-                                child: Center(
-                                  child: Icon(
-                                    Icons.arrow_back,
-                                    color: Colors.black38,
-                                  ),
-                                ),
-                              )),
-                        ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Padding(
+                          padding: EdgeInsets.only(
+                              top: MediaQuery.of(context).size.width / 8,
+                              left: MediaQuery.of(context).size.width / 20),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white, shape: BoxShape.circle),
+                            width: 30,
+                            height: 30,
+                            child: Center(
+                              child: Icon(
+                                Icons.arrow_back,
+                                color: Colors.black38,
+                              ),
+                            ),
+                          )),
+                    ),
                     Align(
                       alignment: Alignment.center,
                       child: SizedBox(
@@ -140,10 +140,11 @@ class managesubscriptionstate extends State<managesubscription> {
                                             children: <Widget>[
                                               Builder(builder: (context) {
                                                 if (subscription_status_snapshot
-                                                        .data ==
-                                                    'active' || subscription_status_snapshot
-                                                    .data ==
-                                                    'trialing') {
+                                                            .data ==
+                                                        'active' ||
+                                                    subscription_status_snapshot
+                                                            .data ==
+                                                        'trialing') {
                                                   return Padding(
                                                     padding:
                                                         const EdgeInsets.all(
@@ -186,29 +187,49 @@ class managesubscriptionstate extends State<managesubscription> {
                                                                   },
                                                                   color: Colors
                                                                       .blue,
-                                                                 
-                                                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-    padding: EdgeInsets.all(0.0),
-    child: Ink(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [Color(0xff67b9fb), Color(0xff8acbff)],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
-          borderRadius: BorderRadius.circular(8)
-      ),
-      child: Container(
-        constraints: BoxConstraints(maxWidth: 200.0, minHeight: 50.0),
-        alignment: Alignment.center,
-        child: Text(
-          "cancel!",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              color: Colors.white
-          ),
-        ),
-      ),
-    ),
+                                                                  shape: RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              8)),
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              0.0),
+                                                                  child: Ink(
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                            gradient:
+                                                                                LinearGradient(
+                                                                              colors: [
+                                                                                Color(0xff67b9fb),
+                                                                                Color(0xff8acbff)
+                                                                              ],
+                                                                              begin: Alignment.centerLeft,
+                                                                              end: Alignment.centerRight,
+                                                                            ),
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(8)),
+                                                                    child:
+                                                                        Container(
+                                                                      constraints: BoxConstraints(
+                                                                          maxWidth:
+                                                                              200.0,
+                                                                          minHeight:
+                                                                              50.0),
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .center,
+                                                                      child:
+                                                                          Text(
+                                                                        "cancel!",
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Colors.white),
+                                                                      ),
+                                                                    ),
+                                                                  ),
                                                                 )
                                                               : CircularProgressIndicator(),
                                                         )
@@ -259,36 +280,57 @@ class managesubscriptionstate extends State<managesubscription> {
                                                                     webservices_consumer
                                                                         .Login_SetState();
                                                                     webservices_consumer
-                                                                        .reactivate_subscription(widget.id)
+                                                                        .reactivate_subscription(widget
+                                                                            .id)
                                                                         .then((value) => scaffoldKey
                                                                             .currentState
                                                                             .showSnackBar(new SnackBar(content: new Text(value))));
                                                                   },
                                                                   color: Colors
                                                                       .blue,
-                                                                  
-                                                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-    padding: EdgeInsets.all(0.0),
-    child: Ink(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [Color(0xff67b9fb), Color(0xff8acbff)],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
-          borderRadius: BorderRadius.circular(8)
-      ),
-      child: Container(
-        constraints: BoxConstraints(maxWidth: 200.0, minHeight: 50.0),
-        alignment: Alignment.center,
-        child: Text(
-          "Subscribe",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              color: Colors.white
-          ),
-        ),
-      ),
-    ),
+                                                                  shape: RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              8)),
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              0.0),
+                                                                  child: Ink(
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                            gradient:
+                                                                                LinearGradient(
+                                                                              colors: [
+                                                                                Color(0xff67b9fb),
+                                                                                Color(0xff8acbff)
+                                                                              ],
+                                                                              begin: Alignment.centerLeft,
+                                                                              end: Alignment.centerRight,
+                                                                            ),
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(8)),
+                                                                    child:
+                                                                        Container(
+                                                                      constraints: BoxConstraints(
+                                                                          maxWidth:
+                                                                              200.0,
+                                                                          minHeight:
+                                                                              50.0),
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .center,
+                                                                      child:
+                                                                          Text(
+                                                                        "Subscribe",
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Colors.white),
+                                                                      ),
+                                                                    ),
+                                                                  ),
                                                                 )
                                                               : Padding(
                                                                   padding:
@@ -302,9 +344,8 @@ class managesubscriptionstate extends State<managesubscription> {
                                                       ],
                                                     ),
                                                   );
-                                                }
-                                               else{
-                                               return Padding(
+                                                } else {
+                                                  return Padding(
                                                     padding:
                                                         const EdgeInsets.all(
                                                             8.0),
@@ -336,47 +377,74 @@ class managesubscriptionstate extends State<managesubscription> {
                                                               ? RaisedButton(
                                                                   onPressed:
                                                                       () {
-                                                                        Navigator.pushReplacement(
-      context,
-      PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) {
-          return   SubscribePage();
-        },
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(
-            opacity: animation,
-            child: child,
-          );
-        },
-      ),
-    );
-                                                                 
+                                                                    Navigator
+                                                                        .pushReplacement(
+                                                                      context,
+                                                                      PageRouteBuilder(
+                                                                        pageBuilder: (context,
+                                                                            animation,
+                                                                            secondaryAnimation) {
+                                                                          return SubscribePage();
+                                                                        },
+                                                                        transitionsBuilder: (context,
+                                                                            animation,
+                                                                            secondaryAnimation,
+                                                                            child) {
+                                                                          return FadeTransition(
+                                                                            opacity:
+                                                                                animation,
+                                                                            child:
+                                                                                child,
+                                                                          );
+                                                                        },
+                                                                      ),
+                                                                    );
                                                                   },
                                                                   color: Colors
                                                                       .blue,
-                                                                  
-                                                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-    padding: EdgeInsets.all(0.0),
-    child: Ink(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(colors: [Color(0xff67b9fb), Color(0xff8acbff)],
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-          ),
-          borderRadius: BorderRadius.circular(8)
-      ),
-      child: Container(
-        constraints: BoxConstraints(maxWidth: 200.0, minHeight: 50.0),
-        alignment: Alignment.center,
-        child: Text(
-          "Subscribe",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              color: Colors.white
-          ),
-        ),
-      ),
-    ),
+                                                                  shape: RoundedRectangleBorder(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              8)),
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              0.0),
+                                                                  child: Ink(
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                            gradient:
+                                                                                LinearGradient(
+                                                                              colors: [
+                                                                                Color(0xff67b9fb),
+                                                                                Color(0xff8acbff)
+                                                                              ],
+                                                                              begin: Alignment.centerLeft,
+                                                                              end: Alignment.centerRight,
+                                                                            ),
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(8)),
+                                                                    child:
+                                                                        Container(
+                                                                      constraints: BoxConstraints(
+                                                                          maxWidth:
+                                                                              200.0,
+                                                                          minHeight:
+                                                                              50.0),
+                                                                      alignment:
+                                                                          Alignment
+                                                                              .center,
+                                                                      child:
+                                                                          Text(
+                                                                        "Subscribe",
+                                                                        textAlign:
+                                                                            TextAlign.center,
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                Colors.white),
+                                                                      ),
+                                                                    ),
+                                                                  ),
                                                                 )
                                                               : Padding(
                                                                   padding:
@@ -390,8 +458,7 @@ class managesubscriptionstate extends State<managesubscription> {
                                                       ],
                                                     ),
                                                   );
-                                                
-                                               } 
+                                                }
                                               })
                                             ],
                                           ),

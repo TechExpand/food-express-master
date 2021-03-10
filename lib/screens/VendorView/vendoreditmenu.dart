@@ -320,7 +320,7 @@ class vendoreditmenustate extends State<vendoreditmenu> {
                              
                       webservices_consumer.Login_SetState();
       showDialog(
-          child: AlertDialog(
+          builder:(context)=> AlertDialog(
             title: Center(
               child:
                   Text('There was a Problem Encountered', style: TextStyle(color: Colors.blue)),
