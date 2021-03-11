@@ -255,7 +255,7 @@ class vendoraddmenustate extends State<vendoraddcard> {
                                 context: context,
                                 cvc: cvc,
                               ).then((value) => showDialog(
-                                  child: AlertDialog(
+                                  builder:(context)=> AlertDialog(
                                     title: Center(
                                       child: Column(
                                         children: <Widget>[
