@@ -25,7 +25,7 @@ class SPLASHSTATE extends State<SPLASH> {
   void initState() {
     Provider.of<WebServices>(context, listen: false).initializeValues();
     super.initState();
-    Future.delayed(Duration(seconds: 7), go_to_home);
+    Future.delayed(Duration(seconds: 2), go_to_home);
   }
 
   go_to_home() {

@@ -10,7 +10,11 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 import 'package:foodtruck/screens/VendorView/VENDORprofile.dart';
 import 'package:provider/provider.dart';
+<<<<<<< HEAD
 import 'package:shared_preferences/shared_preferences.dart';
+=======
+import 'package:google_fonts/google_fonts.dart';
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
 
 class Map_user extends StatelessWidget {
   @override
@@ -75,6 +79,7 @@ class Map_vendorSampleState extends State<Map_vendorSample> {
           ),
         ),
         actions: <Widget>[
+<<<<<<< HEAD
           IconButton(icon:Icon(Icons.logout), color: Colors.blue,
             onPressed: ()async{
               SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -95,6 +100,8 @@ class Map_vendorSampleState extends State<Map_vendorSample> {
                 ),
               );
             },),
+=======
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
           Image.asset(
             'assets/images/truckIcon.png',
             width: 100,
@@ -103,11 +110,19 @@ class Map_vendorSampleState extends State<Map_vendorSample> {
             width: 8,
           )
         ],
+<<<<<<< HEAD
         backgroundColor: Colors.white,
 
         title: Text(
           'Current Users',
           style: TextStyle(color: Colors.black),
+=======
+        backgroundColor: Colors.transparent,
+        centerTitle: true,
+        title: Text(
+          'Current Users',
+          style: TextStyle(color: Colors.blue),
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
           overflow: TextOverflow.visible,
         ),
       ),
@@ -262,10 +277,18 @@ class bodywidget extends StatefulWidget {
 
 class bodywidgetstate extends State<bodywidget> {
   Completer<GoogleMapController> _controller = Completer();
+  String _mapStyle;
   var marker = Set<Marker>();
-  var zoom_value = 12.0;
+  var zoom_value = 15.0;
   var index_value;
   var range_value = 50.0;
+
+  initState() {
+    super.initState();
+    bodywidgetstate.loadString('assets/mapstyle.txt').then((string) {
+      _mapStyle = string;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -301,8 +324,12 @@ class bodywidgetstate extends State<bodywidget> {
                                       snapshot_profile.data[0].id);
                                 } else if (snapshots.data ==
                                         'Connection Error' ||
+<<<<<<< HEAD
                                     snapshots.data ==
                                         'VENDOR MENU IS UNAVAILABLE') {
+=======
+                                    snapshots.data == 'MENU IS UNAVAILABLE') {
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
                                   return ConnectionErrorView(
                                       snapshots, locationValues);
                                 } else {
@@ -337,7 +364,11 @@ class bodywidgetstate extends State<bodywidget> {
           children: <Widget>[
             Container(
               child: GoogleMap(
+<<<<<<< HEAD
                 mapType: MapType.normal,
+=======
+                mapType: MapType.satellite,
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
                 initialCameraPosition: CameraPosition(
                   zoom: zoom_value,
                   target: LatLng(locationValues.location_latitude,
@@ -345,6 +376,7 @@ class bodywidgetstate extends State<bodywidget> {
                 ),
                 onMapCreated: (GoogleMapController controller) async {
                   _controller.complete(controller);
+                  controller.setMapStyle(_mapStyle);
                 },
                 markers: marker,
               ),
@@ -442,7 +474,7 @@ class bodywidgetstate extends State<bodywidget> {
                                                     child: Text(
                                                       'Focus\n View',
                                                       style: TextStyle(
-                                                        fontSize: 18,
+                                                        fontSize: 60,
                                                         fontFamily: 'Futura',
                                                         color: Colors.white,
                                                         fontWeight:
@@ -562,7 +594,11 @@ class bodywidgetstate extends State<bodywidget> {
                       position: LatLng(locationValues.location_latitude,
                           locationValues.location_longitude))
                 },
+<<<<<<< HEAD
                 mapType: MapType.normal,
+=======
+                mapType: MapType.terrain,
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
                 initialCameraPosition: CameraPosition(
                   zoom: zoom_value,
                   target: LatLng(locationValues.location_latitude,
@@ -640,7 +676,11 @@ class bodywidgetstate extends State<bodywidget> {
                       position: LatLng(locationValues.location_latitude,
                           locationValues.location_longitude))
                 },
+<<<<<<< HEAD
                 mapType: MapType.normal,
+=======
+                mapType: MapType.terrain,
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
                 initialCameraPosition: CameraPosition(
                   zoom: zoom_value,
                   target: LatLng(locationValues.location_latitude,
@@ -712,7 +752,7 @@ class bodywidgetstate extends State<bodywidget> {
                                     margin: const EdgeInsets.only(
                                         top: 5.0, bottom: 5),
                                     child: Text(
-                                      'SubScribe',
+                                      'Subscribe',
                                       style: TextStyle(color: Colors.white),
                                     ),
                                   ),
@@ -732,4 +772,6 @@ class bodywidgetstate extends State<bodywidget> {
       },
     );
   }
+
+  static loadString(String s) {}
 }

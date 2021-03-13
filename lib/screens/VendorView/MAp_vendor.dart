@@ -14,6 +14,7 @@ import 'package:foodtruck/screens/VendorView/VENDORPAGE.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Map_vendor extends StatelessWidget {
   @override
@@ -30,7 +31,10 @@ class Map_vendorSample extends StatefulWidget {
 class Map_vendorSampleState extends State<Map_vendorSample> {
   GlobalKey<ScaffoldState> scaffold_key = GlobalKey<ScaffoldState>();
   PageController _myPage;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
   @override
   void initState() {
     super.initState();
@@ -55,6 +59,7 @@ class Map_vendorSampleState extends State<Map_vendorSample> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         actions: <Widget>[
+<<<<<<< HEAD
           IconButton(icon:Icon(Icons.logout), color: Colors.blue,
             onPressed: ()async{
               SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -75,6 +80,8 @@ class Map_vendorSampleState extends State<Map_vendorSample> {
                 ),
               );
             },),
+=======
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
           Image.asset(
             'assets/images/truckIcon.png',
             width: 100,
@@ -97,9 +104,22 @@ class Map_vendorSampleState extends State<Map_vendorSample> {
                   if (snapshots.hasData) {
                     return Text(
                         '${snapshots.data == null ? 0 : snapshots.data.length} VENDORS ONLINE',
+<<<<<<< HEAD
                         style: TextStyle(
                           color: Colors.black,
                           fontSize: 15,
+=======
+                        // style: TextStyle(
+                        //   color: Colors.blue,
+                        //   fontSize: 15,
+                        // ),
+                        style: GoogleFonts.poppins(
+                          // textStyle: Theme.of(context).textTheme.display1,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.blue,
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
                         ),
                         overflow: TextOverflow.visible);
                   } else if (snapshots.hasError) {
@@ -114,16 +134,27 @@ class Map_vendorSampleState extends State<Map_vendorSample> {
                       ? () {
                           setState(() {
                             utils.changeView(false);
+<<<<<<< HEAD
                             _myPage.jumpToPage(0);
+=======
+                            _myPage.jumpToPage(1);
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
                           });
                         }
                       : () {
                           setState(() {
                             utils.changeView(true);
+<<<<<<< HEAD
                             _myPage.jumpToPage(1);
                           });
                         },
                   child: Icon(utils.view ? Icons.my_location : Icons.view_list,
+=======
+                            _myPage.jumpToPage(0);
+                          });
+                        },
+                  child: Icon(utils.view ? Icons.view_list : Icons.my_location,
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
                       color: Colors.blue)),
             ),
           ],
@@ -132,6 +163,7 @@ class Map_vendorSampleState extends State<Map_vendorSample> {
       body: WillPopScope(
         onWillPop: () {
           return showDialog(
+<<<<<<< HEAD
               builder: (context) => BackdropFilter(
                     filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
                     child: AlertDialog(
@@ -165,10 +197,43 @@ class Map_vendorSampleState extends State<Map_vendorSample> {
                                         color: Colors.black54,
                                       ),
                                     ),
+=======
+              builder:(context)=> BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+                child: AlertDialog(
+                  elevation: 6,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(32.0))),
+                  content: Container(
+                    height: 150,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          'Oops!!',
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.only(top: 15, bottom: 15),
+                              child: Center(
+                                child: Text(
+                                  'DO YOU WANT TO EXIT THIS APP?',
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    fontStyle: FontStyle.italic,
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
                                   ),
                                 ),
                               ],
                             ),
+<<<<<<< HEAD
                             ButtonBar(
                                 alignment: MainAxisAlignment.center,
                                 children: [
@@ -178,11 +243,38 @@ class Map_vendorSampleState extends State<Map_vendorSample> {
                                     child: Container(
                                       height: 35,
                                       width: 100,
+=======
+                          ],
+                        ),
+                        ButtonBar(
+                            alignment: MainAxisAlignment.center,
+                            children: [
+                              Material(
+                                borderRadius: BorderRadius.circular(26),
+                                elevation: 2,
+                                child: Container(
+                                  height: 35,
+                                  width: 100,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.blue),
+                                      borderRadius: BorderRadius.circular(26)),
+                                  child: FlatButton(
+                                    onPressed: () {
+                                      return exit(0);
+                                    },
+                                    color: Colors.blue,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(26)),
+                                    padding: EdgeInsets.all(0.0),
+                                    child: Ink(
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
                                       decoration: BoxDecoration(
                                           border:
                                               Border.all(color: Colors.blue),
                                           borderRadius:
                                               BorderRadius.circular(26)),
+<<<<<<< HEAD
                                       child: FlatButton(
                                         onPressed: () {
                                           return exit(0);
@@ -209,22 +301,60 @@ class Map_vendorSampleState extends State<Map_vendorSample> {
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.white),
                                             ),
+=======
+                                      child: Container(
+                                        constraints: BoxConstraints(
+                                            maxWidth: 190.0, minHeight: 53.0),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "Yes",
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
+                                            // fontStyle: FontStyle.italic,
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
                                           ),
                                         ),
                                       ),
                                     ),
                                   ),
+<<<<<<< HEAD
                                   Material(
                                     borderRadius: BorderRadius.circular(26),
                                     elevation: 2,
                                     child: Container(
                                       height: 35,
                                       width: 100,
+=======
+                                ),
+                              ),
+                              Material(
+                                borderRadius: BorderRadius.circular(26),
+                                elevation: 2,
+                                child: Container(
+                                  height: 35,
+                                  width: 100,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.blue),
+                                      borderRadius: BorderRadius.circular(26)),
+                                  child: FlatButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    color: Colors.blue,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(26)),
+                                    padding: EdgeInsets.all(0.0),
+                                    child: Ink(
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
                                       decoration: BoxDecoration(
                                           border:
                                               Border.all(color: Colors.blue),
                                           borderRadius:
                                               BorderRadius.circular(26)),
+<<<<<<< HEAD
                                       child: FlatButton(
                                         onPressed: () {
                                           Navigator.pop(context);
@@ -251,6 +381,19 @@ class Map_vendorSampleState extends State<Map_vendorSample> {
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.white),
                                             ),
+=======
+                                      child: Container(
+                                        constraints: BoxConstraints(
+                                            maxWidth: 190.0, minHeight: 53.0),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "No",
+                                          textAlign: TextAlign.center,
+                                          style: GoogleFonts.poppins(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
+                                            // fontStyle: FontStyle.italic,
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
                                           ),
                                         ),
                                       ),
@@ -277,6 +420,17 @@ class Map_vendorSampleState extends State<Map_vendorSample> {
   }
 }
 
+<<<<<<< HEAD
+=======
+Widget TestBlock() {
+  return Column(
+    children: <Widget>[
+      new Text("Element 1"),
+    ],
+  );
+}
+
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
 class listMap extends StatefulWidget {
   @override
   _listMapState createState() => _listMapState();
@@ -284,19 +438,27 @@ class listMap extends StatefulWidget {
 
 class _listMapState extends State<listMap> {
   var range_value = 50.0;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
   @override
   Widget build(BuildContext context) {
     var locationValues = Provider.of<LocationService>(context, listen: false);
     var webservices = Provider.of<WebServices>(context, listen: false);
     // TODO: implement build
-    return FutureBuilder(
-        future: webservices.get_all_vendor_current_location(
-          context: context,
-          location_latitude: locationValues.location_latitude,
-          location_longtitude: locationValues.location_longitude,
-          range_value: range_value,
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          stops: [0.7, 0.9],
+          colors: [
+            Color(0xffECF7FF),
+            Colors.white,
+          ],
         ),
+<<<<<<< HEAD
         builder: (context, snapshots) {
           if (snapshots.hasData) {
             return ListDetails(snapshots, locationValues, context);
@@ -305,6 +467,25 @@ class _listMapState extends State<listMap> {
           }
           return Center(child: CircularProgressIndicator());
         });
+=======
+      ),
+      child: FutureBuilder(
+          future: webservices.get_all_vendor_current_location(
+            context: context,
+            location_latitude: locationValues.location_latitude,
+            location_longtitude: locationValues.location_longitude,
+            range_value: range_value,
+          ),
+          builder: (context, snapshots) {
+            if (snapshots.hasData) {
+              return ListDetails(snapshots, locationValues, context);
+            } else if (snapshots.hasError) {
+              return Text('${snapshots.error}');
+            }
+            return Center(child: CircularProgressIndicator());
+          }),
+    );
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
   }
 
   Widget ListDetails(snapshots, locationValues, context) {
@@ -356,7 +537,12 @@ class _listMapState extends State<listMap> {
                                 fit: BoxFit.fill,
                               ),
                               border: Border.all(
+<<<<<<< HEAD
                                   width: 1.0, color: const Color(0xff707070)),
+=======
+                                  width: 1.0,
+                                  color: Colors.blue.withOpacity(0.3)),
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
                             ),
                           ),
                           Padding(
@@ -366,13 +552,25 @@ class _listMapState extends State<listMap> {
                               children: [
                                 Text(
                                   '${snapshot.data == null ? '' : snapshot.data[0].business_name.toString()}',
+<<<<<<< HEAD
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 20,
+=======
+                                  // style: TextStyle(
+                                  //     fontWeight: FontWeight.bold,
+                                  //     fontSize: 20,
+                                  //     color: Color(0xff67b9fb)),
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500,
+                                      fontStyle: FontStyle.normal,
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
                                       color: Color(0xff67b9fb)),
                                   softWrap: true,
                                   overflow: TextOverflow.ellipsis,
                                   maxLines: 1,
+<<<<<<< HEAD
                                 ),
                                 VendorRating(
                                   snapshots.data[index].id,
@@ -398,6 +596,39 @@ class _listMapState extends State<listMap> {
                                     maxLines: 1,
                                     overflow: TextOverflow.fade,
                                   ),
+=======
+                                ),
+                                VendorRating(
+                                  snapshots.data[index].id,
+                                ),
+                                Text(
+                                  '${snapshot.data == null ? '' : snapshot.data[0].unique_detail.toString()}',
+                                  style: GoogleFonts.poppins(
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w400,
+                                      color: const Color(0xff2699fb)),
+                                  textAlign: TextAlign.left,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: Text(
+                                    '${snapshots.data[index].distance.toStringAsFixed(1)}' +
+                                        ' MILES AWAY',
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w400,
+                                        color: const Color(0xff2699fb),
+                                        height: .5),
+                                    textAlign: TextAlign.left,
+                                  ),
+                                ),
+                                Divider(
+                                  color: Colors.blue,
+                                  thickness: 10,
+                                ),
+                                SizedBox(
+                                  height: 10,
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
                                 ),
                               ],
                             ),
@@ -467,7 +698,10 @@ class bodywidget extends StatefulWidget {
 class bodywidgetstate extends State<bodywidget> {
   BitmapDescriptor custom_marker;
   BitmapDescriptor custom_user_marker;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
   @override
   void initState() {
     super.initState();
@@ -683,8 +917,13 @@ class bodywidgetstate extends State<bodywidget> {
                                                 ),
                                                 border: Border.all(
                                                     width: 1.0,
+<<<<<<< HEAD
                                                     color: const Color(
                                                         0xff707070)),
+=======
+                                                    color: Colors.blue
+                                                        .withOpacity(.1)),
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
                                               ),
                                             ),
                                           ],
@@ -696,6 +935,7 @@ class bodywidgetstate extends State<bodywidget> {
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                             child: CustomPaint(
+<<<<<<< HEAD
                                               size: Size(300, 50),
                                               //You can Replace this with your desired WIDTH and HEIGHT
                                               painter: RPSCustomPainter(),
@@ -727,10 +967,49 @@ class bodywidgetstate extends State<bodywidget> {
                                           top: 130,
                                           child: Container(
                                             width: 90,
+=======
+                                              size: Size(300,
+                                                  50), //You can Replace this with your desired WIDTH and HEIGHT
+                                              painter: RPSCustomPainter(),
+                                            ),
+                                          ),
+                                        ),
+                                        Positioned(
+                                          top: 170,
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(
+                                              left: 10.0,
+                                              right: 8,
+                                            ),
+                                            child: Text(
+                                              '${snapshots.data[index].distance.toStringAsFixed(1)} ' +
+                                                  ' mi. ',
+                                              // style: TextStyle(
+                                              //     fontWeight: FontWeight.w300,
+                                              //     color: Colors.white,
+                                              //     fontSize: 19),
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontStyle: FontStyle.normal,
+                                                  color: Colors.white),
+                                              softWrap: false,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.fade,
+                                            ),
+                                          ),
+                                        ),
+                                        Positioned(
+                                          left: 100,
+                                          top: 140,
+                                          child: Container(
+                                            width: 150,
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
                                             child: Column(
                                               children: [
                                                 Text(
                                                   '${snapshot.data == null ? '' : snapshot.data[0].business_name.toString()}',
+<<<<<<< HEAD
                                                   style: TextStyle(
                                                       fontWeight:
                                                           FontWeight.bold,
@@ -739,15 +1018,41 @@ class bodywidgetstate extends State<bodywidget> {
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   maxLines: 1,
+=======
+                                                  // style: TextStyle(
+                                                  //     fontWeight:
+                                                  //         FontWeight.bold,
+                                                  //     fontSize: 15),
+                                                  style: GoogleFonts.poppins(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      fontStyle:
+                                                          FontStyle.normal,
+                                                      color: Colors.black),
+
+                                                  softWrap: true,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 2,
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
                                                 ),
                                                 Text(
                                                   '${snapshot.data == null ? '' : snapshot.data[0].unique_detail.toString()}',
                                                   style:
+<<<<<<< HEAD
                                                       TextStyle(fontSize: 20),
                                                   softWrap: true,
                                                   overflow:
                                                       TextOverflow.ellipsis,
                                                   maxLines: 1,
+=======
+                                                      TextStyle(fontSize: 12),
+                                                  softWrap: true,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  maxLines: 2,
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
                                                 ),
                                                 VendorRating(
                                                   snapshots.data[index].id,
@@ -821,11 +1126,16 @@ class RPSCustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint_0 = new Paint()
+<<<<<<< HEAD
       ..color = Color(0xFFeaeff3).withOpacity(0.93)
+=======
+      ..color = Color.fromARGB(218, 255, 255, 255)
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
       ..style = PaintingStyle.fill
       ..strokeWidth = 1;
 
     Path path_0 = Path();
+<<<<<<< HEAD
     path_0.moveTo(size.width, size.height * 0.50);
     path_0.lineTo(size.width * 0.85, size.height * 0.50);
     path_0.lineTo(size.width * 0.75, size.height * 0.60);
@@ -834,21 +1144,45 @@ class RPSCustomPainter extends CustomPainter {
     path_0.lineTo(size.width * 0.10, size.height);
     path_0.lineTo(size.width, size.height);
     path_0.lineTo(size.width, size.height * 0.50);
+=======
+    path_0.moveTo(size.width, size.height * 0.70);
+    path_0.lineTo(size.width * 0.85, size.height * 0.70);
+    path_0.lineTo(size.width * 0.75, size.height * 0.70);
+    path_0.quadraticBezierTo(size.width * 0.53, size.height * 0.70,
+        size.width * 0.45, size.height * 0.70);
+    path_0.quadraticBezierTo(size.width * 0.12, size.height * 0.71,
+        size.width * 0.10, size.height * 0.90);
+    path_0.lineTo(size.width * 0.10, size.height);
+    path_0.lineTo(size.width, size.height);
+    path_0.lineTo(size.width, size.height * 0.70);
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
     path_0.close();
 
     canvas.drawPath(path_0, paint_0);
 
     Paint paint_1 = new Paint()
+<<<<<<< HEAD
       ..color = Color.fromARGB(255, 144, 204, 252)
+=======
+      ..color = Color.fromARGB(255, 33, 150, 243)
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
       ..style = PaintingStyle.fill
       ..strokeWidth = 1;
 
     Path path_1 = Path();
     path_1.moveTo(0, size.height);
     path_1.lineTo(0, size.height * 0.80);
+<<<<<<< HEAD
     path_1.lineTo(size.width * 0.25, size.height * 0.80);
     path_1.lineTo(size.width * 0.35, size.height * 0.90);
     path_1.lineTo(size.width * 0.35, size.height);
+=======
+    path_1.lineTo(size.width * 0.20, size.height * 0.80);
+    path_1.quadraticBezierTo(size.width * 0.28, size.height * 0.80,
+        size.width * 0.35, size.height * 0.90);
+    path_1.quadraticBezierTo(
+        size.width * 0.37, size.height * 0.93, size.width * 0.40, size.height);
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
     path_1.lineTo(0, size.height);
     path_1.close();
 

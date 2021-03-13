@@ -181,7 +181,11 @@ class WebServices extends ChangeNotifier {
           vendor_info_res.statusCode == 201) {
         Login_SetState();
         showDialog(
+<<<<<<< HEAD
             builder:(context)=>AlertDialog(
+=======
+            builder:(context)=> AlertDialog(
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
               elevation: 6,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(32.0))),
@@ -306,7 +310,11 @@ class WebServices extends ChangeNotifier {
       } else if (vendor_info_res.statusCode == 400) {
         Login_SetState();
         showDialog(
+<<<<<<< HEAD
             builder:(context)=> AlertDialog(
+=======
+            builder:(context)=>AlertDialog(
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
               title: Center(
                 child: Text('Check Credentials',
                     style: TextStyle(color: Colors.blue)),
@@ -319,7 +327,11 @@ class WebServices extends ChangeNotifier {
       
       Login_SetState();
       showDialog(
+<<<<<<< HEAD
           builder:(context)=> AlertDialog(
+=======
+          builder:(context)=>AlertDialog(
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
             title: Center(
               child:
                   Text('Working on it', style: TextStyle(color: Colors.blue)),
@@ -363,7 +375,11 @@ class WebServices extends ChangeNotifier {
       } else if (vendor_sub_res.statusCode == 400) {
         Login_SetState();
         showDialog(
+<<<<<<< HEAD
            builder:(context)=> AlertDialog(
+=======
+            builder:(context)=> AlertDialog(
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
               title: Center(
                 child: Text('Check Credentials',
                     style: TextStyle(color: Colors.blue)),
@@ -430,7 +446,11 @@ class WebServices extends ChangeNotifier {
           update_online_offline_res.statusCode == 401) {
         Login_SetState();
         showDialog(
+<<<<<<< HEAD
            builder:(context)=> AlertDialog(
+=======
+            builder:(context)=> AlertDialog(
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
               title: Center(
                 child: Icon(
                   Icons.signal_cellular_connected_no_internet_4_bar,
@@ -446,7 +466,11 @@ class WebServices extends ChangeNotifier {
      
       Login_SetState();
       showDialog(
+<<<<<<< HEAD
          builder:(context)=> AlertDialog(
+=======
+          builder:(context)=> AlertDialog(
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
             title: Center(
               child:
                   Text('Working on it', style: TextStyle(color: Colors.blue)),
@@ -964,7 +988,11 @@ class WebServices extends ChangeNotifier {
      
       Login_SetState();
       showDialog(
+<<<<<<< HEAD
          builder:(context)=> AlertDialog(
+=======
+          builder:(context)=> AlertDialog(
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
             title: Center(
               child:
                   Text('Working on it', style: TextStyle(color: Colors.blue)),
@@ -1045,7 +1073,11 @@ class WebServices extends ChangeNotifier {
      
       Login_SetState();
       showDialog(
+<<<<<<< HEAD
          builder:(context)=> AlertDialog(
+=======
+          builder:(context)=> AlertDialog(
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
             title: Center(
               child:
                   Text('Working on it', style: TextStyle(color: Colors.blue)),
@@ -1084,7 +1116,11 @@ class WebServices extends ChangeNotifier {
       } else if (vendor_login_res.statusCode == 400 ||
           vendor_login_res.statusCode == 500) {
         showDialog(
+<<<<<<< HEAD
            builder:(context)=> AlertDialog(
+=======
+            builder:(context)=> AlertDialog(
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
               title: Center(
                 child: Text('Check Credentials',
                     style: TextStyle(color: Colors.blue)),
@@ -1096,7 +1132,11 @@ class WebServices extends ChangeNotifier {
         Login_SetState();
       } else if (vendor_login_res.statusCode == 404) {
         showDialog(
+<<<<<<< HEAD
            builder:(context)=> AlertDialog(
+=======
+            builder:(context)=> AlertDialog(
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
               content: Text('no response! try again',
                   style: TextStyle(color: Colors.blue)),
             ),
@@ -1110,7 +1150,11 @@ class WebServices extends ChangeNotifier {
      
       Login_SetState();
       showDialog(
+<<<<<<< HEAD
          builder:(context)=> AlertDialog(
+=======
+          builder:(context)=> AlertDialog(
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
             title: Center(
               child:
                   Text('Working on it', style: TextStyle(color: Colors.blue)),
@@ -1147,7 +1191,11 @@ class WebServices extends ChangeNotifier {
       } else if (user_login_res.statusCode == 400 ||
           user_login_res.statusCode == 500) {
         showDialog(
+<<<<<<< HEAD
            builder:(context)=> AlertDialog(
+=======
+            builder:(context)=> AlertDialog(
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
               title: Center(
                 child: Text('Check Credentials',
                     style: TextStyle(color: Colors.blue)),
@@ -1232,7 +1280,11 @@ class WebServices extends ChangeNotifier {
     } catch (e) {
       Login_SetState();
       showDialog(
+<<<<<<< HEAD
         builder:(context)=> AlertDialog(
+=======
+          builder:(context)=> AlertDialog(
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
             title: Center(
               child:
                   Text('Working on it', style: TextStyle(color: Colors.blue)),
@@ -1296,7 +1348,11 @@ class WebServices extends ChangeNotifier {
         Login_SetState_third();
       } else if (update_profile_res.statusCode == 404) {
         showDialog(
+<<<<<<< HEAD
             builder:(context)=> AlertDialog(
+=======
+            builder:(context)=>AlertDialog(
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
               content: Text('no response! try again',
                   style: TextStyle(color: Colors.blue)),
             ),
@@ -1362,7 +1418,11 @@ class WebServices extends ChangeNotifier {
         Login_SetState();
       } else if (upload_menu_res.statusCode == 404) {
         showDialog(
+<<<<<<< HEAD
            builder:(context)=> AlertDialog(
+=======
+            builder:(context)=> AlertDialog(
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
               content: Text('no response! try again',
                   style: TextStyle(color: Colors.blue)),
             ),
@@ -1375,7 +1435,11 @@ class WebServices extends ChangeNotifier {
 
       Login_SetState();
       showDialog(
+<<<<<<< HEAD
          builder:(context)=> AlertDialog(
+=======
+          builder:(context)=> AlertDialog(
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
             title: Center(
               child:
                   Text('Working on it', style: TextStyle(color: Colors.blue)),
@@ -1410,7 +1474,11 @@ class WebServices extends ChangeNotifier {
           update_menu_res.statusCode == 405) {
         Navigator.pop(context);
         showDialog(
+<<<<<<< HEAD
            builder:(context)=> AlertDialog(
+=======
+            builder:(context)=> AlertDialog(
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
               content: Text('process unable to finish',
                   style: TextStyle(color: Colors.blue)),
             ),
@@ -1420,7 +1488,11 @@ class WebServices extends ChangeNotifier {
       } else if (update_menu_res.statusCode == 404) {
         Navigator.pop(context);
         showDialog(
+<<<<<<< HEAD
        builder:(context)=> AlertDialog(
+=======
+            builder:(context)=> AlertDialog(
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
               content:  Text('no response! try again',
                     style: TextStyle(color: Colors.blue)),
             ),
@@ -1539,7 +1611,11 @@ class WebServices extends ChangeNotifier {
         Login_SetState_Second();
       } else if (update_menu_res.statusCode == 404) {
         showDialog(
+<<<<<<< HEAD
            builder:(context)=> AlertDialog(
+=======
+            builder:(context)=> AlertDialog(
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
               content: Text('no response! try again',
                   style: TextStyle(color: Colors.blue)),
             ),
@@ -1551,7 +1627,11 @@ class WebServices extends ChangeNotifier {
     } catch (e) {
       Login_SetState_Second();
       showDialog(
+<<<<<<< HEAD
         builder:(context)=> AlertDialog(
+=======
+          builder:(context)=> AlertDialog(
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
             title: Center(
               child:
                   Text('Working on it', style: TextStyle(color: Colors.blue)),
@@ -1588,7 +1668,11 @@ class WebServices extends ChangeNotifier {
           upload_rate_res.statusCode == 500 ||
           upload_rate_res.statusCode == 405) {
         showDialog(
+<<<<<<< HEAD
            builder:(context)=> AlertDialog(
+=======
+            builder:(context)=> AlertDialog(
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
               content: Text('process unable to finish',
                   style: TextStyle(color: Colors.blue)),
             ),
@@ -1596,7 +1680,11 @@ class WebServices extends ChangeNotifier {
         Login_SetState();
       } else if (upload_rate_res.statusCode == 404) {
         showDialog(
+<<<<<<< HEAD
           builder:(context)=> AlertDialog(
+=======
+            builder:(context)=> AlertDialog(
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
               content: Text('no response! try again',
                   style: TextStyle(color: Colors.blue)),
             ),
@@ -1606,7 +1694,11 @@ class WebServices extends ChangeNotifier {
     } catch (e) {
       Login_SetState_third();
       showDialog(
+<<<<<<< HEAD
         builder:(context)=> AlertDialog(
+=======
+          builder:(context)=> AlertDialog(
+>>>>>>> 969eda06517124a1b20845a83a1bf46fe34858a1
             title: Center(
               child:
                   Text('Working on it', style: TextStyle(color: Colors.blue)),
