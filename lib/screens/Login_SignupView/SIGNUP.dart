@@ -9,7 +9,23 @@ import 'package:foodtruck/screens/Login_SignupView/login.dart';
 import 'dart:ui' as ui;
 import 'package:foodtruck/main.dart';
 import 'package:foodtruck/Services/admob.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
+
+
+GoogleSignIn _googleSignIn = GoogleSignIn(
+  // Optional clientId
+  // clientId: '479882132969-9i9aqik3jfjd7qhci1nqf0bm2g71rm1u.apps.googleusercontent.com',
+  scopes: <String>[
+    'email',
+    'https://www.googleapis.com/auth/contacts.readonly',
+  ],
+);
+GoogleSignInAccount _currentUser;
+
+Future<void> handleSignIn() async {
+  _googleSignIn.signIn();
+}
 
 class SIGNUP extends StatefulWidget {
   @override
@@ -20,13 +36,33 @@ class SIGNUP extends StatefulWidget {
 }
 
 class SIGNUPSTATE extends State<SIGNUP> {
+
+
   var email;
   var password;
 
   final form_key = GlobalKey<FormState>();
   final form_key1 = GlobalKey<FormState>();
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
+      setState(() {
+        _currentUser = account;
+      });
+    });
+    _googleSignIn.signInSilently();
+  }
+
+
   @override
   Widget build(BuildContext context) {
+
+
+
     return DefaultTabController(
       length: 2,
       initialIndex: 0,
@@ -223,31 +259,39 @@ Widget UserSignUp(email, password, context, form_key) {
                 child: webservice_consumer.login_state == false
                     ? RaisedButton(
                         onPressed: () {
+//                          GoogleSignInAccount user = _currentUser;
+//                          if (form_key.currentState.validate()) {
+//                          handleSignIn();
                           if (form_key.currentState.validate()) {
+                       
                             webservice_consumer.Login_SetState();
                             webservice_consumer.Signup_UserApi(
                               password: password,
+                              //password,
                               email: email,
+                              //email,
                               context: context,
                             ).then((value) => webservice_consumer
                                 .login_before_submit_location_user(
-                                  password: password,
-                                  email: email,
-                                  context: context,
-                                )
+                              password: password,
+                              email: email,
+                              context: context,
+                            )
                                 .then((value) => webservice_consumer
-                                    .send_user_location(context))
+                                .send_user_location(context))
                                 .then((value) => webservice_consumer
-                                    .get_current_user_location()
-                                    .then((value) => Timer.periodic(
-                                            Duration(minutes: 12), (timer) {
-                                          webservice_consumer
-                                              .Update_User_Location(
-                                            id: value[0].id,
-                                            context: context,
-                                          );
-                                        }))));
+                                .get_current_user_location()
+                                .then((value) => Timer.periodic(
+                                Duration(minutes: 12), (timer) {
+                              webservice_consumer
+                                  .Update_User_Location(
+                                id: value[0].id,
+                                context: context,
+                              );
+                            }))));
                           }
+
+//                          }
                         },
                         color: Color(0xFF67b9fb),
                         shape: RoundedRectangleBorder(

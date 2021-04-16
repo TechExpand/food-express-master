@@ -213,16 +213,12 @@ class VendorMenuPageState extends State<VendorMenuPage> {
                         Container(
                           child: Row(
                             children: <Widget>[
-                              InkWell(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      right: 25.0, top: 8),
-                                  child: Icon(
-                                    Icons.edit,
-                                    color: Color(0xFF67b9fb),
-                                  ),
+                              IconButton(
+                                icon:Icon(
+                                  Icons.edit,
+                                  color: Color(0xFF67b9fb),
                                 ),
-                                onTap: () {
+                                onPressed: () {
                                   Navigator.push(
                                     context,
                                     PageRouteBuilder(
@@ -254,16 +250,12 @@ class VendorMenuPageState extends State<VendorMenuPage> {
                                     height: 15,
                                     color: Colors.black54),
                               ),
-                              InkWell(
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 25.0, top: 8),
-                                  child: Icon(
-                                    Icons.delete,
-                                    color: Colors.red,
-                                  ),
+                              IconButton(
+                                icon: Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
                                 ),
-                                onTap: () {
+                                onPressed: () {
                                   return showDialog(
                                       builder:(context)=> AlertDialog(
                                         content: Container(
@@ -300,12 +292,22 @@ class VendorMenuPageState extends State<VendorMenuPage> {
                                                         size: 30,
                                                       ),
                                                       onPressed: () {
+                                                        setstate() {
+                                                          setState(() {
+                                                            print('');
+                                                          });
+                                                        }
+
                                                         webservices
                                                             .Login_SetState();
                                                         webservices.Delete_Menu(
                                                             context: context,
                                                             id: snapshot.data[
-                                                            index].id);
+                                                            index].id).then((value){
+                                                          Future.delayed(
+                                                              Duration(seconds: 2), setstate
+                                                          );
+                                                        });
                                                       }),
                                                 ],
                                               ),

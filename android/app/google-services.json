@@ -1,42 +1,43 @@
 {
   "project_info": {
-    "project_number": "191458152021",
-    "firebase_url": "https://food-delivery-bd833.firebaseio.com",
-    "project_id": "food-delivery-bd833",
-    "storage_bucket": "food-delivery-bd833.appspot.com"
+    "project_number": "850229479127",
+    "firebase_url": "https://foodtruck-e30f3.firebaseio.com",
+    "project_id": "foodtruck-e30f3",
+    "storage_bucket": "foodtruck-e30f3.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:191458152021:android:e915f2cd53d82a0800cedc",
+        "mobilesdk_app_id": "1:850229479127:android:71ba9391e831cf68851292",
         "android_client_info": {
           "package_name": "com.express.foodtruck"
         }
       },
       "oauth_client": [
         {
-          "client_id": "191458152021-901gcd8omabs7nm9er0hhh3774ntgjpj.apps.googleusercontent.com",
+          "client_id": "850229479127-595pljc5ifbi6aqieik1ododai7bmhmq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.express.foodtruck",
+            "certificate_hash": "5aa2e77baf58d42cc80f4bdc75fbd946f8b7f73e"
+          }
+        },
+        {
+          "client_id": "850229479127-gccmnb7e4t2pcf71jtupr4777r16heuo.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyABEDGB9PVHD7hzrZhlc5BHh-AXF8_dJyM"
+          "current_key": "AIzaSyCbqFWLEFzGtqKstUJtWwEe3u7L0uwhJTE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "191458152021-901gcd8omabs7nm9er0hhh3774ntgjpj.apps.googleusercontent.com",
+              "client_id": "850229479127-gccmnb7e4t2pcf71jtupr4777r16heuo.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "191458152021-n9l7nreqrlcgs15oie6or12go2ls19n1.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.helloWorld"
-              }
             }
           ]
         }

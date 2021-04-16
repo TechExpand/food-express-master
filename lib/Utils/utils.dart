@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/foundation.dart';
 import 'package:image_picker/image_picker.dart';
@@ -16,6 +17,16 @@ class Utils with ChangeNotifier{
       notifyListeners();
   }
 
+  Future storeData(String name, String data) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(name, data);
+  }
+
+  Future getData(String name) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String data = prefs.getString(name);
+    return data;
+  }
 
 
 

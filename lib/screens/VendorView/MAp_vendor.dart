@@ -6,11 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:foodtruck/Services/LocationService.dart';
 import 'package:foodtruck/Services/Network.dart';
 import 'package:foodtruck/Utils/utils.dart';
+import 'package:foodtruck/screens/Login_SignupView/login.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 import 'dart:ui' as ui;
 import 'package:foodtruck/screens/VendorView/VENDORPAGE.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -52,6 +55,26 @@ class Map_vendorSampleState extends State<Map_vendorSample> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         actions: <Widget>[
+          IconButton(icon:Icon(Icons.logout), color: Colors.blue,
+            onPressed: ()async{
+              final box = GetStorage();
+              box.remove('token');
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return Login();
+                  },
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    return FadeTransition(
+                      opacity: animation,
+                      child: child,
+                    );
+                  },
+                ),
+              );
+            },),
           Image.asset(
             'assets/images/truckIcon.png',
             width: 100,
@@ -93,8 +116,8 @@ class Map_vendorSampleState extends State<Map_vendorSample> {
                 }),
             Padding(
               padding: const EdgeInsets.only(left: 20.0),
-              child: InkWell(
-                  onTap: utils.view
+              child: IconButton(
+                  onPressed: utils.view
                       ? () {
                           setState(() {
                             utils.changeView(false);
@@ -107,9 +130,10 @@ class Map_vendorSampleState extends State<Map_vendorSample> {
                             _myPage.jumpToPage(0);
                           });
                         },
-                  child: Icon(utils.view ? Icons.view_list : Icons.my_location,
+                  icon: Icon(utils.view ? Icons.view_list : Icons.my_location,
                       color: Colors.blue)),
             ),
+
           ],
         ),
       ),
@@ -256,13 +280,6 @@ class Map_vendorSampleState extends State<Map_vendorSample> {
   }
 }
 
-Widget TestBlock() {
-  return Column(
-    children: <Widget>[
-      new Text("Element 1"),
-    ],
-  );
-}
 
 class listMap extends StatefulWidget {
   @override

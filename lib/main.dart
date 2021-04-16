@@ -6,15 +6,17 @@ import 'package:foodtruck/Services/LocationService.dart';
 import 'package:foodtruck/Services/Network.dart';
 import 'package:foodtruck/Utils/provider_util.dart';
 import 'package:foodtruck/Utils/utils.dart';
-import 'package:foodtruck/screens/Login_SignupView/login.dart';
+import 'package:foodtruck/screens/GSignIn.dart';
 import 'package:foodtruck/Services/admob.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:foodtruck/screens/SPLASH.dart';
-import 'package:foodtruck/screens/VendorView/VENDORSIGNUP_INFO.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:provider/provider.dart';
 import 'package:statusbar/statusbar.dart';
 
-void main() {
+import 'screens/SPLASH.dart';
+
+void main()async {
+  await GetStorage.init();
   String getAppId() {
     if (Platform.isIOS) {
       return 'ca-app-pub-7014950727779735~4209024008';
@@ -111,5 +113,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return SPLASH();
+      //SignInDemo();
   }
 }

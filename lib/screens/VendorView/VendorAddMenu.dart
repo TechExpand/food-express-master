@@ -243,40 +243,49 @@ class vendoraddmenustate extends State<vendoraddmenu> {
                     ),
                   ),
                 ),
-              
                 Divider(),
                 webservices_consumer.login_state == false
                     ? Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: RaisedButton(
                           onPressed: () {
-                            try{
-                             if (_formkey.currentState.validate()) {
+                            setstate() {
+                              setState(() {
+                                print('');
+                              });
+                            }
+
+                            try {
+                              if (_formkey.currentState.validate()) {
+                                webservices_consumer.Login_SetState();
+                                webservices_consumer.Add_Menu(
+                                  menu_title: menu_title,
+                                  menu_price: int.parse(menu_price),
+                                  menu_description: menu_description,
+                                  image1:
+                                      utils_consumer.selected_menu_image1.path,
+                                  context: context,
+                                ).then((value) {
+                                  Future.delayed(
+                                    Duration(seconds: 2), setstate
+                                  );
+                                });
+                              }
+                            } catch (e) {
                               webservices_consumer.Login_SetState();
-                              webservices_consumer.Add_Menu(
-                                menu_title: menu_title,
-                                menu_price: int.parse(menu_price),
-                                menu_description: menu_description,
-                                image1:
-                                    utils_consumer.selected_menu_image1.path,
-                                context: context,
-                              );
-                             
+                              showDialog(
+                                  builder: (context) => AlertDialog(
+                                        title: Center(
+                                          child: Text(
+                                              'There was a Problem Encountered',
+                                              style: TextStyle(
+                                                  color: Colors.blue)),
+                                        ),
+                                        content: Text(
+                                            'All Images and Fields Are Required'),
+                                      ),
+                                  context: context);
                             }
-                            }catch(e){
-                      webservices_consumer.Login_SetState();
-      showDialog(
-          builder:(context)=> AlertDialog(
-            title: Center(
-              child:
-                  Text('There was a Problem Encountered', style: TextStyle(color: Colors.blue)),
-            ),
-            content: Text('All Images and Fields Are Required'),
-          ),
-          context: context);
-                            }
-                          
-                            
                           },
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8)),

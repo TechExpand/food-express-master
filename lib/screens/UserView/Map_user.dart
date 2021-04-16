@@ -1,12 +1,18 @@
+import 'dart:io';
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:foodtruck/Services/LocationService.dart';
 import 'package:foodtruck/Services/Network.dart';
+import 'package:foodtruck/screens/Login_SignupView/login.dart';
 import 'package:foodtruck/screens/VendorView/ManageVendorSubScription.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:async';
 import 'package:foodtruck/screens/VendorView/VENDORprofile.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Map_user extends StatelessWidget {
   @override
@@ -54,10 +60,10 @@ class Map_vendorSampleState extends State<Map_vendorSample> {
                   leading: Icon(Icons.person),
                 ),
                 Divider(),
-                ListTile(
-                  title: Text('ABOUT APP'),
-                  leading: Icon(Icons.info_outline),
-                ),
+//                ListTile(
+//                  title: Text('ABOUT APP'),
+//                  leading: Icon(Icons.info_outline),
+//                ),
               ],
             ),
           ),
@@ -74,16 +80,37 @@ class Map_vendorSampleState extends State<Map_vendorSample> {
           ),
         ),
         actions: <Widget>[
+          IconButton(icon:Icon(Icons.logout), color: Colors.blue,
+            onPressed: ()async{
+              final box = GetStorage();
+              box.remove('token');
+              Navigator.push(
+                context,
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return Login();
+                  },
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    return FadeTransition(
+                      opacity: animation,
+                      child: child,
+                    );
+                  },
+                ),
+              );
+            },),
           Image.asset(
             'assets/images/truckIcon.png',
             width: 100,
           ),
+
           SizedBox(
             width: 8,
           )
         ],
-        backgroundColor: Colors.transparent,
-        centerTitle: true,
+        backgroundColor: Colors.white,
+        centerTitle: false,
         title: Text(
           'Current Users',
           style: TextStyle(color: Colors.blue),
@@ -107,15 +134,13 @@ class bodywidgetstate extends State<bodywidget> {
   Completer<GoogleMapController> _controller = Completer();
   String _mapStyle;
   var marker = Set<Marker>();
-  var zoom_value = 15.0;
+  var zoom_value = 12.0;
   var index_value;
   var range_value = 50.0;
 
   initState() {
     super.initState();
-    bodywidgetstate.loadString('assets/mapstyle.txt').then((string) {
-      _mapStyle = string;
-    });
+    _mapStyle = bodywidgetstate.loadString('assets/mapstyle.txt');
   }
 
   @override
@@ -123,51 +148,182 @@ class bodywidgetstate extends State<bodywidget> {
     var locationValues = Provider.of<LocationService>(context, listen: false);
     var webservices = Provider.of<WebServices>(context, listen: false);
     // TODO: implement build
-    return FutureBuilder(
-        future: webservices.Vendor_Profile_Api(),
-        builder: (context, snapshot_profile) {
-          return snapshot_profile.hasData
-              ? FutureBuilder(
-                  future: webservices.get_vender_subscription_id(),
-                  builder: (context, subscription_id_snapshot) {
-                    return subscription_id_snapshot.hasData
-                        ? FutureBuilder(
-                            future: webservices.get_all_user_current_location(
-                              context: context,
-                              location_latitude:
-                                  locationValues.location_latitude,
-                              location_longtitude:
-                                  locationValues.location_longitude,
-                              range_value: range_value,
-                              subscription_id: subscription_id_snapshot
-                                  .data['subscription_id'],
+    return WillPopScope(
+      onWillPop: () {
+        return showDialog(
+            builder:(context)=> BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+              child: AlertDialog(
+                elevation: 6,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(32.0))),
+                content: Container(
+                  height: 150,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        'Oops!!',
+                        style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.blue,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Row(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(top: 15, bottom: 15),
+                            child: Center(
+                              child: Text(
+                                'DO YOU WANT TO EXIT THIS APP?',
+                                style: GoogleFonts.poppins(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
                             ),
-                            builder: (context, snapshots) {
-                              if (snapshots.hasData) {
-                                if (snapshots.data ==
-                                    'Subscribe to get online Users and Display your Menu') {
-                                  return SubscriptionView(
-                                      snapshots,
-                                      locationValues,
-                                      snapshot_profile.data[0].id);
-                                } else if (snapshots.data ==
-                                        'Connection Error' ||
-                                    snapshots.data == 'MENU IS UNAVAILABLE') {
-                                  return ConnectionErrorView(
-                                      snapshots, locationValues);
-                                } else {
-                                  return CurrentUserView(
-                                      snapshots, locationValues);
+                          ),
+                        ],
+                      ),
+                      ButtonBar(
+                          alignment: MainAxisAlignment.center,
+                          children: [
+                            Material(
+                              borderRadius: BorderRadius.circular(26),
+                              elevation: 2,
+                              child: Container(
+                                height: 35,
+                                width: 100,
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.blue),
+                                    borderRadius: BorderRadius.circular(26)),
+                                child: FlatButton(
+                                  onPressed: () {
+                                    return exit(0);
+                                  },
+                                  color: Colors.blue,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                      BorderRadius.circular(26)),
+                                  padding: EdgeInsets.all(0.0),
+                                  child: Ink(
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                        BorderRadius.circular(26)),
+                                    child: Container(
+                                      constraints: BoxConstraints(
+                                          maxWidth: 190.0, minHeight: 53.0),
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        "Yes",
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                          // fontStyle: FontStyle.italic,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Material(
+                              borderRadius: BorderRadius.circular(26),
+                              elevation: 2,
+                              child: Container(
+                                height: 35,
+                                width: 100,
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.blue),
+                                    borderRadius: BorderRadius.circular(26)),
+                                child: FlatButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  color: Colors.blue,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                      BorderRadius.circular(26)),
+                                  padding: EdgeInsets.all(0.0),
+                                  child: Ink(
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                        BorderRadius.circular(26)),
+                                    child: Container(
+                                      constraints: BoxConstraints(
+                                          maxWidth: 190.0, minHeight: 53.0),
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        "No",
+                                        textAlign: TextAlign.center,
+                                        style: GoogleFonts.poppins(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,
+                                          // fontStyle: FontStyle.italic,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ]),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            context: context);
+      },
+      child: FutureBuilder(
+          future: webservices.Vendor_Profile_Api(),
+          builder: (context, snapshot_profile) {
+            return snapshot_profile.hasData
+                ? FutureBuilder(
+                    future: webservices.get_vender_subscription_id(),
+                    builder: (context, subscription_id_snapshot) {
+                      return subscription_id_snapshot.hasData
+                          ? FutureBuilder(
+                              future: webservices.get_all_user_current_location(
+                                context: context,
+                                location_latitude:
+                                    locationValues.location_latitude,
+                                location_longtitude:
+                                    locationValues.location_longitude,
+                                range_value: range_value,
+                                subscription_id: subscription_id_snapshot
+                                    .data['subscription_id'],
+                              ),
+                              builder: (context, snapshots) {
+                                if (snapshots.hasData) {
+                                  if (snapshots.data ==
+                                      'Subscribe to get online Users and Display your Menu') {
+                                    return SubscriptionView(
+                                        snapshots,
+                                        locationValues,
+                                        snapshot_profile.data[0].id);
+                                  } else if (snapshots.data ==
+                                          'Connection Error' ||
+                                      snapshots.data == 'MENU IS UNAVAILABLE') {
+                                    return ConnectionErrorView(
+                                        snapshots, locationValues);
+                                  } else {
+                                    return CurrentUserView(
+                                        snapshots, locationValues);
+                                  }
+                                } else if (snapshots.hasError) {
+                                  return Text('${snapshots.error}');
                                 }
-                              } else if (snapshots.hasError) {
-                                return Text('${snapshots.error}');
-                              }
-                              return Center(child: CircularProgressIndicator());
-                            })
-                        : Center(child: CircularProgressIndicator());
-                  })
-              : Center(child: CircularProgressIndicator());
-        });
+                                return Center(child: CircularProgressIndicator());
+                              })
+                          : Center(child: CircularProgressIndicator());
+                    })
+                : Center(child: CircularProgressIndicator());
+          }),
+    );
   }
 
   Widget CurrentUserView(snapshots, locationValues) {
@@ -187,7 +343,7 @@ class bodywidgetstate extends State<bodywidget> {
           children: <Widget>[
             Container(
               child: GoogleMap(
-                mapType: MapType.satellite,
+                mapType: MapType.normal,
                 initialCameraPosition: CameraPosition(
                   zoom: zoom_value,
                   target: LatLng(locationValues.location_latitude,
@@ -217,7 +373,7 @@ class bodywidgetstate extends State<bodywidget> {
                           CameraUpdate.newCameraPosition(CameraPosition(
                               bearing: 45,
                               tilt: 50,
-                              zoom: 22,
+                              zoom: 17,
                               target: LatLng(
                                 double.parse(snapshots.data[index].Lan),
                                 double.parse(snapshots.data[index].Log),
@@ -257,7 +413,7 @@ class bodywidgetstate extends State<bodywidget> {
                                                               CameraPosition(
                                                                   bearing: 45,
                                                                   tilt: 50,
-                                                                  zoom: 22,
+                                                                  zoom: 17,
                                                                   target:
                                                                       LatLng(
                                                                     double.parse(
@@ -293,7 +449,7 @@ class bodywidgetstate extends State<bodywidget> {
                                                     child: Text(
                                                       'Focus\n View',
                                                       style: TextStyle(
-                                                        fontSize: 60,
+                                                        fontSize: 20,
                                                         fontFamily: 'Futura',
                                                         color: Colors.white,
                                                         fontWeight:
@@ -413,7 +569,7 @@ class bodywidgetstate extends State<bodywidget> {
                       position: LatLng(locationValues.location_latitude,
                           locationValues.location_longitude))
                 },
-                mapType: MapType.terrain,
+                mapType: MapType.normal,
                 initialCameraPosition: CameraPosition(
                   zoom: zoom_value,
                   target: LatLng(locationValues.location_latitude,
@@ -491,7 +647,7 @@ class bodywidgetstate extends State<bodywidget> {
                       position: LatLng(locationValues.location_latitude,
                           locationValues.location_longitude))
                 },
-                mapType: MapType.terrain,
+                mapType: MapType.normal,
                 initialCameraPosition: CameraPosition(
                   zoom: zoom_value,
                   target: LatLng(locationValues.location_latitude,

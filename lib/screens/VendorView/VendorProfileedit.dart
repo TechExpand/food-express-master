@@ -160,13 +160,18 @@ class VENDORprofileEdithstate extends State<VENDORprofileEdith> {
                           webservices_consumer.login_state == false
                               ? RaisedButton(
                               onPressed: () {
+                                setstate(){
+                                  setState((){});
+                                }
                                 try{
                                     webservices_consumer.Login_SetState();
                                 webservices_consumer.Update_Profile_Pic(
                                   pro_pic: utils_consumer.selected_menu_image1.path,
                                   context: context,
                                   id: widget.snapshot_profile_data.id,
-                                ).then((value) => setState((){}));
+                                ).then((value) {
+                                  Future.delayed(Duration(seconds: 2), setstate);
+                                });
                                 }
                                 catch(e){
                            webservices_consumer.Login_SetState();
@@ -345,6 +350,11 @@ class VENDORprofileEdithstate extends State<VENDORprofileEdith> {
                           webservices_consumer.login_state_third == false
                               ? RaisedButton(
                                   onPressed: () {
+                                    setstate(){
+                                      setState(() {
+
+                                      });
+                                    }
                                     try{
                         if (_formkey.currentState.validate())
                                       webservices_consumer.Login_SetState_third();
@@ -355,7 +365,12 @@ class VENDORprofileEdithstate extends State<VENDORprofileEdith> {
                                       detail: detail,
                                       context: context,
                                       id: widget.snapshot_profile_data.id,
-                                    );
+                                    ).then((value) {
+                                      Future.delayed(
+                                          Duration(seconds: 3), setstate
+                                      );
+
+                                    });
                                     }
                                     catch(e){
                            webservices_consumer.Login_SetState_third();

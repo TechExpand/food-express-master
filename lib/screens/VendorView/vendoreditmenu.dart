@@ -217,6 +217,11 @@ class vendoreditmenustate extends State<vendoreditmenu> {
                     webservices_consumer.login_state == false
                         ? RaisedButton(
                       onPressed: () {
+                        setstate(){
+                          setState(() {
+
+                          });
+                        }
                         if(_formkey.currentState.validate())
                           webservices_consumer.Login_SetState();
                         webservices_consumer.Update_Menu_Details(
@@ -225,7 +230,11 @@ class vendoreditmenustate extends State<vendoreditmenu> {
                           menu_title: menu_title,
                           context: context,
                           id: widget.snapshot_data.id,
-                        );
+                        ).then((value) {
+                          Future.delayed(
+                              Duration(seconds: 2), setstate
+                          );
+                        });
                       },
 
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
@@ -309,13 +318,22 @@ class vendoreditmenustate extends State<vendoreditmenu> {
                       padding: const EdgeInsets.all(8.0),
                       child: RaisedButton(
                         onPressed: () {
+                          setstate(){
+                            setState(() {
+
+                            });
+                          }
                           try{
                           webservices_consumer.Login_SetState_Second();
                           webservices_consumer.Update_Menu_Images(
                             image1: utils_consumer.selected_menu_image1.path,
                             context: context,
                             id: widget.snapshot_data.id,
-                          );
+                          ).then((value) {
+                            Future.delayed(
+                                Duration(seconds: 2), setstate
+                            );
+                          });
                           }catch(e){
                              
                       webservices_consumer.Login_SetState();

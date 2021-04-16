@@ -7,15 +7,19 @@ import 'package:foodtruck/Model/locationprofilemenudetails.dart';
 import 'package:foodtruck/Model/rating.dart';
 import 'package:foodtruck/Model/vendorprofile.dart';
 import 'package:foodtruck/Services/LocationService.dart';
+import 'package:foodtruck/Utils/utils.dart';
 import 'package:foodtruck/screens/UserView/Map_user.dart';
 import 'package:foodtruck/screens/VendorView/MAp_vendor.dart';
 import 'package:foodtruck/screens/VendorView/SubscribePage.dart';
 import 'package:foodtruck/screens/VendorView/VENDORSIGNUP_INFO.dart';
 import 'package:foodtruck/screens/VendorView/VENDORprofile.dart';
 import 'package:foodtruck/screens/VendorView/VendorMenuPage.dart';
+import 'package:foodtruck/screens/video.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class WebServices extends ChangeNotifier {
   var vendor_signup_res;
@@ -35,7 +39,7 @@ class WebServices extends ChangeNotifier {
   var login_state_third = false;
   var value;
   var isLoading = false;
-
+  final box = GetStorage();
 
 
   void Login_SetState() {
@@ -71,7 +75,7 @@ class WebServices extends ChangeNotifier {
     try {
       var res = await http.get(
           Uri.encodeFull(
-              'http://wingu1000.pythonanywhere.com/foodtruck-vendor/locationprofile/${id.toString()}'),
+              'https://app.foodtruck.express/foodtruck-vendor/locationprofile/${id.toString()}'),
           headers: {
             "Accept": "application/json",
             "Authorization": '${token['auth_token']}'
@@ -97,7 +101,7 @@ class WebServices extends ChangeNotifier {
     try {
       var res = await http.get(
           Uri.encodeFull(
-              'http://wingu1000.pythonanywhere.com/foodtruck-vendor/locationmenu/id=${id.toString()}/sub_id=${subscription_id.toString()}'),
+              'https://app.foodtruck.express/foodtruck-vendor/locationmenu/id=${id.toString()}/sub_id=${subscription_id.toString()}'),
           headers: {
             "Accept": "application/json",
             "Authorization": '${token['auth_token']}'
@@ -126,7 +130,7 @@ class WebServices extends ChangeNotifier {
 
   Future Vendor_Profile_Menu() async {
     try {
-      var res = await http.get(Uri.encodeFull('http://wingu1000.pythonanywhere.com/foodtruck-vendor/menu/'), headers: {
+      var res = await http.get(Uri.encodeFull('https://app.foodtruck.express/foodtruck-vendor/menu/'), headers: {
         "Accept": "application/json",
         "Authorization":  'Token ${token['auth_token']}'
       });
@@ -157,7 +161,7 @@ class WebServices extends ChangeNotifier {
       var upload = http.MultipartRequest(
           'POST',
           Uri.parse(
-              'https://wingu1000.pythonanywhere.com/foodtruck-vendor/createprofile/'));
+              'https://app.foodtruck.express/foodtruck-vendor/createprofile/'));
       var file = await http.MultipartFile.fromPath('pro_pic', path);
  
       upload.files.add(file);
@@ -338,7 +342,7 @@ class WebServices extends ChangeNotifier {
 
     try {
       var vendor_sub_res = await http.get(
-          Uri.encodeFull('http://wingu1000.pythonanywhere.com/foodtruck-vendor/createsubscription/card_number=$card_number&exp_month=$expiry_month&exp_year=$expiry_year&cvc=$cvc/'),
+          Uri.encodeFull('https://app.foodtruck.express/foodtruck-vendor/createsubscription/card_number=$card_number&exp_month=$expiry_month&exp_year=$expiry_year&cvc=$cvc/'),
               headers: {
          "Accept": "application/json",
         "Authorization":  'Token ${token['auth_token']}'
@@ -398,7 +402,7 @@ class WebServices extends ChangeNotifier {
       var upload = http.MultipartRequest(
           'PUT',
           Uri.parse(
-              'http://wingu1000.pythonanywhere.com/foodtruck-vendor/vendorlanlog/${id}/'));
+              'https://app.foodtruck.express/foodtruck-vendor/vendorlanlog/${id}/'));
       upload.fields['online'] = online_offline.toString();
       upload.fields['Lan'] = lan.toString();
       upload.fields['Log'] = log.toString();
@@ -452,7 +456,7 @@ class WebServices extends ChangeNotifier {
   Future Vendor_Profile_Api() async {
     var vendor_profile_res = await http.get(
         Uri.encodeFull(
-            'http://wingu1000.pythonanywhere.com/foodtruck-vendor/profile/'),
+            'https://app.foodtruck.express/foodtruck-vendor/profile/'),
         headers: {
           "Accept": "application/json",
           "Authorization": 'Token ${token['auth_token']}'
@@ -473,7 +477,7 @@ class WebServices extends ChangeNotifier {
 
   Future User_Profile_Api() async {
     user_profile_res = await http.get(
-        Uri.encodeFull('http://app.foodtruck.express/foodtruck/users/me/'),
+        Uri.encodeFull('https://user.foodtruck.express/foodtruck/users/me/'),
         headers: {
           "Accept": "application/json",
           "Authorization": 'Token ${token['auth_token']}'
@@ -491,7 +495,7 @@ class WebServices extends ChangeNotifier {
     try {
       var res = await http.get(
           Uri.encodeFull(
-              'http://wingu1000.pythonanywhere.com/foodtruck-vendor/currentvendorslanlog/lan=${35.1081645}&log=${-106.4949871}&range_value=${range_value}/'),
+              'https://app.foodtruck.express/foodtruck-vendor/currentvendorslanlog/lan=${35.1081645}&log=${-106.4949871}&range_value=${range_value}/'),
           headers: {
             "Accept": "application/json",
             "Authorization": '${token['auth_token'].toString()}',
@@ -514,7 +518,7 @@ class WebServices extends ChangeNotifier {
   Future get_current_vendor_location() async {
     var current_vendor_location = await http.get(
         Uri.encodeFull(
-            'http://wingu1000.pythonanywhere.com/foodtruck-vendor/vendorlanlog/'),
+            'https://app.foodtruck.express/foodtruck-vendor/vendorlanlog/'),
         headers: {
           "Accept": "application/json",
           "Authorization": 'Token ${token['auth_token']}'
@@ -542,7 +546,7 @@ class WebServices extends ChangeNotifier {
     //var locationValues = Provider.of<LocationService>(context, listen: false);
       var res = await http.get(
           Uri.encodeFull(
-              'http://app.foodtruck.express/foodtruck/currentuserlanlog/lan=${location_latitude}&log=${location_longtitude}&range_value=${range_value}&sub_id=${subscription_id}/'),
+              'https://user.foodtruck.express/foodtruck/currentuserlanlog/lan=${location_latitude}&log=${location_longtitude}&range_value=${range_value}&sub_id=${subscription_id}/'),
           headers: {
             "Accept": "application/json",
             "Authorization": '${token['auth_token']}'
@@ -579,7 +583,7 @@ class WebServices extends ChangeNotifier {
     try {
       var res = await http.get(
           Uri.encodeFull(
-              'http://wingu1000.pythonanywhere.com/foodtruck-vendor/rating/$vendor_id/'),
+              'https://app.foodtruck.express/foodtruck-vendor/rating/$vendor_id/'),
           headers: {
             "Accept": "application/json",
             "Authorization": '${token['auth_token']}'
@@ -601,10 +605,10 @@ class WebServices extends ChangeNotifier {
 
   Future get_current_user_location() async {
     var current_user_location = await http.get(
-        Uri.encodeFull('http://app.foodtruck.express/foodtruck/userlanlog/'),
+        Uri.encodeFull('https://user.foodtruck.express/foodtruck/userlanlog/'),
         headers: {
           "Accept": "application/json",
-          "Authorization": '${token['auth_token']}'
+          "Authorization": 'Token ${token['auth_token']}'
         });
     if (current_user_location.statusCode == 200) {
      
@@ -620,10 +624,14 @@ class WebServices extends ChangeNotifier {
     }
   }
 
+
+
+
+
   Future get_vender_subscription_id() async {
     var vender_subscription = await http.get(
         Uri.encodeFull(
-            'http://wingu1000.pythonanywhere.com/foodtruck-vendor/user/subscription/'),
+            'https://app.foodtruck.express/foodtruck-vendor/user/subscription/'),
         headers: {
           "Accept": "application/json",
           "Authorization": 'Token ${token['auth_token']}'
@@ -639,7 +647,7 @@ class WebServices extends ChangeNotifier {
   Future get_vender_subscription_status(sub_id) async {
     var vender_subscription = await http.get(
         Uri.encodeFull(
-            'http://wingu1000.pythonanywhere.com/foodtruck-vendor/subscription/status/sub_id=${sub_id.toString()}'),
+            'https://app.foodtruck.express/foodtruck-vendor/subscription/status/sub_id=${sub_id.toString()}'),
         headers: {
           "Accept": "application/json",
           "Authorization": '${token['auth_token']}'
@@ -656,7 +664,7 @@ class WebServices extends ChangeNotifier {
     try{
     var vender_subscription = await http.get(
         Uri.encodeFull(
-            'http://wingu1000.pythonanywhere.com/foodtruck-vendor/createsubscription/'),
+            'https://app.foodtruck.express/foodtruck-vendor/createsubscription/'),
         headers: {
           "Accept": "application/json",
           "Authorization": 'Token ${token['auth_token']}'
@@ -664,7 +672,7 @@ class WebServices extends ChangeNotifier {
          var body = jsonDecode(vender_subscription.body);
      await   http.put(
         Uri.encodeFull(
-            'http://wingu1000.pythonanywhere.com/foodtruck-vendor/profile/${id}/'),
+            'https://app.foodtruck.express/foodtruck-vendor/profile/${id}/'),
        body: {
          'subcription_id': body['subcription_id'] ,
        },
@@ -690,7 +698,7 @@ class WebServices extends ChangeNotifier {
     try{
     var vender_subscription = await http.get(
         Uri.encodeFull(
-            'http://wingu1000.pythonanywhere.com/foodtruck-vendor/cancelsubscription/'),
+            'https://app.foodtruck.express/foodtruck-vendor/cancelsubscription/'),
         headers: {
           "Accept": "application/json",
           "Authorization": 'Token ${token['auth_token']}'
@@ -713,7 +721,7 @@ class WebServices extends ChangeNotifier {
         try{
              var vender_subscription = await http.get(
         Uri.encodeFull(
-            'http://wingu1000.pythonanywhere.com/foodtruck-vendor/addnewcard/card_number=${card_number}&exp_month=${exp_month}&exp_year=${exp_year}&cvc=${cvc}/'),
+            'https://app.foodtruck.express/foodtruck-vendor/addnewcard/card_number=${card_number}&exp_month=${exp_month}&exp_year=${exp_year}&cvc=${cvc}/'),
         headers: {
           "Accept": "application/json",
           "Authorization": 'Token ${token['auth_token']}'
@@ -758,7 +766,7 @@ class WebServices extends ChangeNotifier {
       var upload = http.MultipartRequest(
           'POST',
           Uri.parse(
-              'http://wingu1000.pythonanywhere.com/foodtruck-vendor/token/login/'));
+              'https://app.foodtruck.express/foodtruck-vendor/token/login/'));
       upload.fields['password'] = password.toString();
       upload.fields['email'] = email.toString();
       final stream = await upload.send();
@@ -775,7 +783,7 @@ class WebServices extends ChangeNotifier {
       var upload_loc = http.MultipartRequest(
           'POST',
           Uri.parse(
-              'http://wingu1000.pythonanywhere.com/foodtruck-vendor/vendorlanlog/'));
+              'https://app.foodtruck.express/foodtruck-vendor/vendorlanlog/'));
       upload_loc.fields['Lan'] = locationValues.location_latitude.toString();
       upload_loc.fields['Log'] = locationValues.location_longitude.toString();
       upload_loc.fields['online'] = 'True';
@@ -796,7 +804,7 @@ class WebServices extends ChangeNotifier {
       var upload = http.MultipartRequest(
           'PUT',
           Uri.parse(
-              'http://app.foodtruck.express/foodtruck/userlanlog/${id}/'));
+              'https://user.foodtruck.express/foodtruck/userlanlog/${id}/'));
       upload.fields['online'] = 'true';
       upload.fields['Lan'] = locationValues.location_latitude.toString();
       upload.fields['Log'] = locationValues.location_longitude.toString();
@@ -824,7 +832,7 @@ class WebServices extends ChangeNotifier {
       var upload = http.MultipartRequest(
           'PUT',
           Uri.parse(
-              'http://wingu1000.pythonanywhere.com/foodtruck-vendor/vendorlanlog/${id}/'));
+              'https://app.foodtruck.express/foodtruck-vendor/vendorlanlog/${id}/'));
       upload.fields['online'] = 'true';
       upload.fields['Lan'] = locationValues.location_latitude.toString();
       upload.fields['Log'] = locationValues.location_longitude.toString();
@@ -852,7 +860,7 @@ class WebServices extends ChangeNotifier {
 
     try {
       var upload = http.MultipartRequest('POST',
-          Uri.parse('http://app.foodtruck.express/foodtruck/token/login/'));
+          Uri.parse('https://user.foodtruck.express/foodtruck/token/login/'));
       upload.fields['password'] = password.toString();
       upload.fields['email'] = email.toString();
       final stream = await upload.send();
@@ -869,7 +877,7 @@ class WebServices extends ChangeNotifier {
     var locationValues = Provider.of<LocationService>(context, listen: false);
     try {
       var upload_loc = http.MultipartRequest('POST',
-          Uri.parse('http://app.foodtruck.express/foodtruck/userlanlog/'));
+          Uri.parse('https://user.foodtruck.express/foodtruck/userlanlog/'));
       upload_loc.fields['Lan'] = locationValues.location_latitude.toString();
       upload_loc.fields['Log'] = locationValues.location_longitude.toString();
       upload_loc.fields['online'] = 'True';
@@ -890,7 +898,7 @@ class WebServices extends ChangeNotifier {
       var upload = http.MultipartRequest(
           'POST',
           Uri.parse(
-              'http://wingu1000.pythonanywhere.com/foodtruck-vendor/users/'));
+              'https://app.foodtruck.express/foodtruck-vendor/users/'));
      
       upload.fields['password'] = password.toString();
       upload.fields['email'] = email.toString();
@@ -902,6 +910,8 @@ class WebServices extends ChangeNotifier {
       var body = jsonDecode(vendor_signup_res.body);
       if (vendor_signup_res.statusCode == 200 ||
           vendor_signup_res.statusCode == 201) {
+        box.write('token', token);
+        box.write('user', 'vendor');
         Login_SetState();
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return VENDORSIGNUP22();
@@ -966,17 +976,19 @@ class WebServices extends ChangeNotifier {
       {password, email, context}) async {
     try {
       var upload = http.MultipartRequest(
-          'POST', Uri.parse('http://app.foodtruck.express/foodtruck/users/'));
+          'POST', Uri.parse('https://user.foodtruck.express/foodtruck/users/'));
       upload.fields['username'] = 'foodtruck.express.'+'$email';
       upload.fields['password'] = password.toString();
       upload.fields['email'] = email.toString();
 
       final stream = await upload.send();
       user_signup_res = await http.Response.fromStream(stream);
-     
+
       var body = jsonDecode(user_signup_res.body);
       if (user_signup_res.statusCode == 200 ||
           user_signup_res.statusCode == 201) {
+        box.write('token', token);
+        box.write('user', 'user');
         Login_SetState();
         Navigator.push(context, MaterialPageRoute(builder: (context) {
           return Map_vendor();
@@ -1037,22 +1049,28 @@ class WebServices extends ChangeNotifier {
     }
   }
 
+
+
+
   Future Login_VendorApi({password, email, context}) async {
     try {
       var upload = http.MultipartRequest(
           'POST',
           Uri.parse(
-              'http://wingu1000.pythonanywhere.com/foodtruck-vendor/token/login/'));
+              'https://app.foodtruck.express/foodtruck-vendor/token/login/'));
       upload.fields['password'] = password.toString();
       upload.fields['email'] = email.toString();
       final stream = await upload.send();
       vendor_login_res = await http.Response.fromStream(stream);
       token = json.decode(vendor_login_res.body);
-   
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var video = prefs.getString('video');
       if (vendor_login_res.statusCode == 200 ||
           vendor_login_res.statusCode == 201) {
+        box.write('token', token);
+        box.write('user', 'vendor');
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return Map_user();
+          return video=='video'?Map_user():VideoApp('vendor');
         }));
         Login_SetState();
       } else if (vendor_login_res.statusCode == 400 ||
@@ -1095,20 +1113,34 @@ class WebServices extends ChangeNotifier {
     }
   }
 
+
+  initializeValues() {
+   token = box.read('token');
+    notifyListeners();
+  }
+
+
+
+
+
   Future Login_UserApi({password, email, context}) async {
     try {
       var upload = http.MultipartRequest('POST',
-          Uri.parse('http://app.foodtruck.express/foodtruck/token/login/'));
+          Uri.parse('https://user.foodtruck.express/foodtruck/token/login/'));
       upload.fields['password'] = password.toString();
       upload.fields['email'] = email.toString();
       final stream = await upload.send();
       user_login_res = await http.Response.fromStream(stream);
       token = json.decode(user_login_res.body);
-     
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+    var video = prefs.getString('video');
+
       if (user_login_res.statusCode == 200 ||
           user_login_res.statusCode == 201) {
+        box.write('token', token);
+        box.write('user', 'user');
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return Map_vendor();
+          return video=='video'?Map_vendor():VideoApp('user');
         }));
         Login_SetState();
       } else if (user_login_res.statusCode == 400 ||
@@ -1156,7 +1188,7 @@ class WebServices extends ChangeNotifier {
       var upload = http.MultipartRequest(
           'PUT',
           Uri.parse(
-              'http://wingu1000.pythonanywhere.com/foodtruck-vendor/menu/${id}/'));
+              'https://app.foodtruck.express/foodtruck-vendor/menu/${id}/'));
       upload.fields['menu_description'] = menu_description.toString();
       upload.fields['menu_title'] = menu_title.toString();
       upload.fields['menu_price'] = menu_price;
@@ -1169,10 +1201,7 @@ class WebServices extends ChangeNotifier {
      
       if (update_menu_res.statusCode == 200 ||
           update_menu_res.statusCode == 201) {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) {
-          return VendorMenuPage();
-        }));
+        Navigator.pop(context);
         Login_SetState();
       } else if (update_menu_res.statusCode == 400 ||
           update_menu_res.statusCode == 500 ||
@@ -1223,7 +1252,7 @@ class WebServices extends ChangeNotifier {
       var upload = http.MultipartRequest(
           'PUT',
           Uri.parse(
-              'http://wingu1000.pythonanywhere.com/foodtruck-vendor/profile/${id}/'));
+              'https://app.foodtruck.express/foodtruck-vendor/profile/${id}/'));
       upload.fields['phone'] = phone.toString();
       upload.fields['business_name'] = business_name.toString();
       upload.fields['unique_detail'] = unique_detail;
@@ -1239,8 +1268,8 @@ class WebServices extends ChangeNotifier {
           update_profile_res.statusCode == 201) {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) {
-          return VENDORprofile();
-        }));
+              return VENDORprofile();
+            }));
         Login_SetState_third();
       } else if (update_profile_res.statusCode == 400 ||
           update_profile_res.statusCode == 500 ||
@@ -1289,7 +1318,7 @@ class WebServices extends ChangeNotifier {
       var upload = http.MultipartRequest(
           'POST',
           Uri.parse(
-              'http://wingu1000.pythonanywhere.com/foodtruck-vendor/menu/'));
+              'https://app.foodtruck.express/foodtruck-vendor/menu/'));
       var file = await http.MultipartFile.fromPath('menu_picture1', image1);
       upload.files.add(file);
       upload.fields['menu_title'] = menu_title.toString();
@@ -1304,10 +1333,7 @@ class WebServices extends ChangeNotifier {
 
       if (upload_menu_res.statusCode == 200 ||
           upload_menu_res.statusCode == 201) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) {
-          return VendorMenuPage();
-        }));
+        Navigator.pop(context);
         Login_SetState();
       } else if (upload_menu_res.statusCode == 400 ||
           upload_menu_res.statusCode == 500 ||
@@ -1351,7 +1377,7 @@ class WebServices extends ChangeNotifier {
       var upload = http.MultipartRequest(
           'DELETE',
           Uri.parse(
-              'http://wingu1000.pythonanywhere.com/foodtruck-vendor/menu/$id/'));
+              'https://app.foodtruck.express/foodtruck-vendor/menu/$id/'));
       upload.headers['authorization'] = 'Token ${token['auth_token']}';
       final stream = await upload.send();
       var update_menu_res = await http.Response.fromStream(stream);
@@ -1359,9 +1385,7 @@ class WebServices extends ChangeNotifier {
       if (update_menu_res.statusCode == 200 ||
           update_menu_res.statusCode == 201 ||
           update_menu_res.statusCode == 204) {
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-          return VendorMenuPage();
-        }));
+        Navigator.pop(context);
         Login_SetState();
 
       } else if (update_menu_res.statusCode == 400 ||
@@ -1408,7 +1432,7 @@ class WebServices extends ChangeNotifier {
       var upload = http.MultipartRequest(
           'PUT',
           Uri.parse(
-              'http://wingu1000.pythonanywhere.com/foodtruck-vendor/profile/${id}/'));
+              'https://app.foodtruck.express/foodtruck-vendor/profile/${id}/'));
       var file = await http.MultipartFile.fromPath('pro_pic', pro_pic);
       upload.files.add(file);
       upload.fields['lanlog'] = '';
@@ -1468,7 +1492,7 @@ class WebServices extends ChangeNotifier {
       var upload = http.MultipartRequest(
           'PUT',
           Uri.parse(
-              'http://wingu1000.pythonanywhere.com/foodtruck-vendor/menu/${id}/'));
+              'https://app.foodtruck.express/foodtruck-vendor/menu/${id}/'));
       var file = await http.MultipartFile.fromPath('menu_picture1', image1);
       upload.files.add(file);
       upload.fields['lanlog'] = '';
@@ -1480,10 +1504,7 @@ class WebServices extends ChangeNotifier {
      
       if (update_menu_res.statusCode == 200 ||
           update_menu_res.statusCode == 201) {
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) {
-          return VendorMenuPage();
-        }));
+        Navigator.pop(context);
         Login_SetState_Second();
       } else if (update_menu_res.statusCode == 400 ||
           update_menu_res.statusCode == 500 ||
@@ -1527,7 +1548,7 @@ class WebServices extends ChangeNotifier {
       var upload = http.MultipartRequest(
           'POST',
           Uri.parse(
-              'http://wingu1000.pythonanywhere.com/foodtruck-vendor/rating/'));
+              'https://app.foodtruck.express/foodtruck-vendor/rating/'));
       upload.fields['rate'] = rate.toString();
       upload.fields['lanlog'] = lanlog.toString();
     

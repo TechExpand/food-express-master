@@ -32,15 +32,19 @@ dependencies:
   image_picker:
   geolocator: ^6.0.0
   font_awesome_flutter: ^8.8.1
+  get_storage:
   location: ^3.0.2
   url_launcher: ^5.5.0
   smooth_star_rating:
   carousel_pro: ^1.0.0
+  shared_preferences:
+  video_player: ^2.0.0
   statusbar: ^1.1.0
   admob_flutter: ^1.0.1
   provider:
   flare_flutter: ^2.0.6
   http:
+  google_sign_in: ^5.0.1
   google_fonts: ^1.1.2
 
 

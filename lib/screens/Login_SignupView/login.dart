@@ -4,6 +4,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
 import 'package:foodtruck/Services/Network.dart';
+import 'package:foodtruck/Utils/utils.dart';
 import 'package:foodtruck/screens/Login_SignupView/SIGNUP.dart';
 import 'package:foodtruck/screens/VendorView/MAp_vendor.dart';
 import 'package:foodtruck/Services/admob.dart';
@@ -295,15 +296,21 @@ Widget UserLogin(email, password, context, form_key) {
                                       password: password,
                                       context: context)
                                   .then((value) => webservices_consumer
-                                      .get_current_user_location()
-                                      .then((value) => Timer.periodic(
-                                              Duration(seconds: 5), (timer) {
-                                            webservices_consumer
-                                                .Update_User_Location(
-                                              id: value[0].id,
-                                              context: context,
-                                            );
-                                          })));
+                                          .get_current_user_location()
+                                          .then((value) {
+                                        var data = Provider.of<Utils>(context,
+                                            listen: false);
+                                        data.storeData('video', 'video');
+                                        data.storeData('user', 'user');
+                                        Timer.periodic(Duration(seconds: 5),
+                                            (timer) {
+                                          webservices_consumer
+                                              .Update_User_Location(
+                                            id: value[0].id,
+                                            context: context,
+                                          );
+                                        });
+                                      }));
                             }
                           },
                           color: Color(0xFF67b9fb),
@@ -600,8 +607,12 @@ Widget VendorLogin(email, password, context, form_key) {
                                                 password: password,
                                                 context: context)
                                             .then((value) => webservices_consumer
-                                                .get_current_vendor_location()
-                                                .then((value) => Timer.periodic(
+                                                .get_current_vendor_location().then((value){
+                                          var data = Provider.of<Utils>(context,
+                                              listen: false);
+                                          data.storeData('video', 'video');
+                                          data.storeData('user', 'vendor');
+                                                  Timer.periodic(
                                                         Duration(minutes: 10),
                                                         (timer) {
                                                       webservices_consumer
@@ -609,8 +620,7 @@ Widget VendorLogin(email, password, context, form_key) {
                                                         id: value[0].id,
                                                         context: context,
                                                       );
-                                                    })));
-                                        ;
+                                                    });}));
                                       }
                                     },
                                     color: Color(0xFF67b9fb),
