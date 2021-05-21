@@ -8,20 +8,16 @@ class LocationService with ChangeNotifier {
   Location location_met = Location();
   var _serviceEnabled;
 
-
   Future getCurrentLocation() async {
-    try{
-      Position position = await getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+    try {
+      Position position = await Geolocator.getCurrentPosition(
+          desiredAccuracy: LocationAccuracy.best);
       location_latitude = position.latitude;
       location_longitude = position.longitude;
       notifyListeners();
       return position;
-    }catch(e){
-    
-    }
-
+    } catch (e) {}
   }
-
 
   Future onlocation() async {
     try {
@@ -30,8 +26,6 @@ class LocationService with ChangeNotifier {
         _serviceEnabled = await location_met.requestService();
         notifyListeners();
       }
-    } catch (e) {
-   
-    }
+    } catch (e) {}
   }
 }

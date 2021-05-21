@@ -130,17 +130,17 @@ Widget UserLogin(email, password, context, form_key) {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            // Padding(
-            //   padding: EdgeInsets.all(MediaQuery.of(context).size.height / 14),
-            //   child: Container(
-            //       width: 150,
-            //       height: 100,
-            // child: Image.asset('assets/images/logotruck.png')),
-            // ),
-
-            SizedBox(
-              height: 200.0,
+            Padding(
+              padding: EdgeInsets.all(MediaQuery.of(context).size.height / 14),
+              child: Container(
+                  width: 150,
+                  height: 100,
+                  child: Image.asset('assets/images/logotruck.png')),
             ),
+
+            // SizedBox(
+            //   height: 200.0,
+            // ),
 
             Padding(
               padding: EdgeInsets.only(
@@ -606,21 +606,27 @@ Widget VendorLogin(email, password, context, form_key) {
                                                 email: email,
                                                 password: password,
                                                 context: context)
-                                            .then((value) => webservices_consumer
-                                                .get_current_vendor_location().then((value){
-                                          var data = Provider.of<Utils>(context,
-                                              listen: false);
-                                          data.storeData('video', 'video');
-                                          data.storeData('user', 'vendor');
+                                            .then((value) =>
+                                                webservices_consumer
+                                                    .get_current_vendor_location()
+                                                    .then((value) {
+                                                  var data = Provider.of<Utils>(
+                                                      context,
+                                                      listen: false);
+                                                  data.storeData(
+                                                      'video', 'video');
+                                                  data.storeData(
+                                                      'user', 'vendor');
                                                   Timer.periodic(
-                                                        Duration(minutes: 10),
-                                                        (timer) {
-                                                      webservices_consumer
-                                                          .Update_Vendor_Location(
-                                                        id: value[0].id,
-                                                        context: context,
-                                                      );
-                                                    });}));
+                                                      Duration(minutes: 10),
+                                                      (timer) {
+                                                    webservices_consumer
+                                                        .Update_Vendor_Location(
+                                                      id: value[0].id,
+                                                      context: context,
+                                                    );
+                                                  });
+                                                }));
                                       }
                                     },
                                     color: Color(0xFF67b9fb),

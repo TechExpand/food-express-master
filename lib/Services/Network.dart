@@ -41,7 +41,6 @@ class WebServices extends ChangeNotifier {
   var isLoading = false;
   final box = GetStorage();
 
-
   void Login_SetState() {
     if (login_state == false) {
       login_state = true;
@@ -74,33 +73,30 @@ class WebServices extends ChangeNotifier {
   Future location_profile(id) async {
     try {
       var res = await http.get(
-          Uri.encodeFull(
+          Uri.parse(
               'https://app.foodtruck.express/foodtruck-vendor/locationprofile/${id.toString()}'),
           headers: {
             "Accept": "application/json",
             "Authorization": '${token['auth_token']}'
           });
       if (res.statusCode == 200) {
-       
         var body = jsonDecode(res.body) as List;
         List<LocationProfileDetail> location_profile_objects = body
             .map((location_profile_json) =>
                 LocationProfileDetail.fromJson(location_profile_json))
             .toList();
-        
+
         return location_profile_objects;
       } else {
         throw 'Cant get profile details';
       }
-    } catch (e) {
-     
-    }
+    } catch (e) {}
   }
 
   Future location_menu(id, subscription_id) async {
     try {
       var res = await http.get(
-          Uri.encodeFull(
+          Uri.parse(
               'https://app.foodtruck.express/foodtruck-vendor/locationmenu/id=${id.toString()}/sub_id=${subscription_id.toString()}'),
           headers: {
             "Accept": "application/json",
@@ -122,48 +118,39 @@ class WebServices extends ChangeNotifier {
           return location_menu_objects;
         }
       }
-    } catch (e) {
-    
-    }
+    } catch (e) {}
   }
-
 
   Future Vendor_Profile_Menu() async {
     try {
-      var res = await http.get(Uri.encodeFull('https://app.foodtruck.express/foodtruck-vendor/menu/'), headers: {
-        "Accept": "application/json",
-        "Authorization":  'Token ${token['auth_token']}'
-      });
+      var res = await http.get(
+          Uri.parse('https://app.foodtruck.express/foodtruck-vendor/menu/'),
+          headers: {
+            "Accept": "application/json",
+            "Authorization": 'Token ${token['auth_token']}'
+          });
       if (res.statusCode == 200) {
         var body = res.body;
         var data = jsonDecode(body);
         var result = data['results'] as List;
         List<LocationMenuDetail> vendor_menu_objects = result
             .map((vendor_menu_json) =>
-            LocationMenuDetail.fromJson(vendor_menu_json))
+                LocationMenuDetail.fromJson(vendor_menu_json))
             .toList();
         return vendor_menu_objects;
       }
-    } catch (e) {
-     
-    }
+    } catch (e) {}
   }
 
-
   Future Vendor_InfoApi(
-      {business_name,
-      unique_detail,
-      detail,
-      phone,
-      path,
-      context}) async {
+      {business_name, unique_detail, detail, phone, path, context}) async {
     try {
       var upload = http.MultipartRequest(
           'POST',
           Uri.parse(
               'https://app.foodtruck.express/foodtruck-vendor/createprofile/'));
       var file = await http.MultipartFile.fromPath('pro_pic', path);
- 
+
       upload.files.add(file);
       upload.fields['business_name'] = business_name.toString();
       upload.fields['unique_detail'] = unique_detail.toString();
@@ -175,180 +162,170 @@ class WebServices extends ChangeNotifier {
 
       final stream = await upload.send();
       vendor_info_res = await http.Response.fromStream(stream);
-  
+
       var body = jsonDecode(vendor_info_res.body);
       if (vendor_info_res.statusCode == 200 ||
           vendor_info_res.statusCode == 201) {
         Login_SetState();
         showDialog(
-            builder:(context)=> AlertDialog(
-              elevation: 6,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(32.0))),
-              content: Container(
-                height: 350,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(bottom:5.0),
-                      child: Icon(Icons.monetization_on, size: 90, color:  Color(0xFF67b9fb)),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(top:15, bottom: 15),
-                      width: 250,
-                      child: Text(
-                        'Would you like to upgrade your subscription which allow your ability to '
-                          'upload your menu items and see user locations',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 15,
-                          color: Colors.black54,
-                        ),
-                      ),
-                    ),
-                    ButtonBar(
+            builder: (context) => AlertDialog(
+                  elevation: 6,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(32.0))),
+                  content: Container(
+                    height: 350,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Material(
-                          borderRadius: BorderRadius.circular(26),
-                          elevation: 2,
-                          child: Container(
-                            height: 40,
-                            width: 120,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Color(0xFFE60016)),
-                                borderRadius: BorderRadius.circular(26)
-                            ),
-                            child: FlatButton(
-                              onPressed: () {
-                               // Navigator.of(context).pop();
-                                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                  return Map_user();
-                                }));
-                              },
-                              color: Color(0xFFE60016),
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(26)),
-                              padding: EdgeInsets.all(0.0),
-                              child: Ink(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(26)
-                                ),
-                                child: Container(
-                                  constraints: BoxConstraints(maxWidth: 190.0, minHeight: 53.0),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "No Thanks",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white
-                                    ),
-                                  ),
-                                ),
-                              ),
-
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 5.0),
+                          child: Icon(Icons.monetization_on,
+                              size: 90, color: Color(0xFF67b9fb)),
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 15, bottom: 15),
+                          width: 250,
+                          child: Text(
+                            'Would you like to upgrade your subscription which allow your ability to '
+                            'upload your menu items and see user locations',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black54,
                             ),
                           ),
                         ),
-                        Material(
-                          borderRadius: BorderRadius.circular(26),
-                          elevation: 2,
-                          child: Container(
-                             height: 40,
-                            width: 120,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Colors.green),
-                                borderRadius: BorderRadius.circular(26)
-                            ),
-                            child: FlatButton(
-                              onPressed: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) {
-                                  return SubscribePage();
-                                }));
-                              },
-                              color: Colors.green,
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(26)),
-                              padding: EdgeInsets.all(0.0),
-                              child: Ink(
+                        ButtonBar(
+                          children: <Widget>[
+                            Material(
+                              borderRadius: BorderRadius.circular(26),
+                              elevation: 2,
+                              child: Container(
+                                height: 40,
+                                width: 120,
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(26)
-                                ),
-                                child: Container(
-                                  constraints: BoxConstraints(maxWidth: 190.0, minHeight: 53.0),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    "Sign me up!",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white
+                                    border:
+                                        Border.all(color: Color(0xFFE60016)),
+                                    borderRadius: BorderRadius.circular(26)),
+                                child: FlatButton(
+                                  onPressed: () {
+                                    // Navigator.of(context).pop();
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) {
+                                      return Map_user();
+                                    }));
+                                  },
+                                  color: Color(0xFFE60016),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(26)),
+                                  padding: EdgeInsets.all(0.0),
+                                  child: Ink(
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(26)),
+                                    child: Container(
+                                      constraints: BoxConstraints(
+                                          maxWidth: 190.0, minHeight: 53.0),
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        "No Thanks",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
-
                             ),
-                          ),
+                            Material(
+                              borderRadius: BorderRadius.circular(26),
+                              elevation: 2,
+                              child: Container(
+                                height: 40,
+                                width: 120,
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.green),
+                                    borderRadius: BorderRadius.circular(26)),
+                                child: FlatButton(
+                                  onPressed: () {
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) {
+                                      return SubscribePage();
+                                    }));
+                                  },
+                                  color: Colors.green,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(26)),
+                                  padding: EdgeInsets.all(0.0),
+                                  child: Ink(
+                                    decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(26)),
+                                    child: Container(
+                                      constraints: BoxConstraints(
+                                          maxWidth: 190.0, minHeight: 53.0),
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        "Sign me up!",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
             context: context);
-
       } else if (vendor_info_res.statusCode == 400) {
         Login_SetState();
         showDialog(
-            builder:(context)=>AlertDialog(
-              title: Center(
-                child: Text('Check Credentials',
-                    style: TextStyle(color: Colors.blue)),
-              ),
-            ),
+            builder: (context) => AlertDialog(
+                  title: Center(
+                    child: Text('Check Credentials',
+                        style: TextStyle(color: Colors.blue)),
+                  ),
+                ),
             context: context);
       }
       return vendor_info_res;
     } catch (e) {
-      
       Login_SetState();
       showDialog(
-          builder:(context)=>AlertDialog(
-            title: Center(
-              child:
-                  Text('Working on it', style: TextStyle(color: Colors.blue)),
-            ),
-            content: Text('There was a Problem Encountered'),
-          ),
+          builder: (context) => AlertDialog(
+                title: Center(
+                  child: Text('Working on it',
+                      style: TextStyle(color: Colors.blue)),
+                ),
+                content: Text('There was a Problem Encountered'),
+              ),
           context: context);
     }
   }
 
-
-
-
-
-  Future Vendor_Subscribe({
-        cvc,
-        expiry_year,
-        expiry_month,
-        card_number,
-        context
-      }) async {
-
+  Future Vendor_Subscribe(
+      {cvc, expiry_year, expiry_month, card_number, context}) async {
     try {
       var vendor_sub_res = await http.get(
-          Uri.encodeFull('https://app.foodtruck.express/foodtruck-vendor/createsubscription/card_number=$card_number&exp_month=$expiry_month&exp_year=$expiry_year&cvc=$cvc/'),
-              headers: {
-         "Accept": "application/json",
-        "Authorization":  'Token ${token['auth_token']}'
-      },
-    );
-  
+        Uri.parse(
+            'https://app.foodtruck.express/foodtruck-vendor/createsubscription/card_number=$card_number&exp_month=$expiry_month&exp_year=$expiry_year&cvc=$cvc/'),
+        headers: {
+          "Accept": "application/json",
+          "Authorization": 'Token ${token['auth_token']}'
+        },
+      );
 
       if (vendor_sub_res.statusCode == 200 ||
           vendor_sub_res.statusCode == 201) {
@@ -359,34 +336,29 @@ class WebServices extends ChangeNotifier {
       } else if (vendor_sub_res.statusCode == 400) {
         Login_SetState();
         showDialog(
-            builder:(context)=> AlertDialog(
-              title: Center(
-                child: Text('Check Credentials',
-                    style: TextStyle(color: Colors.blue)),
-              ),
-            ),
+            builder: (context) => AlertDialog(
+                  title: Center(
+                    child: Text('Check Credentials',
+                        style: TextStyle(color: Colors.blue)),
+                  ),
+                ),
             context: context);
       }
       return vendor_sub_res;
     } catch (e) {
       Login_SetState();
-      
+
       showDialog(
-          builder:(context)=> AlertDialog(
-            title: Center(
-              child:
-              Text('Working on it $e', style: TextStyle(color: Colors.blue)),
-            ),
-            content: Text('There was a Problem Encountered'),
-          ),
+          builder: (context) => AlertDialog(
+                title: Center(
+                  child: Text('Working on it $e',
+                      style: TextStyle(color: Colors.blue)),
+                ),
+                content: Text('There was a Problem Encountered'),
+              ),
           context: context);
     }
   }
-
-
-
-
-
 
   Future Update_Vendor_to_Online_Offline({
     bool online_offline,
@@ -411,7 +383,7 @@ class WebServices extends ChangeNotifier {
 
       final stream = await upload.send();
       update_online_offline_res = await http.Response.fromStream(stream);
-     
+
       var body = jsonDecode(update_online_offline_res.body);
       if (update_online_offline_res.statusCode == 200 ||
           update_online_offline_res.statusCode == 201) {
@@ -426,49 +398,46 @@ class WebServices extends ChangeNotifier {
           update_online_offline_res.statusCode == 401) {
         Login_SetState();
         showDialog(
-            builder:(context)=> AlertDialog(
-              title: Center(
-                child: Icon(
-                  Icons.signal_cellular_connected_no_internet_4_bar,
-                  color: Colors.red,
+            builder: (context) => AlertDialog(
+                  title: Center(
+                    child: Icon(
+                      Icons.signal_cellular_connected_no_internet_4_bar,
+                      color: Colors.red,
+                    ),
+                  ),
+                  content: Text('failed'),
                 ),
-              ),
-              content: Text('failed'),
-            ),
             context: context);
       }
       return update_online_offline_res;
     } catch (e) {
-     
       Login_SetState();
       showDialog(
-          builder:(context)=> AlertDialog(
-            title: Center(
-              child:
-                  Text('Working on it', style: TextStyle(color: Colors.blue)),
-            ),
-            content: Text('There was a Problem Encountered'),
-          ),
+          builder: (context) => AlertDialog(
+                title: Center(
+                  child: Text('Working on it',
+                      style: TextStyle(color: Colors.blue)),
+                ),
+                content: Text('There was a Problem Encountered'),
+              ),
           context: context);
     }
   }
 
   Future Vendor_Profile_Api() async {
     var vendor_profile_res = await http.get(
-        Uri.encodeFull(
-            'https://app.foodtruck.express/foodtruck-vendor/profile/'),
+        Uri.parse('https://app.foodtruck.express/foodtruck-vendor/profile/'),
         headers: {
           "Accept": "application/json",
           "Authorization": 'Token ${token['auth_token']}'
         });
     if (vendor_profile_res.statusCode == 200) {
-     
       var body = jsonDecode(vendor_profile_res.body) as List;
       List<VendorProfile> vendor_profile_objects = body
           .map((vendor_profile_json) =>
               VendorProfile.fromJson(vendor_profile_json))
           .toList();
-     
+
       return vendor_profile_objects;
     } else {
       throw 'Cant get vendor profile';
@@ -477,7 +446,7 @@ class WebServices extends ChangeNotifier {
 
   Future User_Profile_Api() async {
     user_profile_res = await http.get(
-        Uri.encodeFull('https://user.foodtruck.express/foodtruck/users/me/'),
+        Uri.parse('https://user.foodtruck.express/foodtruck/users/me/'),
         headers: {
           "Accept": "application/json",
           "Authorization": 'Token ${token['auth_token']}'
@@ -494,7 +463,7 @@ class WebServices extends ChangeNotifier {
       {context, location_latitude, location_longtitude, range_value}) async {
     try {
       var res = await http.get(
-          Uri.encodeFull(
+          Uri.parse(
               'https://app.foodtruck.express/foodtruck-vendor/currentvendorslanlog/lan=${35.1081645}&log=${-106.4949871}&range_value=${range_value}/'),
           headers: {
             "Accept": "application/json",
@@ -510,21 +479,18 @@ class WebServices extends ChangeNotifier {
         notifyListeners();
         return vendor_current_location_objects;
       }
-    } catch (e) {
-     
-    }
+    } catch (e) {}
   }
 
   Future get_current_vendor_location() async {
     var current_vendor_location = await http.get(
-        Uri.encodeFull(
+        Uri.parse(
             'https://app.foodtruck.express/foodtruck-vendor/vendorlanlog/'),
         headers: {
           "Accept": "application/json",
           "Authorization": 'Token ${token['auth_token']}'
         });
     if (current_vendor_location.statusCode == 200) {
-     
       var body = jsonDecode(current_vendor_location.body) as List;
       List<CurrentVendorlocation> current_vendor_location_objects = body
           .map((current_vendor_location_json) =>
@@ -544,36 +510,33 @@ class WebServices extends ChangeNotifier {
       range_value,
       subscription_id}) async {
     //var locationValues = Provider.of<LocationService>(context, listen: false);
-      var res = await http.get(
-          Uri.encodeFull(
-              'https://user.foodtruck.express/foodtruck/currentuserlanlog/lan=${location_latitude}&log=${location_longtitude}&range_value=${range_value}&sub_id=${subscription_id}/'),
-          headers: {
-            "Accept": "application/json",
-            "Authorization": '${token['auth_token']}'
-          });
+    var res = await http.get(
+        Uri.parse(
+            'https://user.foodtruck.express/foodtruck/currentuserlanlog/lan=${location_latitude}&log=${location_longtitude}&range_value=${range_value}&sub_id=${subscription_id}/'),
+        headers: {
+          "Accept": "application/json",
+          "Authorization": '${token['auth_token']}'
+        });
 
-      var body = jsonDecode(res.body);
-     
-      if (res.statusCode == 200) {
-        if (body == 'Subscribe to get online Users and Display your Menu') {
-          
-          return body;
-        } else if (body == 'Connection Error') {
-          return body;
-        } else {
-          var body = jsonDecode(res.body) as List;
-          List<CurrentUserlocation> user_current_location_objects = body
-              .map((user_current_location_json) =>
-                  CurrentUserlocation.fromJson(user_current_location_json))
-              .toList();
-          notifyListeners();
-          return user_current_location_objects;
-        }
+    var body = jsonDecode(res.body);
+
+    if (res.statusCode == 200) {
+      if (body == 'Subscribe to get online Users and Display your Menu') {
+        return body;
+      } else if (body == 'Connection Error') {
+        return body;
       } else {
-
-        throw body;
+        var body = jsonDecode(res.body) as List;
+        List<CurrentUserlocation> user_current_location_objects = body
+            .map((user_current_location_json) =>
+                CurrentUserlocation.fromJson(user_current_location_json))
+            .toList();
+        notifyListeners();
+        return user_current_location_objects;
       }
-    
+    } else {
+      throw body;
+    }
   }
 
   Future get_vendor_rating({
@@ -582,13 +545,13 @@ class WebServices extends ChangeNotifier {
   }) async {
     try {
       var res = await http.get(
-          Uri.encodeFull(
+          Uri.parse(
               'https://app.foodtruck.express/foodtruck-vendor/rating/$vendor_id/'),
           headers: {
             "Accept": "application/json",
             "Authorization": '${token['auth_token']}'
           });
-        
+
       if (res.statusCode == 200) {
         var body = jsonDecode(res.body) as List;
         List<Rating> vendor_rating_objects = body
@@ -596,41 +559,35 @@ class WebServices extends ChangeNotifier {
             .toList();
         notifyListeners();
         return vendor_rating_objects;
-      } 
+      }
     } catch (e) {
-  
       return 'failed to get rating';
     }
   }
 
   Future get_current_user_location() async {
     var current_user_location = await http.get(
-        Uri.encodeFull('https://user.foodtruck.express/foodtruck/userlanlog/'),
+        Uri.parse('https://user.foodtruck.express/foodtruck/userlanlog/'),
         headers: {
           "Accept": "application/json",
           "Authorization": 'Token ${token['auth_token']}'
         });
     if (current_user_location.statusCode == 200) {
-     
       var body = jsonDecode(current_user_location.body) as List;
       List<CurrentUserlocation> current_user_location_objects = body
           .map((current_user_location_json) =>
               CurrentUserlocation.fromJson(current_user_location_json))
           .toList();
-     
+
       return current_user_location_objects;
     } else {
       throw 'Cant get user location';
     }
   }
 
-
-
-
-
   Future get_vender_subscription_id() async {
     var vender_subscription = await http.get(
-        Uri.encodeFull(
+        Uri.parse(
             'https://app.foodtruck.express/foodtruck-vendor/user/subscription/'),
         headers: {
           "Accept": "application/json",
@@ -646,7 +603,7 @@ class WebServices extends ChangeNotifier {
 
   Future get_vender_subscription_status(sub_id) async {
     var vender_subscription = await http.get(
-        Uri.encodeFull(
+        Uri.parse(
             'https://app.foodtruck.express/foodtruck-vendor/subscription/status/sub_id=${sub_id.toString()}'),
         headers: {
           "Accept": "application/json",
@@ -661,92 +618,88 @@ class WebServices extends ChangeNotifier {
   }
 
   Future reactivate_subscription(id) async {
-    try{
-    var vender_subscription = await http.get(
-        Uri.encodeFull(
-            'https://app.foodtruck.express/foodtruck-vendor/createsubscription/'),
-        headers: {
-          "Accept": "application/json",
-          "Authorization": 'Token ${token['auth_token']}'
-        });
-         var body = jsonDecode(vender_subscription.body);
-     await   http.put(
-        Uri.encodeFull(
-            'https://app.foodtruck.express/foodtruck-vendor/profile/${id}/'),
-       body: {
-         'subcription_id': body['subcription_id'] ,
-       },
-        headers: {
-          "Accept": "application/json",
-          "Authorization": 'Token ${token['auth_token']}'
-        });
-    if (vender_subscription.statusCode == 200) {
+    try {
+      var vender_subscription = await http.get(
+          Uri.parse(
+              'https://app.foodtruck.express/foodtruck-vendor/createsubscription/'),
+          headers: {
+            "Accept": "application/json",
+            "Authorization": 'Token ${token['auth_token']}'
+          });
+      var body = jsonDecode(vender_subscription.body);
+      await http.put(
+          Uri.parse(
+              'https://app.foodtruck.express/foodtruck-vendor/profile/${id}/'),
+          body: {
+            'subcription_id': body['subcription_id'],
+          },
+          headers: {
+            "Accept": "application/json",
+            "Authorization": 'Token ${token['auth_token']}'
+          });
+      if (vender_subscription.statusCode == 200) {
+        Login_SetState();
+
+        return body['success'];
+      } else {
+        Login_SetState();
+        return 'subscription failed';
+      }
+    } catch (e) {
       Login_SetState();
-     
-      return body['success'];
-    } else {
-       Login_SetState();
-      return 'subscription failed';
-     
-    }}catch(e){
-           Login_SetState();
     }
-    
   }
 
   Future cancel_subscription() async {
-    try{
-    var vender_subscription = await http.get(
-        Uri.encodeFull(
-            'https://app.foodtruck.express/foodtruck-vendor/cancelsubscription/'),
-        headers: {
-          "Accept": "application/json",
-          "Authorization": 'Token ${token['auth_token']}'
-        });
-    if (vender_subscription.statusCode == 200) {
+    try {
+      var vender_subscription = await http.get(
+          Uri.parse(
+              'https://app.foodtruck.express/foodtruck-vendor/cancelsubscription/'),
+          headers: {
+            "Accept": "application/json",
+            "Authorization": 'Token ${token['auth_token']}'
+          });
+      if (vender_subscription.statusCode == 200) {
+        Login_SetState();
+        var body = jsonDecode(vender_subscription.body);
+        return body;
+      } else {
+        Login_SetState();
+        return token['auth_token'].toString();
+      }
+    } catch (e) {
       Login_SetState();
-      var body = jsonDecode(vender_subscription.body);
-      return body;
-    } else {
-       Login_SetState();
-       return token['auth_token'].toString();
-    }
-    }catch(e){
-       Login_SetState();
     }
   }
 
   Future Set_Default_Payment_Card(
       {card_number, exp_month, exp_year, cvc, context}) async {
-        try{
-             var vender_subscription = await http.get(
-        Uri.encodeFull(
-            'https://app.foodtruck.express/foodtruck-vendor/addnewcard/card_number=${card_number}&exp_month=${exp_month}&exp_year=${exp_year}&cvc=${cvc}/'),
-        headers: {
-          "Accept": "application/json",
-          "Authorization": 'Token ${token['auth_token']}'
-        });
-       
-    if (vender_subscription.statusCode == 200) {
+    try {
+      var vender_subscription = await http.get(
+          Uri.parse(
+              'https://app.foodtruck.express/foodtruck-vendor/addnewcard/card_number=${card_number}&exp_month=${exp_month}&exp_year=${exp_year}&cvc=${cvc}/'),
+          headers: {
+            "Accept": "application/json",
+            "Authorization": 'Token ${token['auth_token']}'
+          });
+
+      if (vender_subscription.statusCode == 200) {
+        Login_SetState();
+        var body = jsonDecode(vender_subscription.body);
+        return body;
+      }
+    } catch (e) {
       Login_SetState();
-      var body = jsonDecode(vender_subscription.body);
-      return body;
-    }
-        }catch(e){
-        
-           Login_SetState();
       showDialog(
-          builder:(context)=> AlertDialog(
-            title: Center(
-              child:
-                  Text('Working on it', style: TextStyle(color: Colors.blue)),
-            ),
-            content: Text('There was a Problem Encountered'),
-          ),
+          builder: (context) => AlertDialog(
+                title: Center(
+                  child: Text('Working on it',
+                      style: TextStyle(color: Colors.blue)),
+                ),
+                content: Text('There was a Problem Encountered'),
+              ),
           context: context);
     }
-        
-   
   }
 
 ////"""POST REQUEST ""
@@ -772,9 +725,7 @@ class WebServices extends ChangeNotifier {
       final stream = await upload.send();
       var response = await http.Response.fromStream(stream);
       token = json.decode(response.body);
-    } catch (e) {
-      
-    }
+    } catch (e) {}
   }
 
   Future send_vendor_location(context) async {
@@ -788,14 +739,11 @@ class WebServices extends ChangeNotifier {
       upload_loc.fields['Log'] = locationValues.location_longitude.toString();
       upload_loc.fields['online'] = 'True';
       upload_loc.fields['user'] = '';
-      upload_loc.headers['authorization'] =
-          'Token ${token['auth_token']}';
+      upload_loc.headers['authorization'] = 'Token ${token['auth_token']}';
       final stream_loc = await upload_loc.send();
       var response_loc = await http.Response.fromStream(stream_loc);
       return '${response_loc.body}';
-    } catch (e) {
-     
-    }
+    } catch (e) {}
   }
 
   Future Update_User_Location({id, context}) async {
@@ -818,12 +766,10 @@ class WebServices extends ChangeNotifier {
           update_user_location_res.statusCode == 201) {
         return 'User Location Updated';
       } else {
-       return 'Location not updated';
+        return 'Location not updated';
       }
       return update_user_location_res;
-    } catch (e) {
-     
-    }
+    } catch (e) {}
   }
 
   Future Update_Vendor_Location({id, context}) async {
@@ -849,9 +795,7 @@ class WebServices extends ChangeNotifier {
         'return ${update_vendor_location_res.body}';
       }
       return update_vendor_location_res;
-    } catch (e) {
-      
-    }
+    } catch (e) {}
   }
 
   Future<dynamic> login_before_submit_location_user(
@@ -865,12 +809,9 @@ class WebServices extends ChangeNotifier {
       upload.fields['email'] = email.toString();
       final stream = await upload.send();
       var response = await http.Response.fromStream(stream);
-     
+
       token = json.decode(response.body);
-     
-    } catch (e) {
-      
-    }
+    } catch (e) {}
   }
 
   Future send_user_location(context) async {
@@ -882,31 +823,26 @@ class WebServices extends ChangeNotifier {
       upload_loc.fields['Log'] = locationValues.location_longitude.toString();
       upload_loc.fields['online'] = 'True';
       upload_loc.fields['user'] = '';
-      upload_loc.headers['authorization'] =
-          'Token ${token['auth_token']}';
+      upload_loc.headers['authorization'] = 'Token ${token['auth_token']}';
       final stream_loc = await upload_loc.send();
       var response_loc = await http.Response.fromStream(stream_loc);
       return '{response_loc.body}';
-    } catch (e) {
-     
-    }
+    } catch (e) {}
   }
 
   Future Signup_VendorApi(
       {username, password, email, re_password, context}) async {
     try {
-      var upload = http.MultipartRequest(
-          'POST',
-          Uri.parse(
-              'https://app.foodtruck.express/foodtruck-vendor/users/'));
-     
+      var upload = http.MultipartRequest('POST',
+          Uri.parse('https://app.foodtruck.express/foodtruck-vendor/users/'));
+
       upload.fields['password'] = password.toString();
       upload.fields['email'] = email.toString();
-     upload.fields['username'] = 'foodtruck.express.'+'$email';
-      
+      upload.fields['username'] = 'foodtruck.express.' + '$email';
+
       final stream = await upload.send();
       vendor_signup_res = await http.Response.fromStream(stream);
-    
+
       var body = jsonDecode(vendor_signup_res.body);
       if (vendor_signup_res.statusCode == 200 ||
           vendor_signup_res.statusCode == 201) {
@@ -919,65 +855,62 @@ class WebServices extends ChangeNotifier {
       } else if (vendor_signup_res.statusCode == 400) {
         Login_SetState();
         showDialog(
-            builder:(context)=> AlertDialog(
-              title: Center(
-                child: Text('Check Credentials',
-                    style: TextStyle(color: Colors.blue)),
-              ),
-              content: Container(
-                  width: 280,
-                  height: 130,
-                  child: Column(
-                    children: <Widget>[
-                    
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: body['email'] == null
-                            ? Icon(Icons.check, color: Colors.green)
-                            : Text(body['email'][0].toString(),
-                                style: TextStyle(color: Colors.blue)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: body['password'] == null
-                            ? Icon(Icons.check, color: Colors.green)
-                            : Text(body['password'][0].toString(),
-                                style: TextStyle(color: Colors.blue)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: body['non_field_errors'] == null
-                            ? Icon(Icons.check, color: Colors.green)
-                            : Text(body['non_field_errors'][0].toString(),
-                                style: TextStyle(color: Colors.blue)),
-                      )
-                    ],
-                  )),
-            ),
+            builder: (context) => AlertDialog(
+                  title: Center(
+                    child: Text('Check Credentials',
+                        style: TextStyle(color: Colors.blue)),
+                  ),
+                  content: Container(
+                      width: 280,
+                      height: 130,
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: body['email'] == null
+                                ? Icon(Icons.check, color: Colors.green)
+                                : Text(body['email'][0].toString(),
+                                    style: TextStyle(color: Colors.blue)),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: body['password'] == null
+                                ? Icon(Icons.check, color: Colors.green)
+                                : Text(body['password'][0].toString(),
+                                    style: TextStyle(color: Colors.blue)),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: body['non_field_errors'] == null
+                                ? Icon(Icons.check, color: Colors.green)
+                                : Text(body['non_field_errors'][0].toString(),
+                                    style: TextStyle(color: Colors.blue)),
+                          )
+                        ],
+                      )),
+                ),
             context: context);
       }
       return vendor_signup_res;
     } catch (e) {
-     
       Login_SetState();
       showDialog(
-          builder:(context)=> AlertDialog(
-            title: Center(
-              child:
-                  Text('Working on it', style: TextStyle(color: Colors.blue)),
-            ),
-            content: Text('There was a Problem Encountered'),
-          ),
+          builder: (context) => AlertDialog(
+                title: Center(
+                  child: Text('Working on it',
+                      style: TextStyle(color: Colors.blue)),
+                ),
+                content: Text('There was a Problem Encountered'),
+              ),
           context: context);
     }
   }
 
-  Future Signup_UserApi(
-      {password, email, context}) async {
+  Future Signup_UserApi({password, email, context}) async {
     try {
       var upload = http.MultipartRequest(
           'POST', Uri.parse('https://user.foodtruck.express/foodtruck/users/'));
-      upload.fields['username'] = 'foodtruck.express.'+'$email';
+      upload.fields['username'] = 'foodtruck.express.' + '$email';
       upload.fields['password'] = password.toString();
       upload.fields['email'] = email.toString();
 
@@ -996,61 +929,56 @@ class WebServices extends ChangeNotifier {
       } else if (user_signup_res.statusCode == 400) {
         Login_SetState();
         showDialog(
-            builder:(context)=> AlertDialog(
-              title: Center(
-                child: Text('Check Credentials',
-                    style: TextStyle(color: Colors.blue)),
-              ),
-              content: Container(
-                  width: 280,
-                  height: 130,
-                  child: Column(
-                    children: <Widget>[
-                     
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: body['email'] == null
-                            ? Icon(Icons.check, color: Colors.green)
-                            : Text(body['email'][0].toString(),
-                                style: TextStyle(color: Colors.blue)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: body['password'] == null
-                            ? Icon(Icons.check, color: Colors.green)
-                            : Text(body['password'][0].toString(),
-                                style: TextStyle(color: Colors.blue)),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: body['non_field_errors'] == null
-                            ? Icon(Icons.check, color: Colors.green)
-                            : Text(body['non_field_errors'][0].toString(),
-                                style: TextStyle(color: Colors.blue)),
-                      )
-                    ],
-                  )),
-            ),
+            builder: (context) => AlertDialog(
+                  title: Center(
+                    child: Text('Check Credentials',
+                        style: TextStyle(color: Colors.blue)),
+                  ),
+                  content: Container(
+                      width: 280,
+                      height: 130,
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: body['email'] == null
+                                ? Icon(Icons.check, color: Colors.green)
+                                : Text(body['email'][0].toString(),
+                                    style: TextStyle(color: Colors.blue)),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: body['password'] == null
+                                ? Icon(Icons.check, color: Colors.green)
+                                : Text(body['password'][0].toString(),
+                                    style: TextStyle(color: Colors.blue)),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: body['non_field_errors'] == null
+                                ? Icon(Icons.check, color: Colors.green)
+                                : Text(body['non_field_errors'][0].toString(),
+                                    style: TextStyle(color: Colors.blue)),
+                          )
+                        ],
+                      )),
+                ),
             context: context);
       }
       return user_signup_res;
     } catch (e) {
-     
       Login_SetState();
       showDialog(
-          builder:(context)=> AlertDialog(
-            title: Center(
-              child:
-                  Text('Working on it', style: TextStyle(color: Colors.blue)),
-            ),
-            content: Text('There was a Problem Encountered'),
-          ),
+          builder: (context) => AlertDialog(
+                title: Center(
+                  child: Text('Working on it',
+                      style: TextStyle(color: Colors.blue)),
+                ),
+                content: Text('There was a Problem Encountered'),
+              ),
           context: context);
     }
   }
-
-
-
 
   Future Login_VendorApi({password, email, context}) async {
     try {
@@ -1070,58 +998,52 @@ class WebServices extends ChangeNotifier {
         box.write('token', token);
         box.write('user', 'vendor');
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return video=='video'?Map_user():VideoApp('vendor');
+          return video == 'video' ? Map_user() : VideoApp('vendor');
         }));
         Login_SetState();
       } else if (vendor_login_res.statusCode == 400 ||
           vendor_login_res.statusCode == 500) {
         showDialog(
-            builder:(context)=> AlertDialog(
-              title: Center(
-                child: Text('Check Credentials',
-                    style: TextStyle(color: Colors.blue)),
-              ),
-              content: Text('unable to login with provided credentials',
-                  style: TextStyle(color: Colors.blue)),
-            ),
+            builder: (context) => AlertDialog(
+                  title: Center(
+                    child: Text('Check Credentials',
+                        style: TextStyle(color: Colors.blue)),
+                  ),
+                  content: Text('unable to login with provided credentials',
+                      style: TextStyle(color: Colors.blue)),
+                ),
             context: context);
         Login_SetState();
       } else if (vendor_login_res.statusCode == 404) {
         showDialog(
-            builder:(context)=> AlertDialog(
-              content: Text('no response! try again',
-                  style: TextStyle(color: Colors.blue)),
-            ),
+            builder: (context) => AlertDialog(
+                  content: Text('no response! try again',
+                      style: TextStyle(color: Colors.blue)),
+                ),
             context: context);
-        
+
         Login_SetState();
       }
 
       return token;
     } catch (e) {
-     
       Login_SetState();
       showDialog(
-          builder:(context)=> AlertDialog(
-            title: Center(
-              child:
-                  Text('Working on it', style: TextStyle(color: Colors.blue)),
-            ),
-            content: Text('There was a Problem Encountered'),
-          ),
+          builder: (context) => AlertDialog(
+                title: Center(
+                  child: Text('Working on it',
+                      style: TextStyle(color: Colors.blue)),
+                ),
+                content: Text('There was a Problem Encountered'),
+              ),
           context: context);
     }
   }
 
-
   initializeValues() {
-   token = box.read('token');
+    token = box.read('token');
     notifyListeners();
   }
-
-
-
-
 
   Future Login_UserApi({password, email, context}) async {
     try {
@@ -1133,51 +1055,50 @@ class WebServices extends ChangeNotifier {
       user_login_res = await http.Response.fromStream(stream);
       token = json.decode(user_login_res.body);
       SharedPreferences prefs = await SharedPreferences.getInstance();
-    var video = prefs.getString('video');
+      var video = prefs.getString('video');
 
       if (user_login_res.statusCode == 200 ||
           user_login_res.statusCode == 201) {
         box.write('token', token);
         box.write('user', 'user');
         Navigator.push(context, MaterialPageRoute(builder: (context) {
-          return video=='video'?Map_vendor():VideoApp('user');
+          return video == 'video' ? Map_vendor() : VideoApp('user');
         }));
         Login_SetState();
       } else if (user_login_res.statusCode == 400 ||
           user_login_res.statusCode == 500) {
         showDialog(
-            builder:(context)=> AlertDialog(
-              title: Center(
-                child: Text('Check Credentials',
-                    style: TextStyle(color: Colors.blue)),
-              ),
-              content: Text('unable to login with provided credentials',
-                  style: TextStyle(color: Colors.blue)),
-            ),
+            builder: (context) => AlertDialog(
+                  title: Center(
+                    child: Text('Check Credentials',
+                        style: TextStyle(color: Colors.blue)),
+                  ),
+                  content: Text('unable to login with provided credentials',
+                      style: TextStyle(color: Colors.blue)),
+                ),
             context: context);
         Login_SetState();
       } else if (user_login_res.statusCode == 404) {
         showDialog(
-            builder:(context)=> AlertDialog(
-              content: Text('no response! try again',
-                  style: TextStyle(color: Colors.blue)),
-            ),
+            builder: (context) => AlertDialog(
+                  content: Text('no response! try again',
+                      style: TextStyle(color: Colors.blue)),
+                ),
             context: context);
         Login_SetState();
       }
 
       return token;
     } catch (e) {
-    
       Login_SetState();
       showDialog(
-          builder:(context)=> AlertDialog(
-            title: Center(
-              child:
-                  Text('Working on it', style: TextStyle(color: Colors.blue)),
-            ),
-            content: Text('There was a Problem Encountered'),
-          ),
+          builder: (context) => AlertDialog(
+                title: Center(
+                  child: Text('Working on it',
+                      style: TextStyle(color: Colors.blue)),
+                ),
+                content: Text('There was a Problem Encountered'),
+              ),
           context: context);
     }
   }
@@ -1198,7 +1119,7 @@ class WebServices extends ChangeNotifier {
       final stream = await upload.send();
       var update_menu_res = await http.Response.fromStream(stream);
       var body = json.decode(update_menu_res.body);
-     
+
       if (update_menu_res.statusCode == 200 ||
           update_menu_res.statusCode == 201) {
         Navigator.pop(context);
@@ -1206,20 +1127,19 @@ class WebServices extends ChangeNotifier {
       } else if (update_menu_res.statusCode == 400 ||
           update_menu_res.statusCode == 500 ||
           update_menu_res.statusCode == 405) {
-       
         showDialog(
-            builder:(context)=> AlertDialog(
-              content: Text('process unable to finish',
-                  style: TextStyle(color: Colors.blue)),
-            ),
+            builder: (context) => AlertDialog(
+                  content: Text('process unable to finish',
+                      style: TextStyle(color: Colors.blue)),
+                ),
             context: context);
         Login_SetState();
       } else if (update_menu_res.statusCode == 404) {
         showDialog(
-            builder:(context)=> AlertDialog(
-              content: Text('no response! try again',
-                  style: TextStyle(color: Colors.blue)),
-            ),
+            builder: (context) => AlertDialog(
+                  content: Text('no response! try again',
+                      style: TextStyle(color: Colors.blue)),
+                ),
             context: context);
         Login_SetState();
       }
@@ -1228,15 +1148,14 @@ class WebServices extends ChangeNotifier {
     } catch (e) {
       Login_SetState();
       showDialog(
-          builder:(context)=> AlertDialog(
-            title: Center(
-              child:
-                  Text('Working on it', style: TextStyle(color: Colors.blue)),
-            ),
-            content: Text('There was a Problem Encountered'),
-          ),
+          builder: (context) => AlertDialog(
+                title: Center(
+                  child: Text('Working on it',
+                      style: TextStyle(color: Colors.blue)),
+                ),
+                content: Text('There was a Problem Encountered'),
+              ),
           context: context);
-     
     }
   }
 
@@ -1263,31 +1182,30 @@ class WebServices extends ChangeNotifier {
       final stream = await upload.send();
       var update_profile_res = await http.Response.fromStream(stream);
       var body = json.decode(update_profile_res.body);
-     
+
       if (update_profile_res.statusCode == 200 ||
           update_profile_res.statusCode == 201) {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) {
-              return VENDORprofile();
-            }));
+          return VENDORprofile();
+        }));
         Login_SetState_third();
       } else if (update_profile_res.statusCode == 400 ||
           update_profile_res.statusCode == 500 ||
           update_profile_res.statusCode == 405) {
-    
         showDialog(
-            builder:(context)=> AlertDialog(
-              content: Text('process unable to finish',
-                  style: TextStyle(color: Colors.blue)),
-            ),
+            builder: (context) => AlertDialog(
+                  content: Text('process unable to finish',
+                      style: TextStyle(color: Colors.blue)),
+                ),
             context: context);
         Login_SetState_third();
       } else if (update_profile_res.statusCode == 404) {
         showDialog(
-            builder:(context)=>AlertDialog(
-              content: Text('no response! try again',
-                  style: TextStyle(color: Colors.blue)),
-            ),
+            builder: (context) => AlertDialog(
+                  content: Text('no response! try again',
+                      style: TextStyle(color: Colors.blue)),
+                ),
             context: context);
         Login_SetState_third();
       }
@@ -1296,29 +1214,22 @@ class WebServices extends ChangeNotifier {
     } catch (e) {
       Login_SetState_third();
       showDialog(
-          builder:(context)=> AlertDialog(
-            title: Center(
-              child:
-                  Text('Working on it', style: TextStyle(color: Colors.blue)),
-            ),
-            content: Text('There was a Problem Encountered'),
-          ),
+          builder: (context) => AlertDialog(
+                title: Center(
+                  child: Text('Working on it',
+                      style: TextStyle(color: Colors.blue)),
+                ),
+                content: Text('There was a Problem Encountered'),
+              ),
           context: context);
-   
     }
   }
 
   Future Add_Menu(
-      {context,
-      image1,
-      menu_title,
-      menu_description,
-      menu_price}) async {
+      {context, image1, menu_title, menu_description, menu_price}) async {
     try {
-      var upload = http.MultipartRequest(
-          'POST',
-          Uri.parse(
-              'https://app.foodtruck.express/foodtruck-vendor/menu/'));
+      var upload = http.MultipartRequest('POST',
+          Uri.parse('https://app.foodtruck.express/foodtruck-vendor/menu/'));
       var file = await http.MultipartFile.fromPath('menu_picture1', image1);
       upload.files.add(file);
       upload.fields['menu_title'] = menu_title.toString();
@@ -1337,38 +1248,37 @@ class WebServices extends ChangeNotifier {
         Login_SetState();
       } else if (upload_menu_res.statusCode == 400 ||
           upload_menu_res.statusCode == 500 ||
-          upload_menu_res.statusCode == 405 || upload_menu_res.statusCode == 404) {
+          upload_menu_res.statusCode == 405 ||
+          upload_menu_res.statusCode == 404) {
         showDialog(
-            builder:(context)=> AlertDialog(
-              content: Text('process unable to finish',
-                  style: TextStyle(color: Colors.blue)),
-            ),
+            builder: (context) => AlertDialog(
+                  content: Text('process unable to finish',
+                      style: TextStyle(color: Colors.blue)),
+                ),
             context: context);
         Login_SetState();
       } else if (upload_menu_res.statusCode == 404) {
         showDialog(
-            builder:(context)=> AlertDialog(
-              content: Text('no response! try again',
-                  style: TextStyle(color: Colors.blue)),
-            ),
+            builder: (context) => AlertDialog(
+                  content: Text('no response! try again',
+                      style: TextStyle(color: Colors.blue)),
+                ),
             context: context);
         Login_SetState();
       }
 
       return body;
     } catch (e) {
-
       Login_SetState();
       showDialog(
-          builder:(context)=> AlertDialog(
-            title: Center(
-              child:
-                  Text('Working on it', style: TextStyle(color: Colors.blue)),
-            ),
-            content: Text('There was a Problem Encountered'),
-          ),
+          builder: (context) => AlertDialog(
+                title: Center(
+                  child: Text('Working on it',
+                      style: TextStyle(color: Colors.blue)),
+                ),
+                content: Text('There was a Problem Encountered'),
+              ),
           context: context);
-     
     }
   }
 
@@ -1387,39 +1297,35 @@ class WebServices extends ChangeNotifier {
           update_menu_res.statusCode == 204) {
         Navigator.pop(context);
         Login_SetState();
-
       } else if (update_menu_res.statusCode == 400 ||
           update_menu_res.statusCode == 500 ||
           update_menu_res.statusCode == 405) {
         Navigator.pop(context);
         showDialog(
-            builder:(context)=> AlertDialog(
-              content: Text('process unable to finish',
-                  style: TextStyle(color: Colors.blue)),
-            ),
+            builder: (context) => AlertDialog(
+                  content: Text('process unable to finish',
+                      style: TextStyle(color: Colors.blue)),
+                ),
             context: context);
         Login_SetState();
-
       } else if (update_menu_res.statusCode == 404) {
         Navigator.pop(context);
         showDialog(
-            builder:(context)=> AlertDialog(
-              content:  Text('no response! try again',
-                    style: TextStyle(color: Colors.blue)),
-            ),
+            builder: (context) => AlertDialog(
+                  content: Text('no response! try again',
+                      style: TextStyle(color: Colors.blue)),
+                ),
             context: context);
         Login_SetState();
-
       }
     } catch (e) {
       Login_SetState();
       Navigator.pop(context);
-     showDialog(
-       context:context,
-       builder:(context)=> AlertDialog(
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
           title: Center(
-            child:
-            Text('Working on it', style: TextStyle(color: Colors.blue)),
+            child: Text('Working on it', style: TextStyle(color: Colors.blue)),
           ),
           content: Text('There was a Problem Encountered'),
         ),
@@ -1441,7 +1347,7 @@ class WebServices extends ChangeNotifier {
       final stream = await upload.send();
       var update_menu_res = await http.Response.fromStream(stream);
       var body = json.decode(update_menu_res.body);
-     
+
       if (update_menu_res.statusCode == 200 ||
           update_menu_res.statusCode == 201) {
         Navigator.pushReplacement(context,
@@ -1452,20 +1358,19 @@ class WebServices extends ChangeNotifier {
       } else if (update_menu_res.statusCode == 400 ||
           update_menu_res.statusCode == 500 ||
           update_menu_res.statusCode == 405) {
-       
         showDialog(
-            builder:(context)=> AlertDialog(
-              content: Text('process unable to finish',
-                  style: TextStyle(color: Colors.blue)),
-            ),
+            builder: (context) => AlertDialog(
+                  content: Text('process unable to finish',
+                      style: TextStyle(color: Colors.blue)),
+                ),
             context: context);
         Login_SetState();
       } else if (update_menu_res.statusCode == 404) {
         showDialog(
-            builder:(context)=> AlertDialog(
-              content: Text('no response! try again',
-                  style: TextStyle(color: Colors.blue)),
-            ),
+            builder: (context) => AlertDialog(
+                  content: Text('no response! try again',
+                      style: TextStyle(color: Colors.blue)),
+                ),
             context: context);
         Login_SetState();
       }
@@ -1474,20 +1379,18 @@ class WebServices extends ChangeNotifier {
     } catch (e) {
       Login_SetState();
       showDialog(
-          builder:(context)=> AlertDialog(
-            title: Center(
-              child:
-                  Text('Working on it', style: TextStyle(color: Colors.blue)),
-            ),
-            content: Text('There was a Problem Encountered'),
-          ),
+          builder: (context) => AlertDialog(
+                title: Center(
+                  child: Text('Working on it',
+                      style: TextStyle(color: Colors.blue)),
+                ),
+                content: Text('There was a Problem Encountered'),
+              ),
           context: context);
-     
     }
   }
 
-  Future Update_Menu_Images(
-      {id, context, image1 = ''}) async {
+  Future Update_Menu_Images({id, context, image1 = ''}) async {
     try {
       var upload = http.MultipartRequest(
           'PUT',
@@ -1501,7 +1404,7 @@ class WebServices extends ChangeNotifier {
       final stream = await upload.send();
       var update_menu_res = await http.Response.fromStream(stream);
       var body = json.decode(update_menu_res.body);
-     
+
       if (update_menu_res.statusCode == 200 ||
           update_menu_res.statusCode == 201) {
         Navigator.pop(context);
@@ -1509,20 +1412,19 @@ class WebServices extends ChangeNotifier {
       } else if (update_menu_res.statusCode == 400 ||
           update_menu_res.statusCode == 500 ||
           update_menu_res.statusCode == 405) {
-       
         showDialog(
-            builder:(context)=> AlertDialog(
-              content: Text('process unable to finish',
-                  style: TextStyle(color: Colors.blue)),
-            ),
+            builder: (context) => AlertDialog(
+                  content: Text('process unable to finish',
+                      style: TextStyle(color: Colors.blue)),
+                ),
             context: context);
         Login_SetState_Second();
       } else if (update_menu_res.statusCode == 404) {
         showDialog(
-            builder:(context)=> AlertDialog(
-              content: Text('no response! try again',
-                  style: TextStyle(color: Colors.blue)),
-            ),
+            builder: (context) => AlertDialog(
+                  content: Text('no response! try again',
+                      style: TextStyle(color: Colors.blue)),
+                ),
             context: context);
         Login_SetState_Second();
       }
@@ -1531,31 +1433,28 @@ class WebServices extends ChangeNotifier {
     } catch (e) {
       Login_SetState_Second();
       showDialog(
-          builder:(context)=> AlertDialog(
-            title: Center(
-              child:
-                  Text('Working on it', style: TextStyle(color: Colors.blue)),
-            ),
-            content: Text('There was a Problem Encountered'),
-          ),
+          builder: (context) => AlertDialog(
+                title: Center(
+                  child: Text('Working on it',
+                      style: TextStyle(color: Colors.blue)),
+                ),
+                content: Text('There was a Problem Encountered'),
+              ),
           context: context);
-    
     }
   }
 
   Future PostRating({context, rate, lanlog, scaffoldKey}) async {
     try {
-      var upload = http.MultipartRequest(
-          'POST',
-          Uri.parse(
-              'https://app.foodtruck.express/foodtruck-vendor/rating/'));
+      var upload = http.MultipartRequest('POST',
+          Uri.parse('https://app.foodtruck.express/foodtruck-vendor/rating/'));
       upload.fields['rate'] = rate.toString();
       upload.fields['lanlog'] = lanlog.toString();
-    
+
       final stream = await upload.send();
       var upload_rate_res = await http.Response.fromStream(stream);
       var body = json.decode(upload_rate_res.body);
-     
+
       if (upload_rate_res.statusCode == 200 ||
           upload_rate_res.statusCode == 201) {
         Login_SetState_third();
@@ -1568,33 +1467,32 @@ class WebServices extends ChangeNotifier {
           upload_rate_res.statusCode == 500 ||
           upload_rate_res.statusCode == 405) {
         showDialog(
-            builder:(context)=> AlertDialog(
-              content: Text('process unable to finish',
-                  style: TextStyle(color: Colors.blue)),
-            ),
+            builder: (context) => AlertDialog(
+                  content: Text('process unable to finish',
+                      style: TextStyle(color: Colors.blue)),
+                ),
             context: context);
         Login_SetState();
       } else if (upload_rate_res.statusCode == 404) {
         showDialog(
-            builder:(context)=> AlertDialog(
-              content: Text('no response! try again',
-                  style: TextStyle(color: Colors.blue)),
-            ),
+            builder: (context) => AlertDialog(
+                  content: Text('no response! try again',
+                      style: TextStyle(color: Colors.blue)),
+                ),
             context: context);
         Login_SetState_third();
       }
     } catch (e) {
       Login_SetState_third();
       showDialog(
-          builder:(context)=> AlertDialog(
-            title: Center(
-              child:
-                  Text('Working on it', style: TextStyle(color: Colors.blue)),
-            ),
-            content: Text('There was a Problem Encountered'),
-          ),
+          builder: (context) => AlertDialog(
+                title: Center(
+                  child: Text('Working on it',
+                      style: TextStyle(color: Colors.blue)),
+                ),
+                content: Text('There was a Problem Encountered'),
+              ),
           context: context);
-    
     }
   }
 }

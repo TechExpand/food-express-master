@@ -23,7 +23,6 @@ class _VideoAppState extends State<VideoApp> {
     _controller = VideoPlayerController.network(
         'https://foodtruck.express/xfte/fte-instructions_1.mp4')
       ..initialize().then((_) {
-        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
         setState(() {});
       });
   }

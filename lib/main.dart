@@ -14,8 +14,15 @@ import 'package:provider/provider.dart';
 import 'package:statusbar/statusbar.dart';
 
 import 'screens/SPLASH.dart';
+import 'package:flutter_launcher_icons/android.dart';
+import 'package:flutter_launcher_icons/constants.dart';
+import 'package:flutter_launcher_icons/custom_exceptions.dart';
+import 'package:flutter_launcher_icons/ios.dart';
+import 'package:flutter_launcher_icons/main.dart';
+import 'package:flutter_launcher_icons/utils.dart';
+import 'package:flutter_launcher_icons/xml_templates.dart';
 
-void main()async {
+void main() async {
   await GetStorage.init();
   String getAppId() {
     if (Platform.isIOS) {
@@ -113,6 +120,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return SPLASH();
-      //SignInDemo();
+    //SignInDemo();
   }
 }
