@@ -9,23 +9,11 @@ import 'package:foodtruck/screens/Login_SignupView/login.dart';
 import 'dart:ui' as ui;
 import 'package:foodtruck/main.dart';
 import 'package:foodtruck/Services/admob.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:google_sign_in/google_sign_in.dart';
+
 import 'package:provider/provider.dart';
 
 
-GoogleSignIn _googleSignIn = GoogleSignIn(
-  // Optional clientId
-  // clientId: '479882132969-9i9aqik3jfjd7qhci1nqf0bm2g71rm1u.apps.googleusercontent.com',
-  scopes: <String>[
-    'email',
-    'https://www.googleapis.com/auth/contacts.readonly',
-  ],
-);
-GoogleSignInAccount _currentUser;
-
-Future<void> handleSignIn() async {
-  _googleSignIn.signIn();
-}
 
 class SIGNUP extends StatefulWidget {
   @override
@@ -44,18 +32,6 @@ class SIGNUPSTATE extends State<SIGNUP> {
   final form_key = GlobalKey<FormState>();
   final form_key1 = GlobalKey<FormState>();
 
-
-
-  @override
-  void initState() {
-    super.initState();
-    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
-      setState(() {
-        _currentUser = account;
-      });
-    });
-    _googleSignIn.signInSilently();
-  }
 
 
   @override
@@ -160,19 +136,10 @@ Widget UserSignUp(email, password, context, form_key) {
   return Form(
     key: form_key,
     child: SingleChildScrollView(
-      child: Flexible(
-        flex: 20,
-        child: Column(
+      child:Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            // Padding(
-            //   padding: EdgeInsets.all(MediaQuery.of(context).size.height / 14),
-            //   child: Container(
-            //       width: 150,
-            //       height: 100,
-            //       child: Image.asset('assets/images/logotruck.png')),
-            // ),
             SizedBox(
               height: 200.0,
             ),
@@ -233,35 +200,12 @@ Widget UserSignUp(email, password, context, form_key) {
                 ),
               ),
             ),
-            // InkWell(
-            //   onTap: () {
-            //     Navigator.push(context, MaterialPageRoute(builder: (context) {
-            //       return Login();
-            //     }));
-            //   },
-            //   child: Padding(
-            //     padding: const EdgeInsets.all(8.0),
-            //     child: Container(
-            //         decoration: BoxDecoration(
-            //             border: Border.all(
-            //               color: Colors.black54,
-            //             ),
-            //             borderRadius: BorderRadius.circular(8)),
-            //         child: Padding(
-            //           padding: const EdgeInsets.all(4.0),
-            //           child: Text("Already Have an Account? Login"),
-            //         )),
-            //   ),
-            // ),
             Consumer<WebServices>(
               builder: (context, webservice_consumer, child) => Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: webservice_consumer.login_state == false
                     ? RaisedButton(
                         onPressed: () {
-//                          GoogleSignInAccount user = _currentUser;
-//                          if (form_key.currentState.validate()) {
-//                          handleSignIn();
                           if (form_key.currentState.validate()) {
                        
                             webservice_consumer.Login_SetState();
@@ -278,20 +222,8 @@ Widget UserSignUp(email, password, context, form_key) {
                               context: context,
                             )
                                 .then((value) => webservice_consumer
-                                .send_user_location(context))
-                                .then((value) => webservice_consumer
-                                .get_current_user_location()
-                                .then((value) => Timer.periodic(
-                                Duration(minutes: 12), (timer) {
-                              webservice_consumer
-                                  .Update_User_Location(
-                                id: value[0].id,
-                                context: context,
-                              );
-                            }))));
+                                .send_user_location(context)));
                           }
-
-//                          }
                         },
                         color: Color(0xFF67b9fb),
                         shape: RoundedRectangleBorder(
@@ -375,7 +307,6 @@ Widget UserSignUp(email, password, context, form_key) {
                   ],
                 )),
           ],
-        ),
       ),
     ),
   );
@@ -385,9 +316,7 @@ Widget VendorSignUp(email, password, context, form_key) {
   return Form(
     key: form_key,
     child: SingleChildScrollView(
-      child: Flexible(
-        flex: 20,
-        child: Column(
+      child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -456,25 +385,7 @@ Widget VendorSignUp(email, password, context, form_key) {
                 ),
               ),
             ),
-            // InkWell(
-            //     onTap: () {
-            //       Navigator.push(context, MaterialPageRoute(builder: (context) {
-            //         return Login();
-            //       }));
-            //     },
-            //     child: Padding(
-            //       padding: const EdgeInsets.all(8.0),
-            //       child: Container(
-            //           decoration: BoxDecoration(
-            //               border: Border.all(
-            //                 color: Colors.black54,
-            //               ),
-            //               borderRadius: BorderRadius.circular(8)),
-            //           child: Padding(
-            //             padding: const EdgeInsets.all(4.0),
-            //             child: Text("Already Have an Account? Login"),
-            //           )),
-            //     )),
+
             SizedBox(
               height: 15.0,
             ),
@@ -497,18 +408,7 @@ Widget VendorSignUp(email, password, context, form_key) {
                                   context: context,
                                 )
                                 .then((value) => webservice_consumer
-                                    .send_vendor_location(context)
-                                    .then((value) => Timer.periodic(
-                                            Duration(minutes: 12), (Timer t) {
-                                          webservice_consumer
-                                              .get_current_vendor_location()
-                                              .then((value) =>
-                                                  webservice_consumer
-                                                      .Update_Vendor_Location(
-                                                    id: value[0].id,
-                                                    context: context,
-                                                  ));
-                                        }))));
+                                    .send_vendor_location(context)));
                           }
                         },
                         color: Color(0xFF67b9fb),
@@ -586,7 +486,6 @@ Widget VendorSignUp(email, password, context, form_key) {
                   ],
                 )),
           ],
-        ),
       ),
     ),
   );

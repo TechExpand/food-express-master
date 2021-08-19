@@ -92,7 +92,7 @@ class VENDORPAGESTATE extends State<VENDORPAGE> {
                     itemBuilder: (context, index) {
                       return ListView(
                         shrinkWrap: true,
-                        physics: ClampingScrollPhysics(),
+                        physics: BouncingScrollPhysics(),
                         children: <Widget>[
                           Stack(
                             children: <Widget>[
@@ -146,6 +146,7 @@ class VENDORPAGESTATE extends State<VENDORPAGE> {
                             ],
                           ),
                           Container(
+                            width:MediaQuery.of(context).size.width,
                             height: 150.0,
                             child: Row(children: <Widget>[
                               Padding(
@@ -172,18 +173,18 @@ class VENDORPAGESTATE extends State<VENDORPAGE> {
                                 child: Column(children: <Widget>[
                                   Padding(
                                     padding: const EdgeInsets.all(4.0),
-                                    child: Expanded(
-                                      child: Text(
+                                    child:  Text(
                                         "${snapshot.data[index].business_name.toString()}",
                                         style: GoogleFonts.poppins(
                                             fontSize: 30,
                                             fontWeight: FontWeight.w600,
                                             color: const Color(0xff2699fb)),
                                         softWrap: true,
+                                        overflow: TextOverflow.ellipsis,
                                         maxLines: 1,
                                       ),
                                     ),
-                                  ),
+
                                   Padding(
                                     padding: const EdgeInsets.all(5.0),
                                     child: Container(
@@ -283,8 +284,7 @@ class VENDORPAGESTATE extends State<VENDORPAGE> {
   Widget Rating(scaffoldKey, context, vendor_id) {
     var rate_value;
     var webservices = Provider.of<WebServices>(context, listen: false);
-    return Flexible(
-      child: ExpansionTile(
+    return  ExpansionTile(
         title: Text('Tap to Rate this Vendor!'),
         children: <Widget>[
           Padding(
@@ -330,7 +330,6 @@ class VENDORPAGESTATE extends State<VENDORPAGE> {
                     : CircularProgressIndicator()),
           ),
         ],
-      ),
     );
   }
 
@@ -519,15 +518,13 @@ class VENDORPAGESTATE extends State<VENDORPAGE> {
           var rate = 0;
           if (snapshot.hasData) {
             if (snapshot.data.isEmpty) {
-              return Expanded(
-                child: SmoothStarRating(
+              return SmoothStarRating(
                   allowHalfRating: false,
                   isReadOnly: true,
                   rating: 0,
                   size: 17,
                   color: Color(0xff67b9fb),
-                ),
-              );
+                );
             } else if (snapshot.data == 'failed to get rating' ||
                 snapshot.data == 'failed') {
               return Text('${snapshot.data}');

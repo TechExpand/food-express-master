@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'dart:ui' as ui;
@@ -75,9 +77,7 @@ class VENDORSIGNUP2STATE extends State<VENDORSIGNUP2> {
       body: Form(
         key: form_key,
         child: SingleChildScrollView(
-          child: Flexible(
-            flex: 20,
-            child: Consumer2<Utils, WebServices>(
+          child: Consumer2<Utils, WebServices>(
               builder: (context, utils_consumer, webservices_consumer, child) =>
                   Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -251,7 +251,7 @@ class VENDORSIGNUP2STATE extends State<VENDORSIGNUP2> {
                     height: 170,
                     child: utils_consumer.selected_image == null
                         ? Center(child: Text('No Image Selected'))
-                        : Image.file(utils_consumer.selected_image),
+                        : Image.file(File(utils_consumer.selected_image.path)),
                   ),
 
                   Padding(
@@ -319,7 +319,6 @@ class VENDORSIGNUP2STATE extends State<VENDORSIGNUP2> {
             ),
           ),
         ),
-      ),
     );
   }
 }

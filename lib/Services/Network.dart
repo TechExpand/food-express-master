@@ -187,8 +187,8 @@ class WebServices extends ChangeNotifier {
                           padding: EdgeInsets.only(top: 15, bottom: 15),
                           width: 250,
                           child: Text(
-                            'Would you like to upgrade your subscription which allow your ability to '
-                            'upload your menu items and see user locations',
+                            'Would you like to upgrade your subscription which allows customers to view all your '
+                            'uploaded menu items and also allow you view customers locations',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: 15,
@@ -196,93 +196,98 @@ class WebServices extends ChangeNotifier {
                             ),
                           ),
                         ),
-                        ButtonBar(
-                          children: <Widget>[
-                            Material(
-                              borderRadius: BorderRadius.circular(26),
-                              elevation: 2,
-                              child: Container(
-                                height: 40,
-                                width: 120,
-                                decoration: BoxDecoration(
-                                    border:
-                                        Border.all(color: Color(0xFFE60016)),
-                                    borderRadius: BorderRadius.circular(26)),
-                                child: FlatButton(
-                                  onPressed: () {
-                                    // Navigator.of(context).pop();
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) {
-                                      return Map_user();
-                                    }));
-                                  },
-                                  color: Color(0xFFE60016),
-                                  shape: RoundedRectangleBorder(
+                        Container(
+                          width: 250,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: <Widget>[
+                              Material(
+                                borderRadius: BorderRadius.circular(26),
+                                elevation: 2,
+                                child: Container(
+                                  height: 40,
+                                  width: 120,
+                                  decoration: BoxDecoration(
+                                      border:
+                                          Border.all(color: Color(0xFFE60016)),
                                       borderRadius: BorderRadius.circular(26)),
-                                  padding: EdgeInsets.all(0.0),
-                                  child: Ink(
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(26)),
-                                    child: Container(
-                                      constraints: BoxConstraints(
-                                          maxWidth: 190.0, minHeight: 53.0),
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        "No Thanks",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white),
+                                  child: FlatButton(
+                                    onPressed: () {
+                                      // Navigator.of(context).pop();
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) {
+                                        return Map_user();
+                                      }));
+                                    },
+                                    color: Color(0xFFE60016),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(26)),
+                                    padding: EdgeInsets.all(0.0),
+                                    child: Ink(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(26)),
+                                      child: Container(
+                                        constraints: BoxConstraints(
+                                            maxWidth: 190.0, minHeight: 53.0),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "No Thanks",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                            Material(
-                              borderRadius: BorderRadius.circular(26),
-                              elevation: 2,
-                              child: Container(
-                                height: 40,
-                                width: 120,
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.green),
-                                    borderRadius: BorderRadius.circular(26)),
-                                child: FlatButton(
-                                  onPressed: () {
-                                    Navigator.push(context,
-                                        MaterialPageRoute(builder: (context) {
-                                      return SubscribePage();
-                                    }));
-                                  },
-                                  color: Colors.green,
-                                  shape: RoundedRectangleBorder(
+                              Material(
+                                borderRadius: BorderRadius.circular(26),
+                                elevation: 2,
+                                child: Container(
+                                  height: 40,
+                                  width: 120,
+                                  decoration: BoxDecoration(
+                                      border: Border.all(color: Colors.green),
                                       borderRadius: BorderRadius.circular(26)),
-                                  padding: EdgeInsets.all(0.0),
-                                  child: Ink(
-                                    decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(26)),
-                                    child: Container(
-                                      constraints: BoxConstraints(
-                                          maxWidth: 190.0, minHeight: 53.0),
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        "Sign me up!",
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white),
+                                  child: FlatButton(
+                                    onPressed: () {
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (context) {
+                                        return SubscribePage();
+                                      }));
+                                    },
+                                    color: Colors.green,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(26)),
+                                    padding: EdgeInsets.all(0.0),
+                                    child: Ink(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(26)),
+                                      child: Container(
+                                        constraints: BoxConstraints(
+                                            maxWidth: 190.0, minHeight: 53.0),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          "Sign me up!",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -464,7 +469,7 @@ class WebServices extends ChangeNotifier {
     try {
       var res = await http.get(
           Uri.parse(
-              'https://app.foodtruck.express/foodtruck-vendor/currentvendorslanlog/lan=${35.1081645}&log=${-106.4949871}&range_value=${range_value}/'),
+              'https://app.foodtruck.express/foodtruck-vendor/currentvendorslanlog/lan=${location_latitude}&log=${location_longtitude}&range_value=${range_value}/'),
           headers: {
             "Accept": "application/json",
             "Authorization": '${token['auth_token'].toString()}',
@@ -490,6 +495,11 @@ class WebServices extends ChangeNotifier {
           "Accept": "application/json",
           "Authorization": 'Token ${token['auth_token']}'
         });
+
+
+    print(current_vendor_location.statusCode);
+    print(current_vendor_location.statusCode);
+    print(current_vendor_location.statusCode);
     if (current_vendor_location.statusCode == 200) {
       var body = jsonDecode(current_vendor_location.body) as List;
       List<CurrentVendorlocation> current_vendor_location_objects = body
@@ -572,6 +582,11 @@ class WebServices extends ChangeNotifier {
           "Accept": "application/json",
           "Authorization": 'Token ${token['auth_token']}'
         });
+
+    print(current_user_location.statusCode);
+    print(current_user_location.statusCode);
+    print(current_user_location.statusCode);
+
     if (current_user_location.statusCode == 200) {
       var body = jsonDecode(current_user_location.body) as List;
       List<CurrentUserlocation> current_user_location_objects = body
@@ -758,9 +773,11 @@ class WebServices extends ChangeNotifier {
       upload.fields['Log'] = locationValues.location_longitude.toString();
       upload.fields['user'] = '';
       upload.headers['authorization'] = 'Token ${token['auth_token']}';
-
       final stream = await upload.send();
       var update_user_location_res = await http.Response.fromStream(stream);
+      print(update_user_location_res.body);
+      print(update_user_location_res.body);
+      print(update_user_location_res.body);
       var body = jsonDecode(update_user_location_res.body);
       if (update_user_location_res.statusCode == 200 ||
           update_user_location_res.statusCode == 201) {
@@ -787,6 +804,11 @@ class WebServices extends ChangeNotifier {
 
       final stream = await upload.send();
       var update_vendor_location_res = await http.Response.fromStream(stream);
+
+      print(update_vendor_location_res.body);
+      print(update_vendor_location_res.body);
+      print(update_vendor_location_res.body);
+
       var body = jsonDecode(update_vendor_location_res.body);
       if (update_vendor_location_res.statusCode == 200 ||
           update_vendor_location_res.statusCode == 201) {
@@ -795,7 +817,9 @@ class WebServices extends ChangeNotifier {
         'return ${update_vendor_location_res.body}';
       }
       return update_vendor_location_res;
-    } catch (e) {}
+    } catch (e) {
+      print('cant update oo');
+    }
   }
 
   Future<dynamic> login_before_submit_location_user(

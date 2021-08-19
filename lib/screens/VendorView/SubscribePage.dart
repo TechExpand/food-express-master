@@ -54,9 +54,7 @@ class _SubscribePageState extends State<SubscribePage> {
       body: Form(
         key: form_key,
         child: SingleChildScrollView(
-          child: Flexible(
-            flex: 20,
-            child: Consumer2<Utils, WebServices>(
+          child:  Consumer2<Utils, WebServices>(
               builder: (context, utils_consumer, webservices_consumer, child) =>
                   Column(
                     
@@ -251,7 +249,6 @@ class _SubscribePageState extends State<SubscribePage> {
             ),
           ),
         ),
-      ),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foodtruck/Services/LocationService.dart';
 import 'package:foodtruck/Services/Network.dart';
@@ -317,11 +318,11 @@ class bodywidgetstate extends State<bodywidget> {
                                 } else if (snapshots.hasError) {
                                   return Text('${snapshots.error}');
                                 }
-                                return Center(child: CircularProgressIndicator());
+                                return Center(child: CupertinoActivityIndicator(radius: 20,));
                               })
-                          : Center(child: CircularProgressIndicator());
+                          : Center(child: CupertinoActivityIndicator(radius: 20,));
                     })
-                : Center(child: CircularProgressIndicator());
+                : Center(child: CupertinoActivityIndicator(radius: 20,));
           }),
     );
   }
@@ -392,8 +393,7 @@ class bodywidgetstate extends State<bodywidget> {
                                 child: Container(
                                   width: 250,
                                   height: 140,
-                                  child: Flexible(
-                                    child: Card(
+                                  child:  Card(
                                       color: Color(0xFF67b9fb).withOpacity(0.2),
                                       child: Container(
                                         width: 250,
@@ -490,10 +490,9 @@ class bodywidgetstate extends State<bodywidget> {
                                     ),
                                   ),
                                 ),
-                              ),
                             );
                           } else {
-                            return Center(child: CircularProgressIndicator());
+                            return Center(child:CupertinoActivityIndicator(radius: 20,));
                           }
                         },
                       );
@@ -589,8 +588,7 @@ class bodywidgetstate extends State<bodywidget> {
                     borderRadius: BorderRadius.circular(6),
                     child: Container(
                       height: 120,
-                      child: Flexible(
-                        child: Card(
+                      child:  Card(
                           child: Container(
                             width: 250,
                             child: Column(
@@ -605,15 +603,13 @@ class bodywidgetstate extends State<bodywidget> {
                                     right: 8,
                                     top: 40,
                                   ),
-                                  child: Expanded(
-                                    child: Text(
+                                  child: Text(
                                       '${snapshots.data}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black54,
                                           fontSize: 20),
                                       textAlign: TextAlign.center,
-                                    ),
                                   ),
                                 ),
                               ],
@@ -625,7 +621,6 @@ class bodywidgetstate extends State<bodywidget> {
                   ),
                 ),
               ),
-            ),
           ],
         );
       },
@@ -667,8 +662,7 @@ class bodywidgetstate extends State<bodywidget> {
                     borderRadius: BorderRadius.circular(6),
                     child: Container(
                       height: 120,
-                      child: Flexible(
-                        child: Card(
+                      child:  Card(
                           child: Container(
                             width: 250,
                             child: Column(
@@ -682,8 +676,7 @@ class bodywidgetstate extends State<bodywidget> {
                                     left: 8.0,
                                     right: 8,
                                   ),
-                                  child: Expanded(
-                                    child: Text(
+                                  child: Text(
                                       '${snapshots.data}',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
@@ -691,7 +684,6 @@ class bodywidgetstate extends State<bodywidget> {
                                           fontSize: 18),
                                       textAlign: TextAlign.center,
                                     ),
-                                  ),
                                 ),
                                 ActionChip(
                                   onPressed: () {
@@ -733,7 +725,6 @@ class bodywidgetstate extends State<bodywidget> {
                   ),
                 ),
               ),
-            ),
           ],
         );
       },

@@ -202,7 +202,7 @@ class VendorMenuPageState extends State<VendorMenuPage> {
                           width: 60,
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(1.0),
                           child: Text(
                             snapshot.data[index].menu_title,
                             maxLines: 1,

@@ -235,8 +235,7 @@ class VENDORprofilestate extends State<VENDORprofile> {
                         child: VerticalDivider(),
                         height: 50,
                       ),
-                      Flexible(
-                        child: Text(
+                       Text(
                           'Tel:' + snapshot.data[0].phone,
                           style: TextStyle(
                             fontFamily: 'Arial',
@@ -245,14 +244,12 @@ class VENDORprofilestate extends State<VENDORprofile> {
                             height: 1,
                           ),
                         ),
-                      )
                     ],
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
-                  child: Flexible(
-                    child: Text(
+                  child:  Text(
                       snapshot.data[0].detail,
                       style: TextStyle(
                         fontFamily: 'Arial',
@@ -262,7 +259,6 @@ class VENDORprofilestate extends State<VENDORprofile> {
                       ),
                       textAlign: TextAlign.center,
                     ),
-                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(8.0),

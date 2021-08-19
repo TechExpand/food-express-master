@@ -20,6 +20,7 @@ class SPLASH extends StatefulWidget {
 }
 
 class SPLASHSTATE extends State<SPLASH> {
+
   @override
   void initState() {
     super.initState();
@@ -51,7 +52,7 @@ class SPLASHSTATE extends State<SPLASH> {
    }else{
      return Navigator.pushReplacement(
        context,
-       PageRouteBuilder(
+    PageRouteBuilder(
          pageBuilder: (context, animation, secondaryAnimation) {
            return user=='user'?Map_vendor():Map_user();
          },
@@ -70,11 +71,15 @@ class SPLASHSTATE extends State<SPLASH> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: const Color(0xff039bf4),
-        body: FlareActor("assets/anim/ftesplash.flr",
-            alignment: Alignment.center,
-            fit: BoxFit.contain,
-            animation: "ntro"),
+       backgroundColor: const Color(0xff039bf4),
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: FlareActor("assets/anim/ftesplash.flr",
+              alignment: Alignment.center,
+              fit: BoxFit.cover,
+              animation: "ntro"),
+        ),
       ),
     );
   }

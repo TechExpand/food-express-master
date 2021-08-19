@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:foodtruck/Services/LocationService.dart';
@@ -112,27 +113,24 @@ class Map_vendorSampleState extends State<Map_vendorSample> {
                   } else if (snapshots.hasError) {
                     return Text('${snapshots.error}');
                   }
-                  return Center(child: CircularProgressIndicator());
+                  return Center(child: CupertinoActivityIndicator(radius: 20,));
                 }),
-            Padding(
-              padding: const EdgeInsets.only(left: 20.0),
-              child: IconButton(
-                  onPressed: utils.view
+          IconButton(
+                  onPressed: !utils.view
                       ? () {
                           setState(() {
-                            utils.changeView(false);
+                            utils.changeView(true);
                             _myPage.jumpToPage(1);
                           });
                         }
                       : () {
                           setState(() {
-                            utils.changeView(true);
+                            utils.changeView(false);
                             _myPage.jumpToPage(0);
                           });
                         },
-                  icon: Icon(utils.view ? Icons.view_list : Icons.my_location,
+                  icon: Icon(!utils.view ? Icons.view_list : Icons.my_location,
                       color: Colors.blue)),
-            ),
 
           ],
         ),
@@ -318,7 +316,7 @@ class _listMapState extends State<listMap> {
             } else if (snapshots.hasError) {
               return Text('${snapshots.error}');
             }
-            return Center(child: CircularProgressIndicator());
+            return Center(child: CupertinoActivityIndicator(radius: 20,));
           }),
     );
   }
@@ -538,7 +536,7 @@ class bodywidgetstate extends State<bodywidget> {
           } else if (snapshots.hasError) {
             return Text('${snapshots.error}');
           }
-          return Center(child: CircularProgressIndicator());
+          return Center(child: CupertinoActivityIndicator(radius: 20,));
         });
   }
 
@@ -610,8 +608,8 @@ class bodywidgetstate extends State<bodywidget> {
                     child: Slider(
                       value: range_value,
                       min: 0.0,
-                      max: 100,
-                      divisions: 20,
+                      max: 50,
+                      divisions: 10,
                       label: '$range_value',
                       onChanged: (value) {
                         setState(
@@ -803,7 +801,7 @@ class bodywidgetstate extends State<bodywidget> {
                               );
                             });
                       } else {
-                        return Center(child: CircularProgressIndicator());
+                        return Center(child: CupertinoActivityIndicator(radius: 20,));
                       }
                     }),
               ),

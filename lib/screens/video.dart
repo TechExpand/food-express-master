@@ -23,7 +23,9 @@ class _VideoAppState extends State<VideoApp> {
     _controller = VideoPlayerController.network(
         'https://foodtruck.express/xfte/fte-instructions_1.mp4')
       ..initialize().then((_) {
-        setState(() {});
+        setState(() {
+          _controller.play();
+        });
       });
   }
 

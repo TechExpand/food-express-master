@@ -6,10 +6,11 @@ import 'package:foodtruck/Services/LocationService.dart';
 import 'package:foodtruck/Services/Network.dart';
 import 'package:foodtruck/Utils/provider_util.dart';
 import 'package:foodtruck/Utils/utils.dart';
-import 'package:foodtruck/screens/GSignIn.dart';
+// import 'package:foodtruck/screens/GSignIn.dart';
 import 'package:foodtruck/Services/admob.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:statusbar/statusbar.dart';
 
@@ -74,9 +75,38 @@ class StartAppState extends State<StartApp> {
     StatusBar.color(Colors.blue);
     Provider.of<LocationService>(context, listen: false).getCurrentLocation();
     //Get current location every 5 minutes.
-    Timer.periodic(Duration(minutes: 5), (timer) {
+    Timer.periodic(Duration(minutes: 8), (timer) {
       Provider.of<LocationService>(context, listen: false).getCurrentLocation();
-    });
+      final box = GetStorage();
+      var user = box.read('user');
+
+      if(user=='user'){
+        Provider.of<WebServices>(context, listen: false)
+            .get_current_user_location()
+            .then((value) {
+          Provider.of<WebServices>(context, listen: false)
+              .Update_User_Location(
+            id: value[0].id,
+            context: context,
+          );
+        });
+      }
+
+      if(user == "vendor"){
+        Provider.of<WebServices>(context, listen: false)
+            .get_current_vendor_location()
+            .then((value) {
+          Provider.of<WebServices>(context, listen: false)
+              .Update_Vendor_Location(
+            id: value[0].id,
+            context: context,
+          );
+        });
+      }
+
+
+      });
+
 
     //Admob Advert Code
 
@@ -109,6 +139,11 @@ class StartAppState extends State<StartApp> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return MaterialApp(
+      theme: ThemeData(
+        textTheme: GoogleFonts.openSansTextTheme(
+          Theme.of(context).textTheme,
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       home: MyApp(),
     );
