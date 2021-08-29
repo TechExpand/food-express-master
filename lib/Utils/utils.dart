@@ -6,13 +6,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Utils with ChangeNotifier{
 
-  File selected_image;
-  File selected_menu_image1;
-  File selected_menu_image2;
-  File selected_menu_image3;
+  XFile selected_image;
+  XFile selected_menu_image1;
+  XFile selected_menu_image2;
+  XFile selected_menu_image3;
+  final ImagePicker _picker = ImagePicker();
 
   Future selectimage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    var image = await _picker.pickImage(source: ImageSource.gallery);
     selected_image = image;
     notifyListeners();
   }
@@ -21,7 +22,7 @@ class Utils with ChangeNotifier{
 
 
   Future selectimage1() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    var image = await _picker.pickImage(source: ImageSource.gallery);
     selected_menu_image1 = image;
     notifyListeners();
   }
@@ -29,7 +30,7 @@ class Utils with ChangeNotifier{
 
 
   Future selectimage2() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    var image = await _picker.pickImage(source: ImageSource.gallery);
     selected_menu_image2 = image;
     notifyListeners();
   }
@@ -37,7 +38,7 @@ class Utils with ChangeNotifier{
 
 
   Future selectimage3() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    var image = await _picker.pickImage(source: ImageSource.gallery);
     selected_menu_image3 = image;
     notifyListeners();
   }

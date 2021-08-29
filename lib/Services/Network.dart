@@ -94,14 +94,19 @@ class WebServices extends ChangeNotifier {
   }
 
   Future location_menu(id, subscription_id) async {
+    print(subscription_id);
+    print(id);
     try {
       var res = await http.get(
           Uri.parse(
-              'https://app.foodtruck.express/foodtruck-vendor/locationmenu/id=${id.toString()}/sub_id=${subscription_id.toString()}'),
+              'https://app.foodtruck.express/foodtruck-vendor/locationmenu/id=${id.toString()}/sub_id=${subscription_id.toString()}/'),
           headers: {
             "Accept": "application/json",
             "Authorization": '${token['auth_token']}'
           });
+      print(res.body);
+      print(res.body);
+      print(res.body);
       if (res.statusCode == 200) {
         var body = jsonDecode(res.body);
         if (body == 'VENDOR MENU IS UNAVAILABLE') {
@@ -168,131 +173,137 @@ class WebServices extends ChangeNotifier {
           vendor_info_res.statusCode == 201) {
         Login_SetState();
         showDialog(
-            builder: (context) => AlertDialog(
-                  elevation: 6,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(32.0))),
-                  content: Container(
-                    height: 350,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 5.0),
-                          child: Icon(Icons.monetization_on,
-                              size: 90, color: Color(0xFF67b9fb)),
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(top: 15, bottom: 15),
-                          width: 250,
-                          child: Text(
-                            'Would you like to upgrade your subscription which allows customers to view all your '
-                            'uploaded menu items and also allow you view customers locations',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 15,
-                              color: Colors.black54,
+          barrierDismissible: false,
+            builder: (context) => WillPopScope(
+              onWillPop: ()async{
+                return false;
+              },
+              child: AlertDialog(
+                    elevation: 6,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(32.0))),
+                    content: Container(
+                      height: 350,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 5.0),
+                            child: Icon(Icons.monetization_on,
+                                size: 90, color: Color(0xFF67b9fb)),
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(top: 15, bottom: 15),
+                            width: 250,
+                            child: Text(
+                              'Would you like to upgrade your subscription which allows customers to view all your '
+                              'uploaded menu items and also allow you view customers locations',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.black54,
+                              ),
                             ),
                           ),
-                        ),
-                        Container(
-                          width: 250,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Material(
-                                borderRadius: BorderRadius.circular(26),
-                                elevation: 2,
-                                child: Container(
-                                  height: 40,
-                                  width: 120,
-                                  decoration: BoxDecoration(
-                                      border:
-                                          Border.all(color: Color(0xFFE60016)),
-                                      borderRadius: BorderRadius.circular(26)),
-                                  child: FlatButton(
-                                    onPressed: () {
-                                      // Navigator.of(context).pop();
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (context) {
-                                        return Map_user();
-                                      }));
-                                    },
-                                    color: Color(0xFFE60016),
-                                    shape: RoundedRectangleBorder(
+                          Container(
+                            width: 250,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Material(
+                                  borderRadius: BorderRadius.circular(26),
+                                  elevation: 2,
+                                  child: Container(
+                                    height: 40,
+                                    width: 120,
+                                    decoration: BoxDecoration(
+                                        border:
+                                            Border.all(color: Color(0xFFE60016)),
                                         borderRadius: BorderRadius.circular(26)),
-                                    padding: EdgeInsets.all(0.0),
-                                    child: Ink(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(26)),
-                                      child: Container(
-                                        constraints: BoxConstraints(
-                                            maxWidth: 190.0, minHeight: 53.0),
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          "No Thanks",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white),
+                                    child: FlatButton(
+                                      onPressed: () {
+                                        // Navigator.of(context).pop();
+                                        Navigator.push(context,
+                                            MaterialPageRoute(builder: (context) {
+                                          return Map_user();
+                                        }));
+                                      },
+                                      color: Color(0xFFE60016),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(26)),
+                                      padding: EdgeInsets.all(0.0),
+                                      child: Ink(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(26)),
+                                        child: Container(
+                                          constraints: BoxConstraints(
+                                              maxWidth: 190.0, minHeight: 53.0),
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "No Thanks",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                              Material(
-                                borderRadius: BorderRadius.circular(26),
-                                elevation: 2,
-                                child: Container(
-                                  height: 40,
-                                  width: 120,
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.green),
-                                      borderRadius: BorderRadius.circular(26)),
-                                  child: FlatButton(
-                                    onPressed: () {
-                                      Navigator.push(context,
-                                          MaterialPageRoute(builder: (context) {
-                                        return SubscribePage();
-                                      }));
-                                    },
-                                    color: Colors.green,
-                                    shape: RoundedRectangleBorder(
+                                Material(
+                                  borderRadius: BorderRadius.circular(26),
+                                  elevation: 2,
+                                  child: Container(
+                                    height: 40,
+                                    width: 120,
+                                    decoration: BoxDecoration(
+                                        border: Border.all(color: Colors.green),
                                         borderRadius: BorderRadius.circular(26)),
-                                    padding: EdgeInsets.all(0.0),
-                                    child: Ink(
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(26)),
-                                      child: Container(
-                                        constraints: BoxConstraints(
-                                            maxWidth: 190.0, minHeight: 53.0),
-                                        alignment: Alignment.center,
-                                        child: Text(
-                                          "Sign me up!",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white),
+                                    child: FlatButton(
+                                      onPressed: () {
+                                        Navigator.push(context,
+                                            MaterialPageRoute(builder: (context) {
+                                          return SubscribePage();
+                                        }));
+                                      },
+                                      color: Colors.green,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(26)),
+                                      padding: EdgeInsets.all(0.0),
+                                      child: Ink(
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(26)),
+                                        child: Container(
+                                          constraints: BoxConstraints(
+                                              maxWidth: 190.0, minHeight: 53.0),
+                                          alignment: Alignment.center,
+                                          child: Text(
+                                            "Sign me up!",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                                color: Colors.white),
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
+            ),
             context: context);
       } else if (vendor_info_res.statusCode == 400) {
         Login_SetState();

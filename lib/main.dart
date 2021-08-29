@@ -27,9 +27,9 @@ void main() async {
   await GetStorage.init();
   String getAppId() {
     if (Platform.isIOS) {
-      return 'ca-app-pub-7014950727779735~4209024008';
+      return 'ca-app-pub-1065880110189655~2487853650';
     } else if (Platform.isAndroid) {
-      return 'ca-app-pub-7014950727779735~4209024008';
+      return 'ca-app-pub-1065880110189655~2487853650';
     }
     return null;
   }

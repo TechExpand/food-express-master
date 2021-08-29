@@ -269,7 +269,9 @@ class VENDORPAGESTATE extends State<VENDORPAGE> {
                           MenuVendor(
                               snapshot.data[index].phone,
                               snapshot.data[index].subID,
-                              snapshot.data[index].id),
+                            widget.id,
+                              snapshot.data[index].id,
+                              ),
                           Rating(scaffoldKey, context, widget.id)
                         ],
                       );
@@ -333,10 +335,10 @@ class VENDORPAGESTATE extends State<VENDORPAGE> {
     );
   }
 
-  Widget MenuVendor(vendor_phone, subcription_id, user_id) {
+  Widget MenuVendor(vendor_phone, subcription_id, lanlog_id, user_id) {
     var webservices = Provider.of<WebServices>(context, listen: false);
     return FutureBuilder(
-        future: webservices.location_menu(user_id, subcription_id),
+        future: webservices.location_menu(lanlog_id, subcription_id),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data == 'VENDOR MENU IS UNAVAILABLE') {

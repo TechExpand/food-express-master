@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:foodtruck/Services/Network.dart';
@@ -272,7 +274,7 @@ class vendoreditmenustate extends State<vendoreditmenu> {
                         child: Text('No Image Selected'),
                       )
                           : Image.file(
-                        utils_consumer.selected_menu_image1,
+                        File(utils_consumer.selected_menu_image1.path.toString()),
                         fit: BoxFit.contain,
                       ),
                     ),

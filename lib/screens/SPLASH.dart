@@ -71,16 +71,19 @@ class SPLASHSTATE extends State<SPLASH> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-       backgroundColor: const Color(0xff039bf4),
-        body: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          child: FlareActor("assets/anim/ftesplash.flr",
-              alignment: Alignment.center,
-              fit: BoxFit.cover,
-              animation: "ntro"),
+      // backgroundColor: const Color(0xff039bf4),
+        body:   Center(
+          child: Container(
+                width: 150,
+                height: 100,
+                child: Image.asset('assets/images/logotruck.png')),
         ),
       ),
     );
   }
 }
+
+// FlareActor("assets/anim/ftesplash.flr",
+// alignment: Alignment.center,
+// fit: BoxFit.cover,
+// animation: "ntro")

@@ -10,9 +10,9 @@ class AdmobService with ChangeNotifier{
 
  String getBannerAdUnitId(){
     if (Platform.isIOS) {
-      return 'ca-app-pub-7014950727779735/1895164932';
+      return 'ca-app-pub-1065880110189655/6603671564';
     } else if (Platform.isAndroid){
-      return 'ca-app-pub-7014950727779735/1895164932';
+      return 'ca-app-pub-1065880110189655/6603671564';
     }
     return null;
   }
@@ -21,9 +21,9 @@ class AdmobService with ChangeNotifier{
 
    String getInterstitialAdUnitId() {
     if (Platform.isIOS) {
-      return 'ca-app-pub-7014950727779735/7173204476';
+      return 'ca-app-pub-1065880110189655/4709728289';
     } else if (Platform.isAndroid) {
-      return 'ca-app-pub-7014950727779735/7173204476';
+      return 'ca-app-pub-1065880110189655/4709728289';
     }
     return null;
   }

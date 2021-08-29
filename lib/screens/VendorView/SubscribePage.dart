@@ -33,6 +33,7 @@ class _SubscribePageState extends State<SubscribePage> {
           )
       ),
       appBar: AppBar(
+        iconTheme: IconThemeData(color:Colors.black),
         actions: <Widget>[
           Image.asset('assets/images/truckIcon.png', width: 100,),
           SizedBox(width: 8,)
