@@ -160,7 +160,11 @@ class VENDORprofileEdithstate extends State<VENDORprofileEdith> {
                           ),
                           Divider(),
                           webservices_consumer.login_state == false
-                              ? RaisedButton(
+                              ? TextButton(
+                            style: TextButton.styleFrom(
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                              padding: EdgeInsets.all(0.0),
+                            ),
                               onPressed: () {
                                 setstate(){
                                   setState((){});
@@ -191,8 +195,7 @@ class VENDORprofileEdithstate extends State<VENDORprofileEdith> {
                         }
                               
                               },
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-    padding: EdgeInsets.all(0.0),
+
     child: Ink(
       decoration: BoxDecoration(
           gradient: LinearGradient(colors: [Color(0xff67b9fb), Color(0xff8acbff)],
@@ -350,7 +353,11 @@ class VENDORprofileEdithstate extends State<VENDORprofileEdith> {
                           ),
                           Divider(),
                           webservices_consumer.login_state_third == false
-                              ? RaisedButton(
+                              ? TextButton(
+                            style: TextButton.styleFrom(
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                              padding: EdgeInsets.all(0.0),
+                            ),
                                   onPressed: () {
                                     setstate(){
                                       setState(() {
@@ -391,8 +398,7 @@ class VENDORprofileEdithstate extends State<VENDORprofileEdith> {
                                     
                     },
                       
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-    padding: EdgeInsets.all(0.0),
+
     child: Ink(
       decoration: BoxDecoration(
           gradient: LinearGradient(colors: [Color(0xff67b9fb), Color(0xff8acbff)],

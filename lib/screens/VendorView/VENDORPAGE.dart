@@ -311,8 +311,10 @@ class VENDORPAGESTATE extends State<VENDORPAGE> {
             builder: (context, webservices_consumer, child) => Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: webservices_consumer.login_state == false
-                    ? RaisedButton.icon(
-                        color: Colors.blue,
+                    ? TextButton.icon(
+                       style: TextButton.styleFrom(
+                         backgroundColor: Colors.blue,
+                       ),
                         onPressed: () {
                           if (!rate_value.isNaN) {
                             webservices.Login_SetState_third();

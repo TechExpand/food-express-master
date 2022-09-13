@@ -204,7 +204,12 @@ Widget UserSignUp(email, password, context, form_key) {
               builder: (context, webservice_consumer, child) => Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: webservice_consumer.login_state == false
-                    ? RaisedButton(
+                    ?TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Color(0xFF67b9fb),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                    padding: EdgeInsets.all(0.0),
+                  ),
                         onPressed: () {
                           if (form_key.currentState.validate()) {
                        
@@ -225,10 +230,7 @@ Widget UserSignUp(email, password, context, form_key) {
                                 .send_user_location(context)));
                           }
                         },
-                        color: Color(0xFF67b9fb),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30)),
-                        padding: EdgeInsets.all(0.0),
+
                         child: Ink(
                           decoration: BoxDecoration(
                               gradient: LinearGradient(
@@ -393,7 +395,12 @@ Widget VendorSignUp(email, password, context, form_key) {
               builder: (context, webservice_consumer, child) => Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: webservice_consumer.login_state == false
-                    ? RaisedButton(
+                    ? TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Color(0xFF67b9fb),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                    padding: EdgeInsets.all(0.0),
+                  ),
                         onPressed: () {
                           if (form_key.currentState.validate()) {
                             webservice_consumer.Login_SetState();
@@ -411,10 +418,7 @@ Widget VendorSignUp(email, password, context, form_key) {
                                     .send_vendor_location(context)));
                           }
                         },
-                        color: Color(0xFF67b9fb),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30)),
-                        padding: EdgeInsets.all(0.0),
+
                         child: Ink(
                           decoration: BoxDecoration(
                               gradient: LinearGradient(

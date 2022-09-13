@@ -200,15 +200,16 @@ class bodywidgetstate extends State<bodywidget> {
                                 decoration: BoxDecoration(
                                     border: Border.all(color: Colors.blue),
                                     borderRadius: BorderRadius.circular(26)),
-                                child: FlatButton(
+                                child: TextButton(
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: Colors.blue,
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(26)),
+                                    padding: EdgeInsets.all(0.0),
+                                  ),
                                   onPressed: () {
                                     return exit(0);
                                   },
-                                  color: Colors.blue,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                      BorderRadius.circular(26)),
-                                  padding: EdgeInsets.all(0.0),
+
                                   child: Ink(
                                     decoration: BoxDecoration(
                                         borderRadius:
@@ -240,15 +241,16 @@ class bodywidgetstate extends State<bodywidget> {
                                 decoration: BoxDecoration(
                                     border: Border.all(color: Colors.blue),
                                     borderRadius: BorderRadius.circular(26)),
-                                child: FlatButton(
+                                child: TextButton(
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: Colors.blue,
+                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(26)),
+                                    padding: EdgeInsets.all(0.0),
+                                  ),
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  color: Colors.blue,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                      BorderRadius.circular(26)),
-                                  padding: EdgeInsets.all(0.0),
+
                                   child: Ink(
                                     decoration: BoxDecoration(
                                         borderRadius:

@@ -216,13 +216,17 @@ class vendoraddmenustate extends State<vendoraddmenu> {
                 Padding(
                   padding: const EdgeInsets.all(12),
                   child: Container(
-                    child: RaisedButton(
+                    child: TextButton(
                       onPressed: () {
                         utils_consumer.selectimage1();
                       },
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8)),
-                      padding: EdgeInsets.all(0.0),
+                      style: TextButton.styleFrom(
+
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8)),
+                        padding: EdgeInsets.all(0.0),
+                      ),
+
                       child: Ink(
                         decoration: BoxDecoration(
                             gradient: LinearGradient(
@@ -249,7 +253,7 @@ class vendoraddmenustate extends State<vendoraddmenu> {
                 webservices_consumer.login_state == false
                     ? Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: RaisedButton(
+                        child: TextButton(
                           onPressed: () {
                             setstate() {
                               setState(() {
@@ -289,9 +293,13 @@ class vendoraddmenustate extends State<vendoraddmenu> {
                                   context: context);
                             }
                           },
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8)),
-                          padding: EdgeInsets.all(0.0),
+                          style: TextButton.styleFrom(
+                            backgroundColor: Color(0xFF67b9fb),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8)),
+                            padding: EdgeInsets.all(0.0),
+                          ),
+
                           child: Ink(
                             decoration: BoxDecoration(
                                 gradient: LinearGradient(
@@ -314,7 +322,7 @@ class vendoraddmenustate extends State<vendoraddmenu> {
                               ),
                             ),
                           ),
-                          color: Color(0xFF67b9fb),
+
                         ),
                       )
                     : Padding(

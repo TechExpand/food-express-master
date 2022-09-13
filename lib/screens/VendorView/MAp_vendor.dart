@@ -186,15 +186,17 @@ class Map_vendorSampleState extends State<Map_vendorSample> {
                                   decoration: BoxDecoration(
                                       border: Border.all(color: Colors.blue),
                                       borderRadius: BorderRadius.circular(26)),
-                                  child: FlatButton(
+                                  child: TextButton(
                                     onPressed: () {
                                       return exit(0);
                                     },
-                                    color: Colors.blue,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(26)),
-                                    padding: EdgeInsets.all(0.0),
+                                    style: TextButton.styleFrom(
+                                      backgroundColor: Colors.blue,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(26)),
+                                      padding: EdgeInsets.all(0.0),),
+
                                     child: Ink(
                                       decoration: BoxDecoration(
                                           borderRadius:
@@ -226,15 +228,16 @@ class Map_vendorSampleState extends State<Map_vendorSample> {
                                   decoration: BoxDecoration(
                                       border: Border.all(color: Colors.blue),
                                       borderRadius: BorderRadius.circular(26)),
-                                  child: FlatButton(
+                                  child: TextButton(
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
-                                    color: Colors.blue,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(26)),
-                                    padding: EdgeInsets.all(0.0),
+                                    style: TextButton.styleFrom(
+                                      backgroundColor: Colors.blue,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                          BorderRadius.circular(26)),
+                                      padding: EdgeInsets.all(0.0),),
                                     child: Ink(
                                       decoration: BoxDecoration(
                                           borderRadius:

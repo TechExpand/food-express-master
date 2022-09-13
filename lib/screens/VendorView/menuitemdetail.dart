@@ -154,14 +154,17 @@ class menuitemdetail extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: RaisedButton(
-                  color: Colors.lightBlue,
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.lightBlue,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)),
+                    padding: EdgeInsets.all(0.0),
+                  ),
                   onPressed: () {
                     return utils.makePhoneCall('tel:$vendor_phone');
                   },
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30)),
-                  padding: EdgeInsets.all(0.0),
+
                   child: Ink(
                     decoration: BoxDecoration(
                         gradient: LinearGradient(

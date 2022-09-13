@@ -222,7 +222,7 @@ class WebServices extends ChangeNotifier {
                                         border:
                                             Border.all(color: Color(0xFFE60016)),
                                         borderRadius: BorderRadius.circular(26)),
-                                    child: FlatButton(
+                                    child: TextButton(
                                       onPressed: () {
                                         // Navigator.of(context).pop();
                                         Navigator.push(context,
@@ -230,10 +230,12 @@ class WebServices extends ChangeNotifier {
                                           return Map_user();
                                         }));
                                       },
-                                      color: Color(0xFFE60016),
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(26)),
-                                      padding: EdgeInsets.all(0.0),
+                                  style: TextButton.styleFrom(
+                                    backgroundColor: Color(0xFFE60016),
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(26)),
+                                    padding: EdgeInsets.all(0.0),
+                                  ),
                                       child: Ink(
                                         decoration: BoxDecoration(
                                             borderRadius:
@@ -264,17 +266,19 @@ class WebServices extends ChangeNotifier {
                                     decoration: BoxDecoration(
                                         border: Border.all(color: Colors.green),
                                         borderRadius: BorderRadius.circular(26)),
-                                    child: FlatButton(
+                                    child: TextButton(
                                       onPressed: () {
                                         Navigator.push(context,
                                             MaterialPageRoute(builder: (context) {
                                           return SubscribePage();
                                         }));
                                       },
-                                      color: Colors.green,
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(26)),
-                                      padding: EdgeInsets.all(0.0),
+                                      style: TextButton.styleFrom(
+                                        backgroundColor: Color(0xFFE60016),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(26)),
+                                        padding: EdgeInsets.all(0.0),
+                                      ),
                                       child: Ink(
                                         decoration: BoxDecoration(
                                             borderRadius:

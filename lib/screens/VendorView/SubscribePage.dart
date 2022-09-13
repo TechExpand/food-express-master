@@ -202,7 +202,7 @@ class _SubscribePageState extends State<SubscribePage> {
                       Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: webservices_consumer.login_state == false
-                              ?RaisedButton(
+                              ?TextButton(
                             onPressed: () {
                               if (form_key.currentState.validate()) {
                                 webservices_consumer.Login_SetState();
@@ -215,10 +215,13 @@ class _SubscribePageState extends State<SubscribePage> {
                                 );
                               }},
 
-                            color: Color(0xFF67b9fb),
+                            style: TextButton.styleFrom(
+                              backgroundColor: Color(0xFF67b9fb),
 
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                            padding: EdgeInsets.all(0.0),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                              padding: EdgeInsets.all(0.0),
+                            ),
+
                             child: Ink(
                               decoration: BoxDecoration(
                                   gradient: LinearGradient(colors: [Color(0xff67b9fb), Color(0xff8acbff)],

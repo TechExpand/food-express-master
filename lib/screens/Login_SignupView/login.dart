@@ -211,7 +211,12 @@ Widget UserLogin(email, password, context, form_key) {
               builder: (context, webservices_consumer, child) => Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: webservices_consumer.login_state == false
-                      ? RaisedButton(
+                      ? TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Color(0xFF67b9fb),
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                      padding: EdgeInsets.all(0.0),
+                    ),
                           onPressed: () {
                             if (form_key.currentState.validate()) {
                               webservices_consumer.Login_SetState();
@@ -227,10 +232,7 @@ Widget UserLogin(email, password, context, form_key) {
                               } );
                             }
                           },
-                          color: Color(0xFF67b9fb),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30)),
-                          padding: EdgeInsets.all(0.0),
+
                           child: Ink(
                             decoration: BoxDecoration(
                                 gradient: LinearGradient(
@@ -416,7 +418,12 @@ Widget VendorLogin(email, password, context, form_key) {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             webservices_consumer.login_state == false
-                                ? RaisedButton(
+                                ? TextButton(
+                              style: TextButton.styleFrom(
+                                backgroundColor: Color(0xFF67b9fb),
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                                padding: EdgeInsets.all(0.0),
+                              ),
                                     onPressed: () {
                                       if (form_key.currentState.validate()) {
                                         webservices_consumer.Login_SetState();
@@ -435,12 +442,7 @@ Widget VendorLogin(email, password, context, form_key) {
                                         });
                                       }
                                     },
-                                    color: Color(0xFF67b9fb),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(30)),
 
-                                    padding: EdgeInsets.all(0.0),
                                     child: Ink(
                                       decoration: BoxDecoration(
                                           gradient: LinearGradient(

@@ -192,8 +192,12 @@ class VENDORprofilestate extends State<VENDORprofile> {
                             ),
                           ),
                           Center(
-                            child: RaisedButton(
-                              color: Color(0xff67b9fb),
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                backgroundColor: Color(0xff67b9fb),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8)),
+                              ),
                               onPressed: () {
                                 return Navigator.push(
                                   context,
@@ -214,8 +218,7 @@ class VENDORprofilestate extends State<VENDORprofile> {
                                   ),
                                 );
                               },
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8)),
+
                               child: Container(
                                 alignment: Alignment.center,
                                 child: Padding(

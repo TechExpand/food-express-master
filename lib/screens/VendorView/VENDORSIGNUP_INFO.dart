@@ -216,13 +216,16 @@ class VENDORSIGNUP2STATE extends State<VENDORSIGNUP2> {
                     padding: const EdgeInsets.all(12),
                     child: Container(
                       
-                      child: RaisedButton(
+                      child: TextButton(
+                        style: TextButton.styleFrom(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                          padding: EdgeInsets.all(0.0),
+                        ),
                         onPressed: () {
                           return utils_consumer.selectimage();
                         },
                       
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-    padding: EdgeInsets.all(0.0),
+
     child: Ink(
       decoration: BoxDecoration(
           gradient: LinearGradient(colors: [Color(0xff67b9fb), Color(0xff8acbff)],
@@ -257,7 +260,12 @@ class VENDORSIGNUP2STATE extends State<VENDORSIGNUP2> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: webservices_consumer.login_state == false
-                        ?RaisedButton(
+                        ? TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: Color(0xFF67b9fb),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                        padding: EdgeInsets.all(0.0),
+                      ),
                       onPressed: () {
                 if (form_key.currentState.validate()) {
                   try{
@@ -284,10 +292,9 @@ class VENDORSIGNUP2STATE extends State<VENDORSIGNUP2> {
                         }
                       }},
 
-                    color: Color(0xFF67b9fb),
+
                      
-                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-    padding: EdgeInsets.all(0.0),
+
     child: Ink(
       decoration: BoxDecoration(
           gradient: LinearGradient(colors: [Color(0xff67b9fb), Color(0xff8acbff)],

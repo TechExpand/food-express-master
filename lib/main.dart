@@ -12,7 +12,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:statusbar/statusbar.dart';
+import 'package:statusbarz/statusbarz.dart';
+
 
 import 'screens/SPLASH.dart';
 import 'package:flutter_launcher_icons/android.dart';
@@ -72,7 +73,7 @@ class StartAppState extends State<StartApp> {
   @override
   void initState() {
     super.initState();
-    StatusBar.color(Colors.blue);
+    // StatusBar.color(Colors.blue);
     Provider.of<LocationService>(context, listen: false).getCurrentLocation();
     //Get current location every 5 minutes.
     Timer.periodic(Duration(minutes: 8), (timer) {
@@ -138,14 +139,16 @@ class StartAppState extends State<StartApp> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return MaterialApp(
-      theme: ThemeData(
-        textTheme: GoogleFonts.openSansTextTheme(
-          Theme.of(context).textTheme,
+    return  StatusbarzCapturer(
+      child: MaterialApp(
+        theme: ThemeData(
+          textTheme: GoogleFonts.openSansTextTheme(
+            Theme.of(context).textTheme,
+          ),
         ),
+        debugShowCheckedModeBanner: false,
+        home: MyApp(),
       ),
-      debugShowCheckedModeBanner: false,
-      home: MyApp(),
     );
   }
 }
