@@ -40,7 +40,7 @@ dependencies:
   smooth_star_rating: ^1.1.1
   carousel_pro: ^1.0.0
   shared_preferences: ^2.0.15
-  image_picker:
+  image_picker: ^0.8.5+3
   video_player: ^2.4.7
   statusbarz: ^1.0.11
   admob_flutter: ^3.0.0
