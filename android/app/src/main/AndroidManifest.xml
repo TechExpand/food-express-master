@@ -13,8 +13,7 @@
     <application
         android:icon="@mipmap/ic_launcher"
         android:name="${applicationName}"
-        android:label="FoodTruck Express"
-        android:icon="@mipmap/launcher_icon">
+        android:label="FoodTruck Express">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
